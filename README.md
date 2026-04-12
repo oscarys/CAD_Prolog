@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="frontend/static/uam_iztapalapa.png" alt="Universidad Autónoma Metropolitana — Unidad Iztapalapa" width="480">
+</p>
+
 # Prolog-Based Computer Assisted Diagnosis (CAD) System
 
 A teaching project for the **Biomedical Engineering CAD course**.  
