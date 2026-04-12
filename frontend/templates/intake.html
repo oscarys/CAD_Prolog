@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 {% set phase = 1 %}
-{% block title %}New Consultation{% endblock %}
+{% block title %}Nueva consulta{% endblock %}
 
 {% block content %}
 <div class="intake-page">
 
   <div class="page-header">
-    <h1 class="page-title">New consultation</h1>
-    <p class="page-subtitle">Select the presenting complaint and enter patient demographics to begin the structured exam script.</p>
+    <h1 class="page-title">Nueva consulta</h1>
+    <p class="page-subtitle">Seleccione el motivo de consulta e ingrese los datos del paciente para iniciar el interrogatorio clínico.</p>
   </div>
 
   <form action="{{ url_for('intake') }}" method="post" class="intake-form" id="intakeForm">
 
     <!-- Presentation grid -->
     <section class="form-section">
-      <h2 class="section-title">Presenting complaint</h2>
-      <p class="section-hint">Choose the primary symptom the patient presents with.</p>
+      <h2 class="section-title">Motivo de consulta</h2>
+      <p class="section-hint">Seleccione el síntoma principal con el que se presenta el paciente.</p>
 
       <div class="presentation-grid">
         {% set systems = [
           ('Cardiovascular',        ['chest_pain', 'palpitations', 'syncope']),
-          ('Respiratory',           ['dyspnoea', 'cough_haemoptysis', 'stridor']),
+          ('Respiratorio',          ['dyspnoea', 'cough_haemoptysis', 'stridor']),
           ('Gastrointestinal',      ['abdominal_pain', 'jaundice', 'haematemesis', 'diarrhoea']),
-          ('Neurological',          ['headache', 'convulsions', 'coma_confusion']),
-          ('Systemic',              ['pyrexia_unknown_origin', 'weight_loss', 'shock']),
-          ('Urogenital / Endocrine',['haematuria', 'polyuria_thirst', 'oedema'])
+          ('Neurológico ',          ['headache', 'convulsions', 'coma_confusion']),
+          ('Sistémico',             ['pyrexia_unknown_origin', 'weight_loss', 'shock']),
+          ('Urogenital / Endócrino',['haematuria', 'polyuria_thirst', 'oedema'])
         ] %}
         {% for system_name, keys in systems %}
         <div class="system-group">
@@ -46,25 +46,25 @@
 
     <!-- Demographics -->
     <section class="form-section">
-      <h2 class="section-title">Patient demographics</h2>
+      <h2 class="section-title">Datos del paciente</h2>
       <div class="demographics-row">
 
         <div class="field-group">
-          <label class="field-label" for="age">Age (years)</label>
+          <label class="field-label" for="age">Edad (años)</label>
           <input class="field-input" type="number" id="age" name="age"
-                 min="1" max="120" placeholder="e.g. 58" required>
+                 min="1" max="120" placeholder="p. ej. 58" required>
         </div>
 
         <div class="field-group">
-          <label class="field-label">Sex</label>
+          <label class="field-label">Sexo</label>
           <div class="sex-toggle">
             <label class="toggle-opt">
               <input type="radio" name="sex" value="male" required>
-              <span>Male</span>
+              <span>Masculino</span>
             </label>
             <label class="toggle-opt">
               <input type="radio" name="sex" value="female">
-              <span>Female</span>
+              <span>Femenino</span>
             </label>
           </div>
         </div>
@@ -74,12 +74,12 @@
 
     <div class="form-actions">
       <button type="submit" class="btn-primary" id="startBtn" disabled>
-        Begin exam script
+        Iniciar interrogatorio
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      <p class="form-note">The script follows Churchill's HISTORY → EXAMINATION sequence for the selected presentation.</p>
+      <p class="form-note">El interrogatorio sigue la secuencia HISTORIA → EXPLORACIÓN de Churchill para la presentación seleccionada.</p>
     </div>
 
   </form>

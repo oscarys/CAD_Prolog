@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% set phase = 4 %}
-{% block title %}Diagnosis — {{ presentation_label }}{% endblock %}
+{% block title %}Diagnóstico — {{ presentation_label }}{% endblock %}
 
 {% block content %}
 <div class="results-page">
@@ -8,13 +8,13 @@
   <div class="results-header">
     <div class="results-title-row">
       <div>
-        <h1 class="results-title">Differential diagnosis</h1>
-        <p class="results-subtitle">{{ presentation_label }} — ranked by likelihood</p>
+        <h1 class="results-title">Diagnóstico diferencial</h1>
+        <p class="results-subtitle">{{ presentation_label }} — ordenado por probabilidad</p>
       </div>
       <div class="results-badge-row">
-        <span class="results-badge">{{ diagnoses|selectattr('excluded','equalto',False)|list|length }} active</span>
+        <span class="results-badge">{{ diagnoses|selectattr('excluded','equalto',False)|list|length }} activo(s)</span>
         {% if diagnoses|selectattr('excluded','equalto',True)|list|length > 0 %}
-        <span class="results-badge excluded-badge">{{ diagnoses|selectattr('excluded','equalto',True)|list|length }} excluded</span>
+        <span class="results-badge excluido(s)-badge">{{ diagnoses|selectattr('excluded','equalto',True)|list|length }} excluido(s)</span>
         {% endif %}
       </div>
     </div>
@@ -25,7 +25,7 @@
         <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/>
         <path d="M8 5v4M8 10.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
-      <span>Prolog error: {{ error }}</span>
+      <span>Error de Prolog: {{ error }}</span>
     </div>
     {% endif %}
   </div>
@@ -45,7 +45,7 @@
             {{ dx.display_name }}
           </h3>
           {% if dx.excluded %}
-          <span class="excluded-tag">Excluded</span>
+          <span class="excluded-tag">Excluido</span>
           {% endif %}
         </div>
         <div class="dx-header-right">
@@ -76,8 +76,8 @@
         <!-- Proof trace -->
         <div class="proof-section">
           <div class="proof-section-label">
-            <span class="proof-label-text">Prolog proof trace</span>
-            <span class="proof-label-sub">— why these findings support this diagnosis</span>
+            <span class="proof-label-text">Traza de demostración Prolog</span>
+            <span class="proof-label-sub">— por qué estos hallazgos sustentan este diagnóstico</span>
           </div>
           <div class="proof-trace">
             {% for step in dx.proof %}
@@ -87,7 +87,7 @@
               </div>
               <div class="proof-step-body">
                 <div class="proof-atom">
-                  <span class="proof-predicate">symptom</span><span class="proof-paren">(</span><span class="proof-arg1">{{ step.symptom }}</span><span class="proof-paren">,</span> <span class="proof-arg2">yes</span><span class="proof-paren">)</span>
+                  <span class="proof-predicate">symptom</span><span class="proof-paren">(</span><span class="proof-arg1">{{ step.symptom }}</span><span class="proof-paren">,</span> <span class="proof-arg2">sí</span><span class="proof-paren">)</span>
                   <span class="proof-arrow">↦</span>
                   <span class="proof-dx-ref">{{ dx.name }}</span>
                 </div>
@@ -103,14 +103,14 @@
         </div>
         {% else %}
         <div class="proof-empty">
-          <span>No proof steps found — add <code>explain_step({{ dx.name }}, Symptom, Rationale)</code> clauses to the knowledge base.</span>
+          <span>Sin pasos de demostración — agregue <code>explain_step({{ dx.name }}, Symptom, Rationale)</code> cláusulas a la base de conocimiento.</span>
         </div>
         {% endif %}
 
         {% if dx.tests %}
         <!-- Investigations -->
         <div class="tests-section">
-          <div class="tests-label">Recommended investigations</div>
+          <div class="tests-label">Estudios recomendados</div>
           <div class="tests-grid">
             {% for test in dx.tests %}
             <span class="test-chip">{{ test }}</span>
@@ -132,25 +132,25 @@
         <path d="M20 13v8M20 24v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
     </div>
-    <h3>No diagnoses matched</h3>
-    <p>The symptom pattern did not match any rules in the knowledge base.
-    Check that the relevant <code>.pl</code> module is loaded in <code>loader.pl</code>
-    and that its <code>diagnose/2</code> rules cover this clinical picture.</p>
+    <h3>Ningún diagnóstico coincidió</h3>
+    <p>El patrón de síntomas no coincidió con ninguna regla en la base de conocimiento.
+    Verifique que el módulo <code>.pl</code> esté cargado en <code>loader.pl</code>
+    and that its <code>diagnose/2</code> y que sus reglas cubran este cuadro clínico.</p>
   </div>
   {% endif %}
 
   <!-- Session summary (collapsed) -->
   <details class="session-summary">
-    <summary class="session-summary-toggle">View asserted facts sent to Prolog</summary>
+    <summary class="session-summary-toggle">Ver hechos asertados enviados a Prolog</summary>
     <div class="session-facts">
       <div class="facts-block">
-        <span class="facts-block-label">Demographics</span>
+        <span class="facts-block-label">Datos del paciente</span>
         <code class="fact-line">patient_age({{ session_data.age }}).</code>
         <code class="fact-line">patient_sex({{ session_data.sex }}).</code>
       </div>
       {% if session_data.symptoms %}
       <div class="facts-block">
-        <span class="facts-block-label">Symptoms ({{ session_data.symptoms|length }})</span>
+        <span class="facts-block-label">Síntomas ({{ session_data.symptoms|length }})</span>
         {% for name, value in session_data.symptoms.items() %}
         <code class="fact-line">symptom({{ name }}, {{ value }}).</code>
         {% endfor %}
@@ -158,7 +158,7 @@
       {% endif %}
       {% if session_data.findings %}
       <div class="facts-block">
-        <span class="facts-block-label">Findings ({{ session_data.findings|length }})</span>
+        <span class="facts-block-label">Hallazgos ({{ session_data.findings|length }})</span>
         {% for name, value in session_data.findings.items() %}
         <code class="fact-line">finding({{ name }}, {{ value }}).</code>
         {% endfor %}
@@ -174,7 +174,7 @@
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
           <path d="M1 7a6 6 0 1 0 1.8-4.2L1 1v3.5h3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        New consultation
+        Nueva consulta
       </button>
     </form>
   </div>
