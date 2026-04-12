@@ -108,6 +108,21 @@ input, select, textarea { font-family: inherit; }
 .topbar-meta { display: flex; align-items: center; gap: 8px; }
 .meta-label { font-size: 12px; color: var(--navy-200); }
 .meta-sep { color: var(--navy-400); }
+.brand-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--navy-600);
+  margin: 0 14px;
+  flex-shrink: 0;
+}
+.uam-logo {
+  height: 30px;
+  width: auto;
+  filter: invert(1) brightness(0.88);
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+.uam-logo:hover { opacity: 1; }
 
 /* ── Layout ─────────────────────────────────────────────────── */
 .layout {
