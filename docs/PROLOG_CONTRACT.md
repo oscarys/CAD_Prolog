@@ -258,6 +258,8 @@ Each module file must follow this structure exactly:
                            suggest_test/2, explain_step/3,
                            exclude_if/2]).
 
+:- encoding(utf8).   % required for Spanish accented characters in rationale strings
+
 % ---------- frequency table ----------
 frequency(...).
 ...

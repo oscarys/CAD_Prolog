@@ -198,18 +198,14 @@ el resultado para que el IAM aparezca solo una vez.
 **La traza de demostración en pantalla** muestra la justificación de
 `explain_step/3` para cada síntoma del que dependieron las reglas:
 
-| Síntoma | Justificación (en inglés, desde `chest_pain.pl`) |
-|---------|--------------------------------------------------|
-| chest_pain | Severe crushing chest pain is the cardinal symptom of MI |
-| pain_character | Crushing quality reflects ischaemia of the myocardium |
-| exertional | Unlike angina, MI occurs at rest — ongoing ischaemia despite absence of demand increase |
-| pain_duration_minutes | Pain lasting 20+ minutes at rest is treated as MI until proven otherwise |
-| radiation_to_arm | Radiation to left arm via dermatomes T1-T2 is a classic feature of MI |
-| sweating | Diaphoresis reflects sympathetic activation in response to severe ischaemic pain |
-
-> **Nota:** Las justificaciones provienen directamente de las cláusulas
-> `explain_step/3` en `chest_pain.pl`, por eso aparecen en inglés.
-> Las justificaciones de sus propios módulos las redactará usted.
+| Síntoma | Justificación (desde `chest_pain.pl`) |
+|---------|--------------------------------------|
+| chest_pain | El dolor torácico opresivo intenso es el síntoma cardinal del infarto agudo de miocardio |
+| pain_character | La calidad opresiva refleja la isquemia del miocardio |
+| exertional | A diferencia de la angina, el IAM ocurre en reposo  -  isquemia persistente sin aumento de la demanda |
+| pain_duration_minutes | El dolor de más de 20 minutos en reposo se trata como IAM hasta demostrar lo contrario |
+| radiation_to_arm | La irradiación al brazo izquierdo por los dermatomas T1-T2 es un rasgo clásico del IAM |
+| sweating | La diaforesis refleja la activación simpática en respuesta al dolor isquémico intenso |
 
 **Estudios recomendados:**
 ECG · Troponina sérica · BH · Rx tórax · Ecocardiograma

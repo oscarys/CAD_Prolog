@@ -49,6 +49,8 @@
                    suggest_test/2, explain_step/3,
                    exclude_if/2]).
 
+:- encoding(utf8).
+
 % Stubs declared as discontiguous so the file loads cleanly before rules are added.
 % Remove these lines once your module is complete.
 :- discontiguous diagnose/2.

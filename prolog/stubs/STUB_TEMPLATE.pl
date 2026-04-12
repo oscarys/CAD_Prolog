@@ -17,6 +17,8 @@
                                       suggest_test/2, explain_step/3,
                                       exclude_if/2]).
 
+:- encoding(utf8).
+
 
 /* ------------------------------------------------------------
    SECTION 1  -  FREQUENCY TABLE

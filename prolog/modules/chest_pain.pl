@@ -13,6 +13,8 @@
                         suggest_test/2, explain_step/3,
                         exclude_if/2]).
 
+:- encoding(utf8).
+
 /* ------------------------------------------------------------
    FREQUENCY TABLE
    Source: Churchill's colour coding (green=common, orange=occasional, red=rare)
@@ -235,137 +237,137 @@ suggest_test(depression,            tfts).
 
 % --- angina ---
 explain_step(angina, chest_pain,
-    'Chest pain is the cardinal symptom of angina pectoris').
+    'El dolor torácico es el síntoma cardinal de la angina de pecho').
 explain_step(angina, pain_character,
-    'Crushing or tight character is characteristic of myocardial ischaemia').
+    'El carácter opresivo o constrictivo es característico de la isquemia miocárdica').
 explain_step(angina, exertional,
-    'Angina is precipitated by exertion due to increased myocardial oxygen demand  -  a defining feature distinguishing stable angina from MI').
+    'La angina se precipita con el esfuerzo por el aumento de la demanda de oxígeno miocárdico  -  rasgo definitorio que distingue la angina estable del IAM').
 
 % --- myocardial_infarction ---
 explain_step(myocardial_infarction, chest_pain,
-    'Severe crushing chest pain is the cardinal symptom of MI').
+    'El dolor torácico opresivo intenso es el síntoma cardinal del infarto agudo de miocardio').
 explain_step(myocardial_infarction, pain_character,
-    'Crushing quality reflects ischaemia of the myocardium').
+    'La calidad opresiva refleja la isquemia del miocardio').
 explain_step(myocardial_infarction, exertional,
-    'Unlike angina, MI occurs at rest  -  ongoing ischaemia despite absence of demand increase').
+    'A diferencia de la angina, el IAM ocurre en reposo  -  isquemia persistente sin aumento de la demanda').
 explain_step(myocardial_infarction, pain_duration_minutes,
-    'Pain lasting 20+ minutes at rest is treated as MI until proven otherwise').
+    'El dolor de más de 20 minutos en reposo se trata como IAM hasta demostrar lo contrario').
 explain_step(myocardial_infarction, radiation_to_arm,
-    'Radiation to left arm via dermatomes T1-T2 is a classic feature of MI').
+    'La irradiación al brazo izquierdo por los dermatomas T1-T2 es un rasgo clásico del IAM').
 explain_step(myocardial_infarction, sweating,
-    'Diaphoresis reflects sympathetic activation in response to severe ischaemic pain').
+    'La diaforesis refleja la activación simpática en respuesta al dolor isquémico intenso').
 
 % --- pericarditis ---
 explain_step(pericarditis, chest_pain,
-    'Pericardial inflammation causes central chest pain').
+    'La inflamación pericárdica provoca dolor torácico central').
 explain_step(pericarditis, pain_location,
-    'Central location reflects diffuse pericardial involvement').
+    'La localización central refleja el compromiso pericárdico difuso').
 explain_step(pericarditis, pleuritic,
-    'Pleuritic quality (worse on inspiration) indicates pericardial surface involvement').
+    'La calidad pleurítica (que empeora en la inspiración) indica compromiso de la superficie pericárdica').
 explain_step(pericarditis, relieved_by_sitting_forward,
-    'Leaning forward reduces contact between inflamed pericardium and diaphragm  -  a pathognomonic feature').
+    'La posición de inclinación hacia adelante reduce el contacto entre el pericardio inflamado y el diafragma  -  signo patognomónico').
 
 % --- aortic_dissection ---
 explain_step(aortic_dissection, chest_pain,
-    'Tearing chest pain is a hallmark of aortic dissection').
+    'El dolor torácico desgarrador es un signo distintivo de la disección aórtica').
 explain_step(aortic_dissection, pain_character,
-    'Tearing or ripping quality reflects shearing forces in the aortic wall').
+    'La calidad desgarradora o cortante refleja las fuerzas de cizallamiento en la pared aórtica').
 explain_step(aortic_dissection, radiation_to_back,
-    'Posterior radiation follows the path of the dissection along the descending aorta').
+    'La irradiación posterior sigue el trayecto de la disección a lo largo de la aorta descendente').
 
 % --- reflux_oesophagitis ---
 explain_step(reflux_oesophagitis, chest_pain,
-    'Oesophageal mucosa irritation from acid reflux causes retrosternal burning pain').
+    'La irritación de la mucosa esofágica por reflujo ácido produce dolor retroesternal ardoroso').
 explain_step(reflux_oesophagitis, pain_character,
-    'Burning character is characteristic of acid irritation of oesophageal mucosa').
+    'El carácter ardoroso es característico de la irritación ácida de la mucosa esofágica').
 explain_step(reflux_oesophagitis, worse_on_bending_or_lying,
-    'Postural changes increase intra-abdominal pressure and promote acid reflux into the oesophagus').
+    'Los cambios posturales aumentan la presión intraabdominal y favorecen el reflujo ácido hacia el esófago').
 explain_step(reflux_oesophagitis, relieved_by_antacids,
-    'Relief by antacids confirms acid as the causative agent').
+    'El alivio con antiácidos confirma al ácido como agente causal').
 
 % --- oesophageal_spasm ---
 explain_step(oesophageal_spasm, chest_pain,
-    'Oesophageal smooth muscle spasm causes severe retrosternal chest pain indistinguishable from angina').
+    'El espasmo del músculo liso esofágico causa dolor torácico retroesternal intenso indistinguible de la angina').
 explain_step(oesophageal_spasm, pain_character,
-    'Crushing character reflects sustained oesophageal smooth muscle contraction').
+    'El carácter opresivo refleja la contracción sostenida del músculo liso esofágico').
 explain_step(oesophageal_spasm, relieved_by_gtn,
-    'GTN relaxes smooth muscle  -  relief by GTN does NOT distinguish cardiac from oesophageal origin').
+    'La nitroglicerina relaja el músculo liso  -  el alivio con GTN NO distingue el origen cardíaco del esofágico').
 
 % --- peptic_ulcer ---
 explain_step(peptic_ulcer, chest_pain,
-    'Peptic ulcer disease can cause chest pain via referred epigastric pain or oesophageal involvement').
+    'La enfermedad ulcerosa péptica puede causar dolor torácico por dolor epigástrico referido o compromiso esofágico').
 explain_step(peptic_ulcer, pain_character,
-    'Gnawing or deep burning character is typical of peptic ulcer disease').
+    'El carácter urente profundo o roedor es típico de la enfermedad ulcerosa péptica').
 explain_step(peptic_ulcer, pain_location,
-    'Epigastric location distinguishes peptic ulcer from cardiac causes').
+    'La localización epigástrica distingue la úlcera péptica de las causas cardíacas').
 
 % --- pneumonia ---
 explain_step(pneumonia, chest_pain,
-    'Pleuritic chest pain arises when pneumonia involves the pleural surface (pleuritis)').
+    'El dolor torácico pleurítico aparece cuando la neumonía compromete la superficie pleural (pleuritis)').
 explain_step(pneumonia, pleuritic,
-    'Pleural inflammation causes pain that is sharply worse on inspiration').
+    'La inflamación pleural causa dolor que empeora bruscamente en la inspiración').
 explain_step(pneumonia, cough,
-    'Productive cough with purulent sputum is a cardinal feature of bacterial pneumonia').
+    'La tos productiva con esputo purulento es un rasgo cardinal de la neumonía bacteriana').
 explain_step(pneumonia, fever,
-    'Fever reflects the systemic inflammatory response to bacterial infection').
+    'La fiebre refleja la respuesta inflamatoria sistémica a la infección bacteriana').
 
 % --- pneumothorax ---
 explain_step(pneumothorax, chest_pain,
-    'Sudden pleuritic chest pain is the typical presentation of pneumothorax').
+    'El dolor torácico pleurítico súbito es la presentación típica del neumotórax').
 explain_step(pneumothorax, sudden_onset,
-    'Sudden onset reflects the acute event of pleural air entry').
+    'El inicio súbito refleja el evento agudo de entrada de aire al espacio pleural').
 explain_step(pneumothorax, dyspnoea,
-    'Lung collapse reduces effective ventilated lung volume causing dyspnoea').
+    'El colapso pulmonar reduce el volumen pulmonar ventilado efectivo y produce disnea').
 explain_step(pneumothorax, breath_sounds_reduced_unilateral,
-    'Absent breath sounds on the affected side is the key examination finding in pneumothorax').
+    'La abolición del murmullo vesicular en el lado afectado es el hallazgo exploratorio clave del neumotórax').
 
 % --- pulmonary_embolism ---
 explain_step(pulmonary_embolism, chest_pain,
-    'Pleuritic chest pain results when peripheral PE causes pulmonary infarction involving the pleura').
+    'El dolor torácico pleurítico resulta cuando la TEP periférica causa infarto pulmonar con afectación pleural').
 explain_step(pulmonary_embolism, pleuritic,
-    'Pleural involvement is present when infarction extends to the pleural surface').
+    'El compromiso pleural está presente cuando el infarto se extiende hasta la superficie pleural').
 explain_step(pulmonary_embolism, dyspnoea,
-    'Sudden dyspnoea is the most common symptom of PE  -  V/Q mismatch reduces oxygenation').
+    'La disnea súbita es el síntoma más frecuente de la TEP  -  la discordancia V/Q reduce la oxigenación').
 explain_step(pulmonary_embolism, haemoptysis,
-    'Blood-stained sputum indicates pulmonary infarction, present in approximately 30% of PE cases').
+    'El esputo hemoptoico indica infarto pulmonar, presente en aproximadamente el 30% de los casos de TEP').
 explain_step(pulmonary_embolism, dvt_signs,
-    'DVT is the source of thrombus in the majority of PE cases  -  unilateral leg swelling and tenderness').
+    'La TVP es el origen del trombo en la mayoría de los casos de TEP  -  edema y dolor unilateral en la pierna').
 
 % --- costochondritis ---
 explain_step(costochondritis, chest_pain,
-    'Costochondral junction inflammation causes localised chest wall pain').
+    'La inflamación de la unión costocondral causa dolor localizado en la pared torácica').
 explain_step(costochondritis, worse_on_movement,
-    'Movement of the thorax aggravates costochondral inflammation').
+    'El movimiento del tórax agrava la inflamación costocondral').
 explain_step(costochondritis, chest_wall_tenderness,
-    'Reproducible tenderness on palpation of the costochondral junctions is the key diagnostic finding').
+    'El dolor reproducible a la palpación de las uniones costocondrales es el hallazgo diagnóstico clave').
 
 % --- herpes_zoster ---
 explain_step(herpes_zoster, chest_pain,
-    'Herpes zoster (shingles) reactivation in thoracic dermatomes causes severe burning chest wall pain').
+    'La reactivación del herpes zóster en dermatomas torácicos causa dolor intenso ardoroso en la pared torácica').
 explain_step(herpes_zoster, pain_character,
-    'Burning neuropathic quality reflects direct nerve involvement by varicella-zoster virus').
+    'La calidad ardorosa neuropática refleja el compromiso nervioso directo por el virus varicela-zóster').
 explain_step(herpes_zoster, unilateral_dermatomal,
-    'Strictly unilateral dermatomal distribution is pathognomonic  -  the virus reactivates in one dorsal root ganglion').
+    'La distribución dermatomérica estrictamente unilateral es patognomónica  -  el virus se reactiva en un ganglio de la raíz dorsal').
 explain_step(herpes_zoster, vesicular_rash,
-    'Vesicular rash in a dermatomal distribution confirms herpes zoster  -  may appear after pain onset').
+    'El exantema vesicular en distribución dermatomérica confirma el herpes zóster  -  puede aparecer después del inicio del dolor').
 
 % --- rib_metastasis ---
 explain_step(rib_metastasis, chest_pain,
-    'Metastatic deposits in the ribs cause localised, constant bone pain').
+    'Los depósitos metastásicos en las costillas causan dolor óseo localizado y constante').
 explain_step(rib_metastasis, pain_character,
-    'Constant unrelenting pain distinguishes bony metastasis from most other chest pain causes').
+    'El dolor constante e implacable distingue las metástasis óseas de la mayoría de otras causas de dolor torácico').
 explain_step(rib_metastasis, history_of_malignancy,
-    'Known primary malignancy (breast, lung, prostate, kidney, thyroid most common) is the key risk factor').
+    'La neoplasia primaria conocida (mama, pulmón, próstata, riñón, tiroides como las más frecuentes) es el factor de riesgo clave').
 explain_step(rib_metastasis, localised_rib_tenderness,
-    'Point tenderness directly over a rib is highly suspicious for a cortical lesion').
+    'El dolor puntual directamente sobre una costilla es muy sugestivo de lesión cortical').
 
 % --- depression ---
 explain_step(depression, chest_pain,
-    'Chest pain is a recognised somatic manifestation of depression and anxiety').
+    'El dolor torácico es una manifestación somática reconocida de la depresión y la ansiedad').
 explain_step(depression, low_mood,
-    'Persistent low mood, anhedonia, and somatic complaints are core features of depression').
+    'El ánimo deprimido persistente, la anhedonia y las quejas somáticas son rasgos centrales de la depresión').
 explain_step(depression, pain_character,
-    'Atypical chest pain with no clear pattern and normal investigations suggests a functional or psychological cause').
+    'El dolor torácico atípico sin patrón claro y con estudios normales sugiere una causa funcional o psicológica').
 
 
 /* ------------------------------------------------------------
@@ -374,19 +376,19 @@ explain_step(depression, pain_character,
    ------------------------------------------------------------ */
 
 exclude_if(myocardial_infarction,
-           'Serial ECGs show no changes and troponin negative at 12 hours  -  MI excluded') :-
+           'ECGs seriados sin cambios y troponina negativa a las 12 horas  -  IAM excluido') :-
     finding(ecg_changes, no),
     finding(troponin_at_12h, negative).
 
 exclude_if(pulmonary_embolism,
-           'D-dimer negative with low pre-test probability  -  PE effectively excluded') :-
+           'Dímero D negativo con baja probabilidad preprueba  -  TEP eficazmente excluida') :-
     finding(d_dimer, negative),
     \+ finding(dvt_signs, yes).
 
 exclude_if(aortic_dissection,
-           'Symmetric pulses in all four limbs make dissection unlikely') :-
+           'Los pulsos simétricos en las cuatro extremidades hacen improbable la disección') :-
     finding(pulse_asymmetry, no).
 
 exclude_if(depression,
-           'Objective cardiac abnormality found  -  organic cause must be excluded first') :-
+           'Anomalía cardíaca objetiva encontrada  -  debe excluirse primero causa orgánica') :-
     ( finding(ecg_changes, yes) ; finding(troponin_elevated, yes) ).

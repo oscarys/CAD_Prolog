@@ -371,23 +371,23 @@ const SLIDES = [
       <div class="proof-hdr">Prolog proof trace — click each symptom to see the rationale</div>
       <div class="proof-step"><div class="proof-bar"></div><div class="proof-body">
         <div class="proof-atom"><span class="p-pred">symptom</span><span class="p-paren">(</span><span class="p-sym">chest_pain</span><span class="p-paren">,</span>&nbsp;<span class="p-val">yes</span><span class="p-paren">)</span><span class="p-arr">↦</span><span class="p-dx">myocardial_infarction</span></div>
-        <div class="proof-rat">Severe crushing chest pain is the cardinal symptom of MI</div>
+        <div class="proof-rat">El dolor torácico opresivo intenso es el síntoma cardinal del infarto agudo de miocardio</div>
       </div></div>
       <div class="proof-step"><div class="proof-bar"></div><div class="proof-body">
         <div class="proof-atom"><span class="p-pred">symptom</span><span class="p-paren">(</span><span class="p-sym">exertional</span><span class="p-paren">,</span>&nbsp;<span class="p-val">no</span><span class="p-paren">)</span><span class="p-arr">↦</span><span class="p-dx">myocardial_infarction</span></div>
-        <div class="proof-rat">Unlike angina, MI occurs at rest — ongoing ischaemia despite absence of demand increase</div>
+        <div class="proof-rat">A diferencia de la angina, el IAM ocurre en reposo  -  isquemia persistente sin aumento de la demanda</div>
       </div></div>
       <div class="proof-step"><div class="proof-bar"></div><div class="proof-body">
         <div class="proof-atom"><span class="p-pred">symptom</span><span class="p-paren">(</span><span class="p-sym">pain_duration_minutes</span><span class="p-paren">,</span>&nbsp;<span class="p-val">25</span><span class="p-paren">)</span><span class="p-arr">↦</span><span class="p-dx">myocardial_infarction</span></div>
-        <div class="proof-rat">Pain lasting 20+ minutes at rest is treated as MI until proven otherwise</div>
+        <div class="proof-rat">El dolor de más de 20 minutos en reposo se trata como IAM hasta demostrar lo contrario</div>
       </div></div>
       <div class="proof-step"><div class="proof-bar"></div><div class="proof-body">
         <div class="proof-atom"><span class="p-pred">symptom</span><span class="p-paren">(</span><span class="p-sym">radiation_to_arm</span><span class="p-paren">,</span>&nbsp;<span class="p-val">yes</span><span class="p-paren">)</span><span class="p-arr">↦</span><span class="p-dx">myocardial_infarction</span></div>
-        <div class="proof-rat">Radiation to left arm via dermatomes T1–T2 is a classic feature of MI</div>
+        <div class="proof-rat">La irradiación al brazo izquierdo por los dermatomas T1-T2 es un rasgo clásico del IAM</div>
       </div></div>
       <div class="proof-step"><div class="proof-bar"></div><div class="proof-body">
         <div class="proof-atom"><span class="p-pred">symptom</span><span class="p-paren">(</span><span class="p-sym">sweating</span><span class="p-paren">,</span>&nbsp;<span class="p-val">yes</span><span class="p-paren">)</span><span class="p-arr">↦</span><span class="p-dx">myocardial_infarction</span></div>
-        <div class="proof-rat">Diaphoresis reflects sympathetic activation in response to severe ischaemic pain</div>
+        <div class="proof-rat">La diaforesis refleja la activación simpática en respuesta al dolor isquémico intenso</div>
       </div></div>
       <div class="proof-conclusion"><span class="proof-therefore">∴</span><span class="proof-code">diagnose(myocardial_infarction, common).</span></div>
     </div>
@@ -406,7 +406,7 @@ const SLIDES = [
     <span class="r-pred">diagnose</span>(myocardial_infarction, Frequency) :-<br>
     &nbsp;&nbsp;<span class="r-pred">symptom</span>(chest_pain, <span class="r-val">yes</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓ yes</span><br>
     &nbsp;&nbsp;<span class="r-pred">symptom</span>(pain_character, <span class="r-val">crushing</span>),&nbsp;&nbsp;<span class="r-comment">% ✓ crushing</span><br>
-    &nbsp;&nbsp;<span class="r-pred">symptom</span>(exertional, <span class="r-val">no</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓ no — at rest</span><br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(exertional, <span class="r-val">no</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓ no — ocurre en reposo</span><br>
     &nbsp;&nbsp;<span class="r-pred">symptom</span>(pain_duration_minutes, D),&nbsp;<span class="r-comment">% D = 25</span><br>
     &nbsp;&nbsp;D >= 20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓ 25 >= 20</span><br>
     &nbsp;&nbsp;<span class="r-pred">frequency</span>(myocardial_infarction, Frequency).
@@ -434,7 +434,7 @@ const SLIDES = [
 <div class="rule-box">
   <div class="rule-label">exclude_if — disección aórtica (no se activa en este caso)</div>
   <div class="rule-code">
-    <span class="r-pred">exclude_if</span>(aortic_dissection, <span class="r-atom">'Symmetric pulses...'</span>) :-<br>
+    <span class="r-pred">exclude_if</span>(aortic_dissection, <span class="r-atom">'Pulsos simétricos...'</span>) :-<br>
     &nbsp;&nbsp;<span class="r-pred">finding</span>(pulse_asymmetry, <span class="r-val">no</span>).
     &nbsp;&nbsp;<span class="r-comment">% condición presente, pero diagnose/2 no produjo este dx</span>
   </div>
@@ -442,7 +442,7 @@ const SLIDES = [
 <div class="rule-box">
   <div class="rule-label">exclude_if — depresión (no se activa en este caso)</div>
   <div class="rule-code">
-    <span class="r-pred">exclude_if</span>(depression, <span class="r-atom">'Objective cardiac abnormality...'</span>) :-<br>
+    <span class="r-pred">exclude_if</span>(depression, <span class="r-atom">'Anomalía cardíaca objetiva...'</span>) :-<br>
     &nbsp;&nbsp;( <span class="r-pred">finding</span>(ecg_changes, <span class="r-val">yes</span>)&nbsp;<span class="r-op">;</span>&nbsp;<span class="r-pred">finding</span>(troponin_elevated, <span class="r-val">yes</span>) ).
   </div>
 </div>
@@ -459,9 +459,9 @@ const SLIDES = [
     &nbsp;&nbsp;<span class="r-pred">symptom</span>(chest_pain, <span class="r-val">yes</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-pass">% ✓ yes — passes</span><br>
     &nbsp;&nbsp;<span class="r-pred">symptom</span>(pain_character, <span class="r-val">crushing</span>),&nbsp;&nbsp;<span class="r-pass">% ✓ crushing — passes</span><br>
     &nbsp;&nbsp;<span class="r-pred">symptom</span>(exertional, <span class="r-val">yes</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-fail">% ✗ FAIL — we asserted no</span><br>
-    &nbsp;&nbsp;<span class="r-comment">% Prolog stops here. No backtracking to a different value.</span><br>
-    &nbsp;&nbsp;<span class="r-comment">% No other diagnose(angina, _) clause exists.</span><br>
-    &nbsp;&nbsp;<span class="r-comment">% Result: angina produces zero solutions.</span>
+    &nbsp;&nbsp;<span class="r-comment">% Prolog se detiene aquí. No retrocede a otro valor.</span><br>
+    &nbsp;&nbsp;<span class="r-comment">% No existe otra cláusula diagnose(angina, _).</span><br>
+    &nbsp;&nbsp;<span class="r-comment">% Resultado: angina no produce ninguna solución.</span>
   </div>
 </div>
 <div class="callout callout-green"><strong>Esto es clínicamente correcto.</strong> La distinción definitoria entre angina estable e IAM es que la angina se provoca con el esfuerzo y cede con el reposo, mientras que el IAM ocurre en reposo y persiste. El dolor del Sr. Mendoza inició sin provocación en su escritorio — el único hecho <code>symptom(exertional, no)</code> codifica esta distinción por completo.</div>

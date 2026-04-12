@@ -148,6 +148,12 @@ explain_step(meningitis, fever,
 The rationale string is what the user reads in the proof trace panel.
 Write it as a clinician would explain it to a student.
 
+**Caracteres acentuados — añada `:- encoding(utf8).`**
+Si sus cadenas de justificación contienen caracteres acentuados en español
+(á, é, í, ó, ú, ñ), SWI-Prolog emitirá advertencias "Illegal multibyte Sequence"
+a menos que el archivo declare su codificación. La línea `:- encoding(utf8).`
+ya está incluida en cada stub — no la elimine.
+
 **Common mistake:** forgetting to quote the rationale string when it contains
 spaces. In Prolog, single-quoted strings are atoms:
 ```prolog
