@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}CAD System{% endblock %} — Prolog Differential Diagnosis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-brand">
+        <span class="brand-mark">Dx</span>
+        <span class="brand-name">Prolog CAD</span>
+      </div>
+      <div class="topbar-meta">
+        <span class="meta-label">Churchill's Pocketbook</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-label">Biomedical Engineering</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Phase rail + content -->
+  <div class="layout">
+
+    <!-- Left: phase progress rail -->
+    <aside class="phase-rail">
+      {% set current_phase = phase|default(1) %}
+      {% set phases = [
+        (1, 'Patient',     'Demographics & presentation'),
+        (2, 'History',     'Symptom questions'),
+        (3, 'Examination', 'Clinical findings'),
+        (4, 'Diagnosis',   'Prolog inference')
+      ] %}
+      {% for num, label, sub in phases %}
+      <div class="phase-step {% if num == current_phase %}active{% elif num < current_phase %}done{% endif %}">
+        <div class="phase-node">
+          {% if num < current_phase %}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M2.5 7L5.5 10L11.5 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {% else %}
+          <span class="phase-num">{{ num }}</span>
+          {% endif %}
+        </div>
+        <div class="phase-text">
+          <span class="phase-label">{{ label }}</span>
+          <span class="phase-sub">{{ sub }}</span>
+        </div>
+      </div>
+      {% if not loop.last %}
+      <div class="phase-connector {% if num < current_phase %}done{% endif %}"></div>
+      {% endif %}
+      {% endfor %}
+
+      <div class="rail-footer">
+        <form action="{{ url_for('restart') }}" method="post">
+          <button type="submit" class="restart-btn">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M1 6a5 5 0 1 0 1.5-3.5L1 1v3h3L2.8 2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            New consultation
+          </button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="content">
+      {% block content %}{% endblock %}
+    </main>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/exam_script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% set phase = 1 %}
+{% block title %}New Consultation{% endblock %}
+
+{% block content %}
+<div class="intake-page">
+
+  <div class="page-header">
+    <h1 class="page-title">New consultation</h1>
+    <p class="page-subtitle">Select the presenting complaint and enter patient demographics to begin the structured exam script.</p>
+  </div>
+
+  <form action="{{ url_for('intake') }}" method="post" class="intake-form" id="intakeForm">
+
+    <!-- Presentation grid -->
+    <section class="form-section">
+      <h2 class="section-title">Presenting complaint</h2>
+      <p class="section-hint">Choose the primary symptom the patient presents with.</p>
+
+      <div class="presentation-grid">
+        {% set systems = [
+          ('Cardiovascular',        ['chest_pain', 'palpitations', 'syncope']),
+          ('Respiratory',           ['dyspnoea', 'cough_haemoptysis', 'stridor']),
+          ('Gastrointestinal',      ['abdominal_pain', 'jaundice', 'haematemesis', 'diarrhoea']),
+          ('Neurological',          ['headache', 'convulsions', 'coma_confusion']),
+          ('Systemic',              ['pyrexia_unknown_origin', 'weight_loss', 'shock']),
+          ('Urogenital / Endocrine',['haematuria', 'polyuria_thirst', 'oedema'])
+        ] %}
+        {% for system_name, keys in systems %}
+        <div class="system-group">
+          <span class="system-label">{{ system_name }}</span>
+          <div class="system-options">
+            {% for key in keys %}
+            {% if key in presentations %}
+            <label class="presentation-card">
+              <input type="radio" name="presentation" value="{{ key }}" required>
+              <span class="card-inner">{{ presentations[key] }}</span>
+            </label>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Demographics -->
+    <section class="form-section">
+      <h2 class="section-title">Patient demographics</h2>
+      <div class="demographics-row">
+
+        <div class="field-group">
+          <label class="field-label" for="age">Age (years)</label>
+          <input class="field-input" type="number" id="age" name="age"
+                 min="1" max="120" placeholder="e.g. 58" required>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Sex</label>
+          <div class="sex-toggle">
+            <label class="toggle-opt">
+              <input type="radio" name="sex" value="male" required>
+              <span>Male</span>
+            </label>
+            <label class="toggle-opt">
+              <input type="radio" name="sex" value="female">
+              <span>Female</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary" id="startBtn" disabled>
+        Begin exam script
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <p class="form-note">The script follows Churchill's HISTORY → EXAMINATION sequence for the selected presentation.</p>
+    </div>
+
+  </form>
+</div>
+{% endblock %}
