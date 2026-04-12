@@ -76,8 +76,12 @@ cad_prolog/
 sudo apt install swi-prolog          # Ubuntu/Debian
 brew install swi-prolog              # macOS
 
+# Create a virtual environment with Python 3.12 (using conda)
+conda create -n cad_prolog python=3.12
+conda activate cad_prolog
+
 # Python packages
-pip install pyswip flask flask-session pytest
+pip install -r requirements.txt
 ```
 
 ### Run the app
