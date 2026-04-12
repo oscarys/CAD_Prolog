@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Sistema CAD{% endblock %} — Diagnóstico Diferencial en Prolog</title>
+  <title>{% block title %}aDx{% endblock %} — Diagnóstico Asistido en Prolog</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -14,17 +14,15 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="topbar-brand">
-        <span class="brand-mark">Dx</span>
-        <span class="brand-name">Prolog CAD</span>
+        <span class="brand-mark">aDx</span>
+        <span class="brand-name">Diagnóstico Asistido (Prolog)</span>
         <span class="brand-divider"></span>
         <img src="{{ url_for('static', filename='uam_iztapalapa.png') }}"
              alt="Universidad Autonoma Metropolitana Iztapalapa"
              class="uam-logo">
       </div>
       <div class="topbar-meta">
-        <span class="meta-label">Pocketbook de Churchill</span>
-        <span class="meta-sep">·</span>
-        <span class="meta-label">Ingeniería Biomédica</span>
+        <span class="meta-label">Licenciatura en Ingeniería Biomédica</span>
       </div>
     </div>
   </header>
@@ -71,6 +69,26 @@
             Nueva consulta
           </button>
         </form>
+
+        {# ── Churchill credit ── #}
+        <div class="rail-credit">
+          <span class="credit-text">Basado en</span>
+          <span class="credit-book">Churchill's Pocketbook of Differential Diagnosis</span>
+          <span class="credit-ed">Raftery, Lim &amp; Östör · 3.ª ed. · Elsevier 2010</span>
+        </div>
+
+        {# Colaboradores: agregue nombres entre comillas, separados por comas #}
+        {# Ejemplo: {% set collaborators = ['Ana López', 'Juan García'] %} #}
+        {% set collaborators = [] %}
+        {% if collaborators %}
+        <div class="rail-collaborators">
+          <span class="collab-label">Colaboradores</span>
+          {% for name in collaborators %}
+          <span class="collab-name">{{ name }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+
       </div>
     </aside>
 
