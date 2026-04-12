@@ -77,7 +77,7 @@ HISTORY_QUESTIONS = {
     "headache": [
         {"symptom": "headache",               "question": "¿El paciente tiene cefalea?",                                   "type": "yesno"},
         {"symptom": "onset",                  "question": "¿Cómo inició la cefalea?",                                         "type": "choice",
-         "options": [("sudden","Sudden  -  'worst ever', thunderclap"), ("gradual","Gradual en horas"), ("progressive","Progresiva en días/semanas")]},
+         "options": [("sudden","Súbita — la peor de su vida, en trueno"), ("gradual","Gradual en horas"), ("progressive","Progresiva en días/semanas")]},
         {"symptom": "character",              "question": "¿Cómo describe el paciente el carácter de la cefalea?",               "type": "choice",
          "options": [("throbbing","Pulsátil"), ("tight_band","Opresiva en banda"), ("bursting","Explosiva"), ("constant","Dolor sordo constante")]},
         {"symptom": "location",               "question": "¿Dónde se localiza la cefalea?",                                              "type": "choice",
@@ -98,7 +98,7 @@ HISTORY_QUESTIONS = {
     "abdominal_pain": [
         {"symptom": "abdominal_pain",         "question": "¿El paciente tiene dolor abdominal?",                               "type": "yesno"},
         {"symptom": "onset",                  "question": "¿Cómo inició el dolor?",                                             "type": "choice",
-         "options": [("sudden","Inicio súbito"), ("gradual","Inicio gradual"), ("colicky","Colicky  -  comes and goes")]},
+         "options": [("sudden","Inicio súbito"), ("gradual","Inicio gradual"), ("colicky","Cólico — intermitente")]},
         {"symptom": "pain_location",          "question": "¿Dónde se localiza el dolor?",                                                  "type": "choice",
          "options": [("rif","Fosa ilíaca derecha"), ("lif","Fosa ilíaca izquierda"), ("epigastric","Epigástrico"), ("central","Central / periumbilical"), ("rif","Cuadrante superior derecho"), ("generalised","Generalizado")]},
         {"symptom": "nausea_vomiting",        "question": "¿El paciente tiene náusea o vómito?",                               "type": "yesno"},
@@ -149,7 +149,7 @@ EXAM_QUESTIONS = {
         {"finding": "ecg_changes",                  "question": "¿El ECG muestra cambios isquémicos?",             "type": "yesno"},
         {"finding": "troponin_elevated",             "question": "¿La troponina sérica está elevada?",                     "type": "yesno"},
         {"finding": "troponin_at_12h",               "question": "¿Troponina a las 12 horas del inicio?",                "type": "choice",
-         "options": [("positive","Positive"), ("negative","Negative"), ("not_done","Not yet done")]},
+         "options": [("positive","Positiva"), ("negative","Negativa"), ("not_done","Aún no disponible")]},
         {"finding": "d_dimer",                      "question": "¿Resultado de dímero D?",                                  "type": "choice",
          "options": [("positive","Elevada"), ("negative","Normal"), ("not_done","No realizado")]},
     ],
