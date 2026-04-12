@@ -140,9 +140,9 @@ body { font-family: var(--font-sans); background: var(--bg); color: var(--text);
 .test-chip { padding: 3px 9px; background: var(--navy-800); border: 1px solid var(--navy-600); border-radius: 100px; font-size: 11px; color: var(--navy-100); font-family: var(--font-mono); }
 
 /* ── Prolog rule box ── */
-.rule-box { background: var(--navy-950); border: 1px solid var(--navy-700); border-radius: var(--r-lg); padding: 20px 24px; margin-bottom: 16px; }
+.rule-box { background: var(--navy-950); border: 1px solid var(--navy-700); border-radius: var(--r-lg); padding: 20px 24px; margin-bottom: 16px; overflow-x: auto; }
 .rule-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--amber); font-family: var(--font-mono); margin-bottom: 12px; }
-.rule-code { font-family: var(--font-mono); font-size: 13px; line-height: 1.8; }
+.rule-code { font-family: var(--font-mono); font-size: 12px; line-height: 1.9; white-space: nowrap; }
 .r-pred { color: #7eb8f7; } .r-atom { color: #f0ad55; }
 .r-val  { color: #9fdfb0; } .r-op   { color: var(--navy-200); }
 .r-comment { color: #4a5578; font-style: italic; }
@@ -258,12 +258,12 @@ const SLIDES = [
   <div class="case-label">Caso clínico — Sr. Carlos Mendoza</div>
   <div class="case-patient">58 años · masculino · servicio de urgencias</div>
   <div class="case-body">
-    He walks in holding his chest. He describes a <strong>central, crushing</strong> pain that started <strong>25 minutes ago</strong> while sitting at his desk — it has not gone away. The pain <strong>radiates down his left arm</strong>. He is <strong>sweating profusely</strong>.<br><br>
-    He denies exertional symptoms before this episode. Antacids taken in the waiting room gave <strong>no relief</strong>.<br><br>
-    On examination: pulse 102, BP 148/94. <strong>ECG shows ST-elevation in V2–V5</strong>. Troponin is <strong>pending</strong> (sample taken on arrival). <strong>Pulses equal in all four limbs</strong>.
+    Ingresa sosteniéndose el pecho. Describe un dolor <strong>central, opresivo</strong> que inició <strong>hace 25 minutos</strong> mientras estaba sentado en su escritorio y que no ha cedido. El dolor <strong>irradia hacia el brazo izquierdo</strong>. Presenta <strong>diaforesis profusa</strong>.<br><br>
+    Niega haber tenido síntomas con el esfuerzo antes de este episodio. Los antiácidos que tomó en la sala de espera <strong>no le dieron alivio</strong>.<br><br>
+    En la exploración: pulso 102, TA 148/94. <strong>El ECG muestra elevación del ST en V2–V5</strong>. La troponina está <strong>pendiente</strong> (muestra tomada al ingreso). <strong>Pulsos iguales en las cuatro extremidades</strong>.
   </div>
 </div>
-<div class="callout callout-amber"><strong>Lo que observará:</strong> un diagnóstico dominante con traza de seis pasos, dos diagnósticos excluidos con fundamento clínico, y un negativo explícito (la angina no aparece). Cada resultado es rastreable línea por línea hasta <code>chest_pain.pl</code>.</div>`,
+<div class="callout callout-amber"><strong>Lo que observará:</strong> un diagnóstico dominante (IAM) con traza de seis pasos, ningún diagnóstico excluido en este caso (vea por qué en la Fase 4c), y un negativo explícito (la angina no aparece). Cada resultado es rastreable línea por línea hasta <code>chest_pain.pl</code>.</div>`,
 
 /* 1 — Phase 1 */
 `<div class="phase-badge badge-p1">Fase 1 — datos demográficos</div>
@@ -496,7 +496,7 @@ const SLIDES = [
 
 /* 10 — Try it yourself */
 `<div class="phase-badge badge-learn">Practícalo</div>
-<h1 class="slide-title">Tres variantes para ejecutar antes de escribir su propio módulo</h1>
+<h1 class="slide-title">Cuatro variantes para ejecutar antes de escribir su propio módulo</h1>
 <p class="slide-sub">Cada variante cambia una o dos respuestas clave. Ejecútelas en la aplicación, luego abra <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 5px;border-radius:4px">chest_pain.pl</code> y rastree cada resultado hasta su regla.</p>
 <div class="variants">
   <div class="variant">
