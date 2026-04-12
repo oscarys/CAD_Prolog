@@ -167,7 +167,7 @@ body { font-family: var(--font-sans); background: var(--bg); color: var(--text);
 .insight-text code { font-family: var(--font-mono); font-size: 11px; background: var(--navy-50); padding: 1px 5px; border-radius: 3px; }
 
 /* ── Variant cards ── */
-.variants { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.variants { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
 .variant { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 18px; box-shadow: var(--shadow); }
 .variant-letter { font-family: var(--font-serif); font-size: 28px; font-style: italic; color: var(--navy-100); margin-bottom: 8px; }
 .variant-title { font-size: 13px; font-weight: 600; color: var(--navy-900); margin-bottom: 6px; }
@@ -242,7 +242,7 @@ const STEPS = [
   { label: "Fase 3", sub: "Exploración" },
   { label: "Fase 4a", sub: "Diagnósticos activos" },
   { label: "Fase 4b", sub: "Traza de demostración" },
-  { label: "Fase 4c", sub: "Exclusiones" },
+  { label: "Fase 4c", sub: "exclude_if/2" },
   { label: "¿Por qué no angina?", sub: "Rastreo de reglas" },
   { label: "Puntos clave", sub: "Qué recordar" },
   { label: "Practícalo", sub: "Casos variantes" },
@@ -360,7 +360,7 @@ const SLIDES = [
 /* 5 — Phase 4a active diagnoses */
 `<div class="phase-badge badge-p4">Fase 4 — resultados</div>
 <h1 class="slide-title">La página de diagnóstico — lo que debe ver</h1>
-<p class="slide-sub">Un diagnóstico activo, ordenado común → ocasional → raro. Dos diagnósticos excluidos aparecen tachados abajo. Haga clic en el encabezado de cualquier tarjeta para abrir su traza de demostración.</p>
+<p class="slide-sub">Un diagnóstico activo: el IAM. Haga clic en el encabezado de la tarjeta para abrir su traza de demostración. En este caso no aparecerán diagnósticos excluidos — vea la Variante D para verlo en acción.</p>
 <div class="results-list">
   <div class="dx-card common">
     <div class="dx-head">
@@ -427,40 +427,26 @@ const SLIDES = [
 
 /* 7 — Phase 4c exclusions */
 `<div class="phase-badge badge-p4">Fase 4 — exclusiones</div>
-<h1 class="slide-title">Dos diagnósticos excluidos — y por qué</h1>
-<p class="slide-sub">Desplácese debajo de los diagnósticos activos. Dos entradas aparecen tachadas. Esta es la cláusula Prolog que eliminó a cada una.</p>
-<div class="results-list">
-  <div class="dx-card excluded">
-    <div class="dx-head">
-      <div class="dx-left"><div class="dx-pip pip-excl"></div><span class="dx-name struck">Aortic dissection</span><span class="excl-tag">Excluded</span></div>
-      <span class="freq-label freq-excl">Occasional</span>
-    </div>
-    <div class="excl-reason"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 4l5 5M9 4L4 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Symmetric pulses in all four limbs make dissection unlikely</div>
-  </div>
-  <div class="dx-card excluded">
-    <div class="dx-head">
-      <div class="dx-left"><div class="dx-pip pip-excl"></div><span class="dx-name struck">Depression</span><span class="excl-tag">Excluded</span></div>
-      <span class="freq-label freq-excl">Occasional</span>
-    </div>
-    <div class="excl-reason"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 4l5 5M9 4L4 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Objective cardiac abnormality found — organic cause must be excluded first</div>
-  </div>
-</div>
+<h1 class="slide-title">Cómo funciona exclude_if/2 — y por qué no lo verá aquí</h1>
+<p class="slide-sub">Para este caso <strong>no aparece ningún diagnóstico excluido</strong>. Eso es correcto. Aquí está la mecánica exacta.</p>
+<div class="callout callout-amber"><strong>La regla clave:</strong> <code>exclude_if/2</code> solo se ejecuta sobre diagnósticos que <code>diagnose/2</code> ya produjo. Para el caso Mendoza, <code>diagnose/2</code> solo produjo <code>myocardial_infarction</code>. Ni <code>aortic_dissection</code> ni <code>depression</code> coincidieron con los síntomas asertados — el puente nunca llega a verificar sus exclusiones.</div>
+<p>Las reglas de exclusión <em>sí existen</em> en <code>chest_pain.pl</code> y están correctamente escritas:</p>
 <div class="rule-box">
-  <div class="rule-label">exclude_if — disección aórtica</div>
+  <div class="rule-label">exclude_if — disección aórtica (no se activa en este caso)</div>
   <div class="rule-code">
     <span class="r-pred">exclude_if</span>(aortic_dissection, <span class="r-atom">'Symmetric pulses...'</span>) :-<br>
-    &nbsp;&nbsp;<span class="r-pred">finding</span>(pulse_asymmetry, <span class="r-val">no</span>).&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓ we asserted this</span>
+    &nbsp;&nbsp;<span class="r-pred">finding</span>(pulse_asymmetry, <span class="r-val">no</span>).
+    &nbsp;&nbsp;<span class="r-comment">% condición presente, pero diagnose/2 no produjo este dx</span>
   </div>
 </div>
 <div class="rule-box">
-  <div class="rule-label">exclude_if — depresión</div>
+  <div class="rule-label">exclude_if — depresión (no se activa en este caso)</div>
   <div class="rule-code">
     <span class="r-pred">exclude_if</span>(depression, <span class="r-atom">'Objective cardiac abnormality...'</span>) :-<br>
-    &nbsp;&nbsp;( <span class="r-pred">finding</span>(ecg_changes, <span class="r-val">yes</span>)&nbsp;<span class="r-op">;</span>&nbsp;<span class="r-pred">finding</span>(troponin_elevated, <span class="r-val">yes</span>) ).<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ecg_changes=yes satisfies this</span>
+    &nbsp;&nbsp;( <span class="r-pred">finding</span>(ecg_changes, <span class="r-val">yes</span>)&nbsp;<span class="r-op">;</span>&nbsp;<span class="r-pred">finding</span>(troponin_elevated, <span class="r-val">yes</span>) ).
   </div>
 </div>
-<div class="callout callout-amber">El puente llama a <code>exclude_if/2</code> <em>después</em> de recopilar todos los resultados de <code>diagnose/2</code> Un diagnóstico puede coincidir con su regla y aun así ser excluido. Las exclusiones codifican restricciones de seguridad inapelables — el sistema nunca debe aceptar causas psicológicas mientras haya hallazgos cardíacos objetivos presentes.</div>`,
+<div class="callout callout-green"><strong>Para verlo en acción:</strong> ejecute la <strong>Variante D</strong> (última diapositiva). Un dolor desgarrador con irradiación dorsal hace que <code>diagnose/2</code> produzca <code>aortic_dissection</code>. Luego el hallazgo de pulsos simétricos activa <code>exclude_if/2</code> y el diagnóstico aparece tachado con su explicación.</div>`,
 
 /* 8 — Why not angina */
 `<div class="phase-badge badge-p4">Fase 4 — rastreo de reglas</div>
@@ -530,6 +516,12 @@ const SLIDES = [
     <div class="variant-title">Herpes zóster</div>
     <div class="variant-body">Cualquier edad. Dolor: ardoroso, dermatomérico unilateral = <strong>Sí</strong>. Hallazgo: exantema vesicular = <strong>Sí</strong>. Sin hallazgos cardíacos.</div>
     <div class="variant-expect">→ esperado: herpes_zoster únicamente<br>→ único diagnóstico activo</div>
+  </div>
+  <div class="variant">
+    <div class="variant-letter">D</div>
+    <div class="variant-title">Exclusión en acción</div>
+    <div class="variant-body">Cualquier edad/sexo. Dolor: <strong>desgarrador</strong>, irradia a la espalda = <strong>Sí</strong>. Hallazgo: pulsos simétricos = <strong>Sí</strong> (pulse_asymmetry = no).</div>
+    <div class="variant-expect">→ diagnose/2 produce: aortic_dissection<br>→ exclude_if/2 lo tacha inmediatamente</div>
   </div>
 </div>
 <div class="callout callout-amber"><strong>El ejercicio:</strong> para cada variante, abra la traza de demostración y lea cada oración de justificación. Luego encuentre la <code>explain_step/3</code> cláusula correspondiente en <code>chest_pain.pl</code>. Esa correspondencia uno a uno entre pantalla y fuente es exactamente lo que construirá para su propia presentación.</div>

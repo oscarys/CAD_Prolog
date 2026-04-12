@@ -125,6 +125,13 @@ redirige a la página de diagnóstico.
 
 La página de diagnóstico se carga. Esto es lo que debe ver y por qué.
 
+> **Nota:** Para el caso del Sr. Mendoza, solo aparece un diagnóstico activo
+> (IAM) y ninguno excluido. Eso es correcto — `exclude_if/2` solo se activa
+> sobre diagnósticos que `diagnose/2` ya produjo. Como ni la disección aórtica
+> ni la depresión coincidieron con los síntomas asertados, el mecanismo de
+> exclusión no tiene oportunidad de ejecutarse. Vea la Variante D al final
+> para observar una exclusión real en acción.
+
 ### Lo que hizo el puente (internamente)
 
 Antes de llamar a Prolog, `bridge.py` ejecutó este ciclo:
@@ -228,28 +235,33 @@ ninguna solución.
 Esto es clínicamente correcto: el dolor del Sr. Mendoza inició en reposo, que
 es la distinción definitoria entre angina (de esfuerzo) e IAM (en reposo).
 
-### Diagnósticos excluidos
+### Cómo funciona `exclude_if/2` — la mecánica de exclusión
 
-Dos diagnósticos aparecen tachados con una explicación:
+En este caso **no aparecerá ningún diagnóstico excluido**. Esto es
+esperado y correcto. Aquí está la razón:
 
-**Disección aórtica — excluida**
+El puente ejecuta `exclude_if/2` únicamente sobre los diagnósticos que
+`diagnose/2` ya produjo. Para este caso, `diagnose/2` solo produjo
+`myocardial_infarction`. Ni `aortic_dissection` ni `depression` coincidieron
+con los síntomas asertados, por lo que el puente nunca llega a verificar
+sus reglas de exclusión.
+
+Las reglas de exclusión están definidas así en `chest_pain.pl`:
+
 ```prolog
 exclude_if(aortic_dissection,
            'Symmetric pulses in all four limbs make dissection unlikely') :-
-    finding(pulse_asymmetry, no).   % ✓ asertamos esto
-```
-`finding(pulse_asymmetry, no)` fue asertado → la exclusión se activa →
-la disección aórtica se elimina de la lista activa.
+    finding(pulse_asymmetry, no).
 
-**Depresión — excluida**
-```prolog
 exclude_if(depression,
            'Objective cardiac abnormality found ...') :-
     ( finding(ecg_changes, yes) ; finding(troponin_elevated, yes) ).
 ```
-`finding(ecg_changes, yes)` satisface la disyunción → excluida.
-Esta es una regla de seguridad: las causas psicológicas nunca deben aceptarse
-mientras haya hallazgos cardíacos objetivos presentes.
+
+Para ver estas reglas en acción, ejecute la **Variante D** al final de
+esta guía: un caso con dolor desgarrador que irradia a la espalda hará que
+`aortic_dissection` aparezca en `diagnose/2`, y el hallazgo de pulsos
+simétricos activará inmediatamente su `exclude_if/2`.
 
 ### El volcado de hechos de la sesión
 
@@ -309,6 +321,14 @@ La pericarditis debe aparecer como resultado principal.
 Cualquier edad. Dolor ardoroso, dermatomérico unilateral = **Sí**.
 Hallazgo: exantema vesicular = **Sí**. Sin hallazgos cardíacos.
 El herpes zóster debe ser el único diagnóstico activo.
+
+**Variante D — Disección aórtica excluida (demuestra `exclude_if/2`):**
+Cualquier edad/sexo. Dolor: **desgarrador**, irradia hacia la espalda = **Sí**.
+Hallazgo: pulsos simétricos en las cuatro extremidades = **Sí** (es decir,
+`pulse_asymmetry = no`). Esta combinación hace que `diagnose/2` produzca
+`aortic_dissection`, y el `finding(pulse_asymmetry, no)` activa inmediatamente
+su `exclude_if/2`. Verá la disección aórtica en la lista, tachada, con la
+explicación clínica de la exclusión.
 
 Para cada variante, abra la traza de demostración y rastree cada justificación
 hasta su cláusula `explain_step/3` en `chest_pain.pl`. Esa correspondencia
