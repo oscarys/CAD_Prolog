@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% set phase = 2 %}
-{% block title %}History — {{ presentation_label }}{% endblock %}
+{% block title %}Historia — {{ presentation_label }}{% endblock %}
 
 {% block content %}
 <div class="question-page">
 
   <div class="question-context">
-    <span class="context-phase">History</span>
+    <span class="context-phase">Historia</span>
     <span class="context-sep">·</span>
     <span class="context-presentation">{{ presentation_label }}</span>
   </div>
@@ -15,7 +15,7 @@
   <div class="progress-track">
     <div class="progress-fill" style="width: {{ progress.pct }}%"></div>
   </div>
-  <div class="progress-label">Question {{ progress.current }} of {{ progress.total }}</div>
+  <div class="progress-label">Pregunta {{ progress.current }} de {{ progress.total }}</div>
 
   <!-- The question card -->
   <div class="question-card" id="questionCard">
@@ -38,7 +38,7 @@
               <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
-          <span class="yesno-label">Yes</span>
+          <span class="yesno-label">Sí</span>
         </label>
         <label class="answer-card yesno-card" id="ansNo">
           <input type="radio" name="answer" value="no" required>
@@ -64,8 +64,8 @@
       {% elif question.type == 'number' %}
       <div class="number-group">
         <input class="number-input" type="number" name="answer" min="0" max="9999"
-               placeholder="Enter value" required id="numberInput">
-        <span class="number-unit">minutes</span>
+               placeholder="Ingrese valor" required id="numberInput">
+        <span class="number-unit">minutos</span>
       </div>
 
       {% elif question.type == 'scale' %}
@@ -81,13 +81,13 @@
 
       <div class="question-actions">
         <button type="submit" class="btn-primary" id="nextBtn" disabled>
-          Next question
+          Siguiente pregunta
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
         <button type="submit" name="answer" value="not_reported" class="btn-skip" formnovalidate>
-          Not reported / skip
+          No reportado / omitir
         </button>
       </div>
 
@@ -96,7 +96,7 @@
 
   <!-- Symptom atom hint (useful for students debugging their Prolog) -->
   <div class="dev-hint">
-    <span class="dev-hint-label">symptom atom</span>
+    <span class="dev-hint-label">átomo de síntoma</span>
     <code class="dev-hint-code">symptom({{ question.symptom }}, Value)</code>
   </div>
 
