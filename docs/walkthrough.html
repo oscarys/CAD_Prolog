@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAD Walkthrough — Mr. Carlos Mendoza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy-950: #0a0f1e; --navy-900: #0f1629; --navy-800: #182240;
+  --navy-700: #1e2d52; --navy-600: #263662; --navy-400: #3d518a;
+  --navy-200: #8496c0; --navy-100: #bcc5db; --navy-50: #e8ecf4;
+  --amber: #e8993a; --amber-l: #f5c47a; --amber-dim: #fdf0d8;
+  --green: #2d9e6b; --green-l: #d4f0e4;
+  --orange: #d97a2a; --orange-l: #fce9d0;
+  --red: #c94040; --red-l: #fad8d8;
+  --teal: #1D9E75; --teal-l: #E1F5EE;
+  --surface: #ffffff; --bg: #f5f6f9; --border: #dde1ec;
+  --text: #0f1629; --muted: #4a5578; --hint: #8496c0;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --r: 10px; --r-lg: 16px;
+  --shadow: 0 2px 12px rgba(10,15,30,.08), 0 0 0 1px rgba(10,15,30,.06);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-sans); background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ── Header ── */
+.hdr { background: var(--navy-900); border-bottom: 1px solid var(--navy-700); padding: 0 32px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.hdr-brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark { font-family: var(--font-serif); font-style: italic; font-size: 18px; color: var(--amber); background: var(--navy-800); border: 1px solid var(--navy-600); width: 34px; height: 34px; display: grid; place-items: center; border-radius: 6px; }
+.brand-name { font-size: 14px; font-weight: 500; color: #fff; }
+.hdr-meta { font-size: 12px; color: var(--navy-200); }
+
+/* ── Step rail ── */
+.layout { display: flex; min-height: calc(100vh - 56px); }
+.rail { width: 200px; background: var(--navy-900); border-right: 1px solid var(--navy-700); padding: 28px 0; flex-shrink: 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
+.rail-step { display: flex; align-items: center; gap: 10px; padding: 9px 18px; cursor: pointer; transition: background .15s; }
+.rail-step:hover { background: rgba(255,255,255,.04); }
+.rail-step.active { background: rgba(232,153,58,.1); }
+.step-dot { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--navy-600); display: grid; place-items: center; flex-shrink: 0; font-size: 10px; color: var(--navy-200); font-weight: 500; transition: all .2s; }
+.rail-step.done .step-dot { background: var(--green); border-color: var(--green); color: #fff; }
+.rail-step.active .step-dot { background: var(--amber); border-color: var(--amber); color: var(--navy-950); font-weight: 700; }
+.step-label { font-size: 12px; color: var(--navy-100); line-height: 1.3; }
+.rail-step.active .step-label { color: #fff; }
+.rail-conn { width: 1.5px; height: 14px; background: var(--navy-700); margin-left: 28px; }
+.rail-conn.done { background: rgba(45,158,107,.4); }
+
+/* ── Content ── */
+.content { flex: 1; padding: 40px 48px; max-width: 860px; }
+
+.slide { display: none; animation: fadeUp .3s ease; }
+.slide.active { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── Phase badge ── */
+.phase-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
+.badge-intro { background: var(--navy-50); color: var(--navy-700); }
+.badge-p1 { background: #e8f0fd; color: #185FA5; }
+.badge-p2 { background: var(--navy-50); color: var(--navy-700); }
+.badge-p3 { background: var(--green-l); color: #085041; }
+.badge-p4 { background: var(--amber-dim); color: #633806; }
+.badge-learn { background: var(--teal-l); color: #04342C; }
+
+/* ── Slide headings ── */
+.slide-title { font-family: var(--font-serif); font-size: 30px; font-style: italic; color: var(--navy-900); line-height: 1.25; margin-bottom: 8px; }
+.slide-sub { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 28px; max-width: 600px; }
+
+/* ── Case card ── */
+.case-card { background: var(--navy-900); border: 1px solid var(--navy-700); border-radius: var(--r-lg); padding: 28px 32px; margin-bottom: 24px; }
+.case-label { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--amber); font-family: var(--font-mono); margin-bottom: 12px; }
+.case-patient { font-family: var(--font-serif); font-size: 22px; font-style: italic; color: #fff; margin-bottom: 16px; }
+.case-body { font-size: 14px; color: var(--navy-100); line-height: 1.75; }
+.case-body strong { color: var(--amber-l); font-weight: 500; }
+
+/* ── Exam question mockup ── */
+.q-mockup { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px 32px; box-shadow: var(--shadow); margin-bottom: 16px; }
+.q-icon { width: 40px; height: 40px; border-radius: var(--r); display: grid; place-items: center; margin-bottom: 16px; }
+.q-icon-hist { background: #e8f0fd; color: #185FA5; }
+.q-icon-exam { background: var(--green-l); color: var(--green); }
+.q-text { font-family: var(--font-serif); font-size: 20px; font-style: italic; color: var(--navy-900); margin-bottom: 20px; line-height: 1.35; }
+.q-answers { display: flex; gap: 10px; flex-wrap: wrap; }
+.q-answer { padding: 9px 20px; border: 2px solid var(--border); border-radius: 100px; font-size: 13px; color: var(--muted); background: var(--surface); }
+.q-answer.selected { border-color: var(--navy-700); background: var(--navy-900); color: #fff; font-weight: 500; }
+.q-answer.choice { border-radius: var(--r); }
+.q-atom { display: flex; align-items: center; gap: 8px; margin-top: 16px; padding: 8px 12px; background: var(--navy-950); border-radius: 6px; opacity: .7; }
+.q-atom-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--amber); font-family: var(--font-mono); }
+.q-atom-code { font-size: 11px; color: #9fdfb0; font-family: var(--font-mono); }
+
+/* ── Answer table ── */
+.answer-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; }
+.answer-table th { text-align: left; padding: 8px 12px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--hint); border-bottom: 2px solid var(--border); }
+.answer-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.answer-table tr:last-child td { border-bottom: none; }
+.answer-table td:nth-child(2) { font-weight: 500; color: var(--navy-900); }
+.answer-table td:nth-child(3) { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.answer-table tr.key-row td { background: rgba(232,153,58,.06); }
+.answer-table tr.key-row td:nth-child(2) { color: #633806; }
+
+/* ── Results mockup ── */
+.results-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.dx-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow); }
+.dx-card.common  { border-left: 3px solid var(--green); }
+.dx-card.excluded { border-left: 3px solid var(--red); opacity: .65; border-style: solid solid solid dashed; }
+.dx-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; }
+.dx-left { display: flex; align-items: center; gap: 10px; }
+.dx-pip { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.pip-common { background: var(--green); }
+.pip-excl   { background: var(--red); }
+.dx-name { font-size: 16px; font-weight: 500; }
+.dx-name.struck { text-decoration: line-through; color: var(--hint); }
+.excl-tag { font-size: 11px; padding: 2px 8px; background: var(--red-l); color: var(--red); border-radius: 100px; }
+.freq-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+.freq-common { color: var(--green); }
+.freq-excl   { color: var(--red); }
+.excl-reason { padding: 0 20px 14px; font-size: 13px; color: var(--red); font-style: italic; display: flex; align-items: flex-start; gap: 6px; }
+
+/* ── Proof trace ── */
+.proof-panel { background: var(--navy-950); border-top: 1px solid var(--navy-800); padding: 20px 24px; }
+.proof-hdr { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--amber); font-family: var(--font-mono); margin-bottom: 14px; }
+.proof-step { display: flex; gap: 0; margin-bottom: 4px; }
+.proof-bar { width: 1px; background: var(--navy-700); margin: 0 16px 0 8px; flex-shrink: 0; }
+.proof-body { flex: 1; padding: 8px 0 8px; }
+.proof-atom { font-family: var(--font-mono); font-size: 12px; margin-bottom: 4px; display: flex; flex-wrap: wrap; gap: 2px; align-items: center; }
+.p-pred { color: #7eb8f7; } .p-paren { color: var(--navy-200); }
+.p-sym  { color: #f0ad55; } .p-val  { color: #9fdfb0; }
+.p-arr  { color: var(--navy-400); margin: 0 6px; }
+.p-dx   { color: #c9a6f5; }
+.proof-rat { font-size: 12px; color: var(--navy-100); font-style: italic; line-height: 1.5; }
+.proof-conclusion { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 12px 14px; background: rgba(232,153,58,.08); border: 1px solid rgba(232,153,58,.2); border-radius: 8px; }
+.proof-therefore { font-size: 16px; color: var(--amber); }
+.proof-code { font-family: var(--font-mono); font-size: 12px; color: var(--amber-l); }
+.tests-row { border-top: 1px solid var(--navy-800); padding: 14px 24px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.tests-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--navy-200); font-family: var(--font-mono); margin-right: 4px; }
+.test-chip { padding: 3px 9px; background: var(--navy-800); border: 1px solid var(--navy-600); border-radius: 100px; font-size: 11px; color: var(--navy-100); font-family: var(--font-mono); }
+
+/* ── Prolog rule box ── */
+.rule-box { background: var(--navy-950); border: 1px solid var(--navy-700); border-radius: var(--r-lg); padding: 20px 24px; margin-bottom: 16px; }
+.rule-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--amber); font-family: var(--font-mono); margin-bottom: 12px; }
+.rule-code { font-family: var(--font-mono); font-size: 13px; line-height: 1.8; }
+.r-pred { color: #7eb8f7; } .r-atom { color: #f0ad55; }
+.r-val  { color: #9fdfb0; } .r-op   { color: var(--navy-200); }
+.r-comment { color: #4a5578; font-style: italic; }
+.r-fail { color: var(--red); font-weight: 500; }
+.r-pass { color: var(--green); }
+
+/* ── Callout box ── */
+.callout { border-radius: var(--r); padding: 14px 18px; margin-bottom: 16px; font-size: 13px; line-height: 1.65; }
+.callout-amber { background: var(--amber-dim); border-left: 3px solid var(--amber); color: #412402; }
+.callout-green { background: var(--green-l); border-left: 3px solid var(--green); color: #04342C; }
+.callout-navy  { background: var(--navy-50); border-left: 3px solid var(--navy-400); color: var(--navy-800); }
+.callout strong { font-weight: 600; }
+.callout code  { font-family: var(--font-mono); font-size: 11px; background: rgba(0,0,0,.07); padding: 1px 5px; border-radius: 3px; }
+
+/* ── Insight list ── */
+.insight-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+.insight { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 16px 18px; box-shadow: var(--shadow); }
+.insight-num { width: 28px; height: 28px; border-radius: 50%; background: var(--navy-900); color: var(--amber); font-size: 12px; font-weight: 700; display: grid; place-items: center; flex-shrink: 0; font-family: var(--font-mono); }
+.insight-body { flex: 1; }
+.insight-title { font-size: 14px; font-weight: 600; color: var(--navy-900); margin-bottom: 4px; }
+.insight-text  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.insight-text code { font-family: var(--font-mono); font-size: 11px; background: var(--navy-50); padding: 1px 5px; border-radius: 3px; }
+
+/* ── Variant cards ── */
+.variants { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+.variant { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 18px; box-shadow: var(--shadow); }
+.variant-letter { font-family: var(--font-serif); font-size: 28px; font-style: italic; color: var(--navy-100); margin-bottom: 8px; }
+.variant-title { font-size: 13px; font-weight: 600; color: var(--navy-900); margin-bottom: 6px; }
+.variant-body  { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.variant-expect { font-size: 11px; font-family: var(--font-mono); color: var(--green); margin-top: 8px; }
+
+/* ── Nav ── */
+.nav { display: flex; align-items: center; justify-content: space-between; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border); }
+.nav-info { font-size: 12px; color: var(--hint); }
+.nav-btns { display: flex; gap: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 7px; padding: 10px 22px; border-radius: var(--r); font-size: 14px; font-weight: 500; border: none; cursor: pointer; transition: all .15s; font-family: var(--font-sans); }
+.btn-primary { background: var(--navy-900); color: #fff; }
+.btn-primary:hover { background: var(--navy-700); }
+.btn-primary:disabled { opacity: .3; pointer-events: none; }
+.btn-ghost { background: var(--surface); color: var(--muted); border: 1.5px solid var(--border); }
+.btn-ghost:hover { border-color: var(--navy-400); color: var(--text); }
+
+/* ── Progress bar ── */
+.progress-bar { height: 2px; background: var(--border); border-radius: 2px; margin-bottom: 32px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--amber); border-radius: 2px; transition: width .4s ease; }
+
+/* ── Section heading ── */
+.section-h { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .09em; color: var(--hint); margin-bottom: 12px; }
+
+/* ── Small helpers ── */
+.mt8 { margin-top: 8px; } .mt16 { margin-top: 16px; } .mt24 { margin-top: 24px; }
+p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+p strong { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">
+    <div class="brand-mark">Dx</div>
+    <span class="brand-name">CAD Walkthrough</span>
+  </div>
+  <span class="hdr-meta">Mr. Carlos Mendoza · chest pain · self-directed</span>
+</header>
+
+<div class="layout">
+
+  <!-- Step rail -->
+  <aside class="rail" id="rail"></aside>
+
+  <!-- Slides -->
+  <main class="content">
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div id="slides"></div>
+
+    <div class="nav">
+      <span class="nav-info" id="navInfo"></span>
+      <div class="nav-btns">
+        <button class="btn btn-ghost" id="prevBtn" onclick="go(-1)">← Back</button>
+        <button class="btn btn-primary" id="nextBtn" onclick="go(1)">Next →</button>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script>
+const STEPS = [
+  { label: "Introduction", sub: "The case" },
+  { label: "Phase 1", sub: "Demographics" },
+  { label: "Phase 2a", sub: "Key symptoms" },
+  { label: "Phase 2b", sub: "Negative symptoms" },
+  { label: "Phase 3", sub: "Examination" },
+  { label: "Phase 4a", sub: "Active diagnoses" },
+  { label: "Phase 4b", sub: "Proof trace" },
+  { label: "Phase 4c", sub: "Exclusions" },
+  { label: "Why not angina?", sub: "Rule tracing" },
+  { label: "Key insights", sub: "What to remember" },
+  { label: "Try it yourself", sub: "Variant cases" },
+];
+
+const SLIDES = [
+
+/* 0 — Introduction */
+`<div class="phase-badge badge-intro">Case introduction</div>
+<h1 class="slide-title">A 58-year-old man with crushing chest pain</h1>
+<p class="slide-sub">Work through this walkthrough <strong>with the application running</strong> at <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 6px;border-radius:4px">localhost:5000</code> alongside. Enter the answers shown at each step and observe what appears on screen.</p>
+<div class="case-card">
+  <div class="case-label">Clinical case — Mr. Carlos Mendoza</div>
+  <div class="case-patient">58 years old · male · emergency department</div>
+  <div class="case-body">
+    He walks in holding his chest. He describes a <strong>central, crushing</strong> pain that started <strong>25 minutes ago</strong> while sitting at his desk — it has not gone away. The pain <strong>radiates down his left arm</strong>. He is <strong>sweating profusely</strong>.<br><br>
+    He denies exertional symptoms before this episode. Antacids taken in the waiting room gave <strong>no relief</strong>.<br><br>
+    On examination: pulse 102, BP 148/94. <strong>ECG shows ST-elevation in V2–V5</strong>. Troponin is <strong>pending</strong> (sample taken on arrival). <strong>Pulses equal in all four limbs</strong>.
+  </div>
+</div>
+<div class="callout callout-amber"><strong>What you will see:</strong> one dominant diagnosis with a six-step proof trace, two excluded diagnoses with clinical reasons, and a clear negative (angina does not appear). Every result is traceable line-by-line to <code>chest_pain.pl</code>.</div>`,
+
+/* 1 — Phase 1 */
+`<div class="phase-badge badge-p1">Phase 1 — demographics</div>
+<h1 class="slide-title">Select the presentation and enter patient details</h1>
+<p class="slide-sub">Open the app. On the intake screen, enter these three values and click <strong>Begin exam script</strong>.</p>
+<div class="q-mockup">
+  <div class="section-h">Presenting complaint</div>
+  <div class="q-answers" style="margin-bottom:20px">
+    <span class="q-answer choice selected">Chest pain</span>
+    <span class="q-answer choice">Palpitations</span>
+    <span class="q-answer choice">Syncope</span>
+  </div>
+  <div class="section-h">Patient demographics</div>
+  <div style="display:flex;gap:24px;align-items:flex-end">
+    <div><div style="font-size:12px;color:var(--muted);margin-bottom:6px">Age (years)</div>
+    <div style="width:100px;height:44px;border:2px solid var(--navy-700);border-radius:8px;background:var(--navy-50);display:grid;place-items:center;font-size:20px;font-weight:300;color:var(--text)">58</div></div>
+    <div><div style="font-size:12px;color:var(--muted);margin-bottom:6px">Sex</div>
+    <div style="display:flex;gap:8px"><span class="q-answer selected" style="border-radius:8px;padding:10px 20px">Male</span><span class="q-answer" style="border-radius:8px;padding:10px 20px">Female</span></div></div>
+  </div>
+</div>
+<div class="callout callout-navy"><strong>Behind the scenes:</strong> the Flask session stores <code>presentation=chest_pain</code>, <code>age=58</code>, <code>sex=male</code>. Nothing reaches Prolog yet — the bridge only fires once, at the very end of Phase 3.</div>`,
+
+/* 2 — Phase 2a key symptoms */
+`<div class="phase-badge badge-p2">Phase 2 — history (key answers)</div>
+<h1 class="slide-title">The symptoms that will drive the diagnosis</h1>
+<p class="slide-sub">These six answers are the ones that matter most for this case. Notice how each one directly maps to a Prolog atom.</p>
+<table class="answer-table">
+<thead><tr><th>Question</th><th>Answer</th><th>Prolog fact</th></tr></thead>
+<tbody>
+<tr class="key-row"><td>Does the patient have chest pain?</td><td>Yes</td><td>symptom(chest_pain, yes)</td></tr>
+<tr class="key-row"><td>How does the patient describe the pain?</td><td>Crushing / tight</td><td>symptom(pain_character, crushing)</td></tr>
+<tr class="key-row"><td>Is the pain brought on by exertion?</td><td><strong>No</strong></td><td>symptom(exertional, no)</td></tr>
+<tr class="key-row"><td>How long does each episode last?</td><td><strong>25 minutes</strong></td><td>symptom(pain_duration_minutes, 25)</td></tr>
+<tr class="key-row"><td>Does the pain radiate to the arm?</td><td>Yes</td><td>symptom(radiation_to_arm, yes)</td></tr>
+<tr class="key-row"><td>Is the patient sweating excessively?</td><td>Yes</td><td>symptom(sweating, yes)</td></tr>
+</tbody></table>
+<div class="callout callout-amber"><strong>The two most important answers:</strong> <code>exertional = no</code> is what blocks angina from appearing. <code>pain_duration_minutes = 25</code> satisfies the <code>D &gt;= 20</code> constraint in the MI rule. Change either one and the diagnosis changes.</div>
+<div style="margin-top:12px">
+<div class="q-mockup">
+  <div class="q-icon q-icon-hist"><svg width="18" height="18" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M11 7v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+  <div class="q-text">Is the pain brought on by exertion?</div>
+  <div class="q-answers"><span class="q-answer">Yes</span><span class="q-answer selected">No</span></div>
+  <div class="q-atom"><span class="q-atom-lbl">symptom atom</span><span class="q-atom-code">symptom(exertional, no)</span></div>
+</div>
+</div>`,
+
+/* 3 — Phase 2b negative symptoms */
+`<div class="phase-badge badge-p2">Phase 2 — history (remaining answers)</div>
+<h1 class="slide-title">The negatives are equally important</h1>
+<p class="slide-sub">Answer the remaining 15 questions <strong>No</strong> or skip, except where shown. Negative answers also become asserted facts — they prevent wrong rules from firing.</p>
+<table class="answer-table">
+<thead><tr><th>Question</th><th>Answer</th><th>Prolog fact</th></tr></thead>
+<tbody>
+<tr><td>Where is the pain located?</td><td>Central / retrosternal</td><td>symptom(pain_location, central)</td></tr>
+<tr><td>Does the pain radiate to the back?</td><td>No</td><td>symptom(radiation_to_back, no)</td></tr>
+<tr><td>Is the pain worse on breathing in?</td><td>No</td><td>symptom(pleuritic, no)</td></tr>
+<tr><td>Is the patient breathless?</td><td>No</td><td>symptom(dyspnoea, no)</td></tr>
+<tr><td>Has the patient coughed up blood?</td><td>No</td><td>symptom(haemoptysis, no)</td></tr>
+<tr><td>Does the patient have a cough?</td><td>No</td><td>symptom(cough, no)</td></tr>
+<tr><td>Does the patient have a fever?</td><td>No</td><td>symptom(fever, no)</td></tr>
+<tr><td>Is the pain worse on bending/lying?</td><td>No</td><td>symptom(worse_on_bending_or_lying, no)</td></tr>
+<tr class="key-row"><td>Is the pain relieved by antacids?</td><td><strong>No</strong></td><td>symptom(relieved_by_antacids, no)</td></tr>
+<tr class="key-row"><td>Is the pain relieved by GTN spray?</td><td><strong>No</strong></td><td>symptom(relieved_by_gtn, no)</td></tr>
+<tr><td>Is the pain relieved by sitting forward?</td><td>No</td><td>symptom(relieved_by_sitting_forward, no)</td></tr>
+<tr><td>Is the pain worse on movement/pressing?</td><td>No</td><td>symptom(worse_on_movement, no)</td></tr>
+<tr><td>Was the onset sudden (within seconds)?</td><td>No (gradual over minutes)</td><td>symptom(sudden_onset, no)</td></tr>
+<tr><td>Is the pain restricted to one side in a band?</td><td>No</td><td>symptom(unilateral_dermatomal, no)</td></tr>
+<tr><td>Has the patient been experiencing low mood?</td><td>No</td><td>symptom(low_mood, no)</td></tr>
+</tbody></table>
+<div class="callout callout-navy"><strong>Tip:</strong> use the keyboard shortcut <strong>N</strong> then <strong>Enter</strong> to move quickly through negative answers. The whole history phase takes about 90 seconds at that pace.</div>`,
+
+/* 4 — Phase 3 */
+`<div class="phase-badge badge-p3">Phase 3 — examination</div>
+<h1 class="slide-title">Enter the clinical examination findings</h1>
+<p class="slide-sub">These become <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 5px;border-radius:4px">finding/2</code> facts in Prolog. Two of them will trigger exclusion rules.</p>
+<table class="answer-table">
+<thead><tr><th>Question</th><th>Answer</th><th>Prolog fact</th></tr></thead>
+<tbody>
+<tr class="key-row"><td>Are pulses symmetric in all four limbs?</td><td><strong>Yes</strong> (symmetric)</td><td>finding(pulse_asymmetry, no)</td></tr>
+<tr><td>Is the JVP elevated?</td><td>No</td><td>finding(jvp_elevated, no)</td></tr>
+<tr><td>Is there localised chest wall tenderness?</td><td>No</td><td>finding(chest_wall_tenderness, no)</td></tr>
+<tr><td>Are breath sounds reduced on one side?</td><td>No</td><td>finding(breath_sounds_reduced_unilateral, no)</td></tr>
+<tr><td>Are there signs of DVT?</td><td>No</td><td>finding(dvt_signs, no)</td></tr>
+<tr><td>Is there a vesicular rash?</td><td>No</td><td>finding(vesicular_rash, no)</td></tr>
+<tr><td>Is there point tenderness over a rib?</td><td>No</td><td>finding(localised_rib_tenderness, no)</td></tr>
+<tr class="key-row"><td>Does the ECG show ischaemic changes?</td><td><strong>Yes</strong></td><td>finding(ecg_changes, yes)</td></tr>
+<tr><td>Is serum troponin elevated?</td><td>No (not back yet)</td><td>finding(troponin_elevated, no)</td></tr>
+<tr><td>Troponin at 12 hours?</td><td><strong>Not yet done</strong></td><td>finding(troponin_at_12h, not_done)</td></tr>
+<tr><td>D-dimer result?</td><td>Not done</td><td>finding(d_dimer, not_done)</td></tr>
+</tbody></table>
+<div class="callout callout-amber"><strong>Note on troponin:</strong> troponin rises within 6 hours of MI onset. This patient arrived 25 minutes after onset — the result is genuinely pending. Answering "not yet done" is clinically correct and prevents the MI exclusion rule from firing incorrectly. This is a good example of the system handling real clinical timing.</div>
+<p style="margin-top:4px">After the last finding, click <strong>Next finding</strong>. The bridge fires automatically — Prolog runs, collects all results, and redirects to the results page.</p>`,
+
+/* 5 — Phase 4a active diagnoses */
+`<div class="phase-badge badge-p4">Phase 4 — results</div>
+<h1 class="slide-title">The diagnosis page — what you should see</h1>
+<p class="slide-sub">One active diagnosis, sorted common → occasional → rare. Two excluded diagnoses shown struck-through below. Click any card header to open its proof trace.</p>
+<div class="results-list">
+  <div class="dx-card common">
+    <div class="dx-head">
+      <div class="dx-left"><div class="dx-pip pip-common"></div><span class="dx-name">Myocardial infarction</span></div>
+      <div style="display:flex;align-items:center;gap:12px"><span class="freq-label freq-common">Common</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#8496c0" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    </div>
+    <div class="proof-panel">
+      <div class="proof-hdr">Prolog proof trace — click each symptom to see the rationale</div>
+      <div class="proof-step"><div class="proof-bar"></div><div class="proof-body">
+        <div class="proof-atom"><span class="p-pred">symptom</span><span class="p-paren">(</span><span class="p-sym">chest_pain</span><span class="p-paren">,</span>&nbsp;<span class="p-val">yes</span><span class="p-paren">)</span><span class="p-arr">↦</span><span class="p-dx">myocardial_infarction</span></div>
+        <div class="proof-rat">Severe crushing chest pain is the cardinal symptom of MI</div>
+      </div></div>
+      <div class="proof-step"><div class="proof-bar"></div><div class="proof-body">
+        <div class="proof-atom"><span class="p-pred">symptom</span><span class="p-paren">(</span><span class="p-sym">exertional</span><span class="p-paren">,</span>&nbsp;<span class="p-val">no</span><span class="p-paren">)</span><span class="p-arr">↦</span><span class="p-dx">myocardial_infarction</span></div>
+        <div class="proof-rat">Unlike angina, MI occurs at rest — ongoing ischaemia despite absence of demand increase</div>
+      </div></div>
+      <div class="proof-step"><div class="proof-bar"></div><div class="proof-body">
+        <div class="proof-atom"><span class="p-pred">symptom</span><span class="p-paren">(</span><span class="p-sym">pain_duration_minutes</span><span class="p-paren">,</span>&nbsp;<span class="p-val">25</span><span class="p-paren">)</span><span class="p-arr">↦</span><span class="p-dx">myocardial_infarction</span></div>
+        <div class="proof-rat">Pain lasting 20+ minutes at rest is treated as MI until proven otherwise</div>
+      </div></div>
+      <div class="proof-step"><div class="proof-bar"></div><div class="proof-body">
+        <div class="proof-atom"><span class="p-pred">symptom</span><span class="p-paren">(</span><span class="p-sym">radiation_to_arm</span><span class="p-paren">,</span>&nbsp;<span class="p-val">yes</span><span class="p-paren">)</span><span class="p-arr">↦</span><span class="p-dx">myocardial_infarction</span></div>
+        <div class="proof-rat">Radiation to left arm via dermatomes T1–T2 is a classic feature of MI</div>
+      </div></div>
+      <div class="proof-step"><div class="proof-bar"></div><div class="proof-body">
+        <div class="proof-atom"><span class="p-pred">symptom</span><span class="p-paren">(</span><span class="p-sym">sweating</span><span class="p-paren">,</span>&nbsp;<span class="p-val">yes</span><span class="p-paren">)</span><span class="p-arr">↦</span><span class="p-dx">myocardial_infarction</span></div>
+        <div class="proof-rat">Diaphoresis reflects sympathetic activation in response to severe ischaemic pain</div>
+      </div></div>
+      <div class="proof-conclusion"><span class="proof-therefore">∴</span><span class="proof-code">diagnose(myocardial_infarction, common).</span></div>
+    </div>
+    <div class="tests-row"><span class="tests-lbl">investigations</span><span class="test-chip">ecg</span><span class="test-chip">serum_troponin</span><span class="test-chip">fbc</span><span class="test-chip">cxr</span><span class="test-chip">echocardiogram</span></div>
+  </div>
+</div>
+<div class="callout callout-green">The proof trace is generated entirely from <code>explain_step/3</code> clauses in <code>chest_pain.pl</code>. Each line on screen corresponds to exactly one clause in the source file. On the next slide we trace this back to the Prolog rules.</div>`,
+
+/* 6 — Phase 4b proof trace anatomy */
+`<div class="phase-badge badge-p4">Phase 4 — proof trace anatomy</div>
+<h1 class="slide-title">How MI fired — two rules, one result</h1>
+<p class="slide-sub">Open <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 5px;border-radius:4px">prolog/modules/chest_pain.pl</code> and find these two clauses. Both matched our symptom set independently.</p>
+<div class="rule-box">
+  <div class="rule-label">Rule 1 — duration-based (lines ~53–59)</div>
+  <div class="rule-code">
+    <span class="r-pred">diagnose</span>(myocardial_infarction, Frequency) :-<br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(chest_pain, <span class="r-val">yes</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓ yes</span><br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(pain_character, <span class="r-val">crushing</span>),&nbsp;&nbsp;<span class="r-comment">% ✓ crushing</span><br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(exertional, <span class="r-val">no</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓ no — at rest</span><br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(pain_duration_minutes, D),&nbsp;<span class="r-comment">% D = 25</span><br>
+    &nbsp;&nbsp;D >= 20,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓ 25 >= 20</span><br>
+    &nbsp;&nbsp;<span class="r-pred">frequency</span>(myocardial_infarction, Frequency).
+  </div>
+</div>
+<div class="rule-box">
+  <div class="rule-label">Rule 2 — classic triad (lines ~61–66)</div>
+  <div class="rule-code">
+    <span class="r-pred">diagnose</span>(myocardial_infarction, Frequency) :-<br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(chest_pain, <span class="r-val">yes</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓</span><br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(pain_character, <span class="r-val">crushing</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓</span><br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(radiation_to_arm, <span class="r-val">yes</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓</span><br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(sweating, <span class="r-val">yes</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓</span><br>
+    &nbsp;&nbsp;<span class="r-pred">frequency</span>(myocardial_infarction, Frequency).
+  </div>
+</div>
+<div class="callout callout-navy"><strong>Why two rules?</strong> These are two genuinely distinct clinical presentations of MI. Rule 1 captures the time-based criterion (pain at rest for &gt;20 min). Rule 2 captures the classic triad (crushing + arm radiation + sweating) which can occur even with shorter duration. Prolog backtracks through both clauses and finds two solutions — the bridge's <code>seen</code> set deduplicates them into one result on screen.</div>`,
+
+/* 7 — Phase 4c exclusions */
+`<div class="phase-badge badge-p4">Phase 4 — exclusions</div>
+<h1 class="slide-title">Two diagnoses excluded — and why</h1>
+<p class="slide-sub">Scroll below the active diagnoses. Two entries appear struck-through. Here is the Prolog clause that removed each one.</p>
+<div class="results-list">
+  <div class="dx-card excluded">
+    <div class="dx-head">
+      <div class="dx-left"><div class="dx-pip pip-excl"></div><span class="dx-name struck">Aortic dissection</span><span class="excl-tag">Excluded</span></div>
+      <span class="freq-label freq-excl">Occasional</span>
+    </div>
+    <div class="excl-reason"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 4l5 5M9 4L4 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Symmetric pulses in all four limbs make dissection unlikely</div>
+  </div>
+  <div class="dx-card excluded">
+    <div class="dx-head">
+      <div class="dx-left"><div class="dx-pip pip-excl"></div><span class="dx-name struck">Depression</span><span class="excl-tag">Excluded</span></div>
+      <span class="freq-label freq-excl">Occasional</span>
+    </div>
+    <div class="excl-reason"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M4 4l5 5M9 4L4 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>Objective cardiac abnormality found — organic cause must be excluded first</div>
+  </div>
+</div>
+<div class="rule-box">
+  <div class="rule-label">exclude_if — aortic dissection</div>
+  <div class="rule-code">
+    <span class="r-pred">exclude_if</span>(aortic_dissection, <span class="r-atom">'Symmetric pulses...'</span>) :-<br>
+    &nbsp;&nbsp;<span class="r-pred">finding</span>(pulse_asymmetry, <span class="r-val">no</span>).&nbsp;&nbsp;&nbsp;<span class="r-comment">% ✓ we asserted this</span>
+  </div>
+</div>
+<div class="rule-box">
+  <div class="rule-label">exclude_if — depression</div>
+  <div class="rule-code">
+    <span class="r-pred">exclude_if</span>(depression, <span class="r-atom">'Objective cardiac abnormality...'</span>) :-<br>
+    &nbsp;&nbsp;( <span class="r-pred">finding</span>(ecg_changes, <span class="r-val">yes</span>)&nbsp;<span class="r-op">;</span>&nbsp;<span class="r-pred">finding</span>(troponin_elevated, <span class="r-val">yes</span>) ).<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-comment">% ecg_changes=yes satisfies this</span>
+  </div>
+</div>
+<div class="callout callout-amber">The bridge calls <code>exclude_if/2</code> <em>after</em> collecting all <code>diagnose/2</code> results. A diagnosis can match its rule and still be excluded. Exclusions encode hard safety constraints — the system should never accept psychological causes while objective cardiac findings are present.</div>`,
+
+/* 8 — Why not angina */
+`<div class="phase-badge badge-p4">Phase 4 — rule tracing</div>
+<h1 class="slide-title">Why angina does not appear</h1>
+<p class="slide-sub">Angina is not shown — not excluded, simply never produced by <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 5px;border-radius:4px">diagnose/2</code>. Here is exactly why.</p>
+<div class="rule-box">
+  <div class="rule-label">diagnose(angina, ...) — tracing goal by goal</div>
+  <div class="rule-code">
+    <span class="r-pred">diagnose</span>(angina, Frequency) :-<br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(chest_pain, <span class="r-val">yes</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-pass">% ✓ yes — passes</span><br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(pain_character, <span class="r-val">crushing</span>),&nbsp;&nbsp;<span class="r-pass">% ✓ crushing — passes</span><br>
+    &nbsp;&nbsp;<span class="r-pred">symptom</span>(exertional, <span class="r-val">yes</span>),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="r-fail">% ✗ FAIL — we asserted no</span><br>
+    &nbsp;&nbsp;<span class="r-comment">% Prolog stops here. No backtracking to a different value.</span><br>
+    &nbsp;&nbsp;<span class="r-comment">% No other diagnose(angina, _) clause exists.</span><br>
+    &nbsp;&nbsp;<span class="r-comment">% Result: angina produces zero solutions.</span>
+  </div>
+</div>
+<div class="callout callout-green"><strong>This is clinically correct.</strong> The defining distinction between stable angina and MI is that angina is provoked by exertion and resolves with rest, while MI occurs at rest and persists. Mr. Mendoza's pain started at his desk unprovoked — the single fact <code>symptom(exertional, no)</code> encodes this distinction completely.</div>
+<p>Now open the app, scroll to the bottom of the results page, and expand <strong>"View asserted facts sent to Prolog"</strong>. You will see every <code>symptom/2</code> and <code>finding/2</code> fact listed — exactly the facts that were in scope when the engine ran. This panel is your primary debugging tool when your own rules don't behave as expected.</p>`,
+
+/* 9 — Key insights */
+`<div class="phase-badge badge-learn">Key insights</div>
+<h1 class="slide-title">Five things to remember before writing your module</h1>
+<p class="slide-sub">These patterns appear in every well-written CAD module. Each one is illustrated by something you just saw in this session.</p>
+<div class="insight-list">
+  <div class="insight"><div class="insight-num">1</div><div class="insight-body">
+    <div class="insight-title">The frequency table must come first</div>
+    <div class="insight-text"><code>diagnose/2</code> ends with <code>frequency(Diagnosis, Frequency)</code>. If you write a rule before its <code>frequency/2</code> fact, the rule silently fails every time — no error, just no output. Define the full frequency table before any rules.</div>
+  </div></div>
+  <div class="insight"><div class="insight-num">2</div><div class="insight-body">
+    <div class="insight-title">Multiple clauses for one diagnosis are correct</div>
+    <div class="insight-text">MI has two independent rules because MI has two distinct clinical presentations. Prolog finds all of them via backtracking; the bridge deduplicates. Use multiple clauses whenever a diagnosis has genuinely different symptom profiles.</div>
+  </div></div>
+  <div class="insight"><div class="insight-num">3</div><div class="insight-body">
+    <div class="insight-title">Variables inside \+ are local — use if-then instead</div>
+    <div class="insight-text"><code>\+ symptom(X, D), D &gt;= 20</code> is a bug: <code>D</code> is undefined outside <code>\+</code>. Use <code>( symptom(X, D) -&gt; D &lt; 20 ; true )</code> for conditional numeric checks. This was the first bug we caught in the angina rule during testing.</div>
+  </div></div>
+  <div class="insight"><div class="insight-num">4</div><div class="insight-body">
+    <div class="insight-title">exclude_if fires after diagnose/2</div>
+    <div class="insight-text">The bridge collects all diagnoses first, then checks exclusions. Use <code>diagnose/2</code> for positive evidence; use <code>exclude_if/2</code> for hard safety constraints. A diagnosis can match its rule and still be excluded.</div>
+  </div></div>
+  <div class="insight"><div class="insight-num">5</div><div class="insight-body">
+    <div class="insight-title">explain_step/3 is part of the contract</div>
+    <div class="insight-text">Every symptom your <code>diagnose/2</code> rule checks needs a matching <code>explain_step/3</code> clause. If it's missing, the proof panel shows a warning. Write the rationale as a clinician would explain it to a junior colleague — that's the standard the test suite checks.</div>
+  </div></div>
+</div>`,
+
+/* 10 — Try it yourself */
+`<div class="phase-badge badge-learn">Try it yourself</div>
+<h1 class="slide-title">Three variants to run before writing your own module</h1>
+<p class="slide-sub">Each variant changes one or two key answers. Run them in the app, then open <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 5px;border-radius:4px">chest_pain.pl</code> and trace each result back to its rule.</p>
+<div class="variants">
+  <div class="variant">
+    <div class="variant-letter">A</div>
+    <div class="variant-title">Classic stable angina</div>
+    <div class="variant-body">Same patient. Change: exertional = <strong>Yes</strong>, duration = <strong>8 minutes</strong>. Everything else the same.</div>
+    <div class="variant-expect">→ expect: angina (common)<br>→ MI should not appear</div>
+  </div>
+  <div class="variant">
+    <div class="variant-letter">B</div>
+    <div class="variant-title">Pericarditis</div>
+    <div class="variant-body">Any age/sex. Pain: central, pleuritic = <strong>Yes</strong>, relieved by sitting forward = <strong>Yes</strong>. No radiation, no sweating, no exertion.</div>
+    <div class="variant-expect">→ expect: pericarditis (occasional)<br>→ MI and angina should not appear</div>
+  </div>
+  <div class="variant">
+    <div class="variant-letter">C</div>
+    <div class="variant-title">Herpes zoster</div>
+    <div class="variant-body">Any age. Pain: burning, unilateral dermatomal = <strong>Yes</strong>. Finding: vesicular rash = <strong>Yes</strong>. Nothing cardiac.</div>
+    <div class="variant-expect">→ expect: herpes_zoster only<br>→ sole active diagnosis</div>
+  </div>
+</div>
+<div class="callout callout-amber"><strong>The exercise:</strong> for each variant, open the proof trace and read every rationale sentence. Then find the matching <code>explain_step/3</code> clause in <code>chest_pain.pl</code>. That one-to-one correspondence between screen and source is exactly what you will build for your own presentation.</div>
+<div class="callout callout-green" style="margin-top:12px"><strong>You are now ready</strong> to open your assigned stub in <code>prolog/stubs/</code>, read <code>docs/PROLOG_CONTRACT.md</code>, and start writing rules. The workflow is: fill the frequency table → write diagnose/2 rules → add suggest_test/2 → add explain_step/3 → run <code>pytest tests/test_kb.py</code> → all checks pass → open a pull request.</div>`,
+
+];
+
+let current = 0;
+
+function buildRail() {
+  const rail = document.getElementById('rail');
+  rail.innerHTML = STEPS.map((s, i) => `
+    <div class="rail-step ${i === 0 ? 'active' : ''}" onclick="goTo(${i})" id="rs${i}">
+      <div class="step-dot">${i < current ? '✓' : i + 1}</div>
+      <div class="step-label">${s.label}<br><span style="font-size:10px;color:var(--navy-200)">${s.sub}</span></div>
+    </div>
+    ${i < STEPS.length - 1 ? `<div class="rail-conn" id="rc${i}"></div>` : ''}
+  `).join('');
+}
+
+function buildSlides() {
+  const container = document.getElementById('slides');
+  container.innerHTML = SLIDES.map((s, i) =>
+    `<div class="slide ${i === 0 ? 'active' : ''}" id="slide${i}">${s}</div>`
+  ).join('');
+}
+
+function updateUI() {
+  // Slides
+  document.querySelectorAll('.slide').forEach((s, i) => s.classList.toggle('active', i === current));
+  // Rail
+  STEPS.forEach((_, i) => {
+    const rs = document.getElementById('rs' + i);
+    const rc = document.getElementById('rc' + i);
+    rs.classList.toggle('active', i === current);
+    rs.classList.toggle('done', i < current);
+    rs.querySelector('.step-dot').textContent = i < current ? '✓' : i + 1;
+    if (rc) rc.classList.toggle('done', i < current);
+  });
+  // Progress
+  document.getElementById('progress').style.width = ((current / (STEPS.length - 1)) * 100) + '%';
+  // Nav
+  document.getElementById('navInfo').textContent = `Step ${current + 1} of ${STEPS.length}`;
+  document.getElementById('prevBtn').disabled = current === 0;
+  document.getElementById('nextBtn').textContent = current === STEPS.length - 1 ? 'Finish ✓' : 'Next →';
+  document.getElementById('nextBtn').disabled = false;
+  // Scroll
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function go(dir) {
+  const next = current + dir;
+  if (next >= 0 && next < STEPS.length) { current = next; updateUI(); }
+}
+
+function goTo(i) { current = i; updateUI(); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(-1);
+});
+
+buildRail();
+buildSlides();
+updateUI();
+</script>
+</body>
+</html>
