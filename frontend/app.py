@@ -139,7 +139,7 @@ HISTORY_QUESTIONS = {
 EXAM_QUESTIONS = {
 
     "chest_pain": [
-        {"finding": "pulse_asymmetry",              "question": "¿Los pulsos son simétricos en las cuatro extremidades?",          "type": "yesno", "inverted": True},
+        {"finding": "pulse_asymmetry",              "question": "¿Hay asimetría de pulsos entre las extremidades?",                  "type": "yesno"},
         {"finding": "jvp_elevated",                 "question": "¿La presión venosa yugular está elevada?",                             "type": "yesno"},
         {"finding": "chest_wall_tenderness",        "question": "¿Hay dolor localizado en la pared torácica a la palpación?", "type": "yesno"},
         {"finding": "breath_sounds_reduced_unilateral", "question": "¿Los ruidos respiratorios están disminuidos en un lado?",       "type": "yesno"},
@@ -235,91 +235,75 @@ def intake():
     sess.set_demographics(presentation, age, sex)
     return redirect(url_for("history"))
 
-
 @app.route("/history")
 def history():
-    """Phase 2: Display the next symptom question."""
+    """Phase 2: Display all symptom questions on one page."""
     presentation = sess.get_presentation()
     if not presentation:
         return redirect(url_for("index"))
 
     questions = HISTORY_QUESTIONS.get(presentation, [])
-    idx = sess.get_history_index()
-
-    if idx >= len(questions):
+    if not questions:
         sess.advance_to_examination()
         return redirect(url_for("examination"))
 
-    question = questions[idx]
-    progress = {
-        "current": idx + 1,
-        "total": len(questions),
-        "pct": int((idx / max(len(questions), 1)) * 100),
-    }
     return render_template(
         "history.html",
-        question=question,
-        progress=progress,
+        questions=questions,
         presentation_label=PRESENTATION_LABELS.get(presentation, presentation),
     )
 
 
 @app.route("/history", methods=["POST"])
 def history_post():
-    """Save one symptom answer, advance."""
+    """Save all symptom answers at once, advance to examination."""
     presentation = sess.get_presentation()
     questions = HISTORY_QUESTIONS.get(presentation, [])
-    idx = sess.get_history_index()
 
-    if idx < len(questions):
-        symptom_name = questions[idx]["symptom"]
-        value = request.form.get("answer", "no")
-        sess.record_symptom(symptom_name, value)
+    for q in questions:
+        name = q["symptom"]
+        value = request.form.get(name, "no")
+        sess.record_symptom(name, value)
 
-    return redirect(url_for("history"))
+    sess.advance_to_examination()
+    return redirect(url_for("examination"))
 
 
 @app.route("/examination")
 def examination():
-    """Phase 3: Display the next examination finding question."""
+    """Phase 3: Display all examination findings on one page."""
     presentation = sess.get_presentation()
     if not presentation:
         return redirect(url_for("index"))
 
     questions = EXAM_QUESTIONS.get(presentation, [])
-    idx = sess.get_exam_index()
-
-    if idx >= len(questions):
+    if not questions:
         sess.advance_to_results()
         return redirect(url_for("results"))
 
-    question = questions[idx]
-    progress = {
-        "current": idx + 1,
-        "total": len(questions),
-        "pct": int((idx / max(len(questions), 1)) * 100),
-    }
     return render_template(
         "examination.html",
-        question=question,
-        progress=progress,
+        questions=questions,
         presentation_label=PRESENTATION_LABELS.get(presentation, presentation),
     )
 
 
 @app.route("/examination", methods=["POST"])
 def examination_post():
-    """Save one finding, advance."""
+    """Save all examination findings at once, advance to results."""
     presentation = sess.get_presentation()
     questions = EXAM_QUESTIONS.get(presentation, [])
-    idx = sess.get_exam_index()
 
-    if idx < len(questions):
-        finding_name = questions[idx]["finding"]
-        value = request.form.get("answer", "no")
-        sess.record_finding(finding_name, value)
+    for q in questions:
+        name = q["finding"]
+        value = request.form.get(name, "no")
+        if q.get("inverted") and value in ("yes", "no"):
+            value = "no" if value == "yes" else "yes"
+        sess.record_finding(name, value)
 
-    return redirect(url_for("examination"))
+    sess.advance_to_results()
+    return redirect(url_for("results"))
+
 
 
 @app.route("/results")

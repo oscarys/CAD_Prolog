@@ -125,11 +125,11 @@ body { font-family: var(--font-sans); background: var(--bg); color: var(--text);
 .proof-hdr { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--amber); font-family: var(--font-mono); margin-bottom: 14px; }
 .proof-step { display: flex; gap: 0; margin-bottom: 4px; }
 .proof-bar { width: 1px; background: var(--navy-700); margin: 0 16px 0 8px; flex-shrink: 0; }
-.proof-body { flex: 1; padding: 8px 0 8px; }
+.proof-body { flex: 1; padding: 8px 0 8px; color: #bcc5db; }
 .proof-atom { font-family: var(--font-mono); font-size: 12px; margin-bottom: 4px; display: flex; flex-wrap: wrap; gap: 2px; align-items: center; }
 .p-pred { color: #7eb8f7; } .p-paren { color: var(--navy-200); }
 .p-sym  { color: #f0ad55; } .p-val  { color: #9fdfb0; }
-.p-arr  { color: var(--navy-400); margin: 0 6px; }
+.p-arr  { color: #6b7fa3; margin: 0 6px; }
 .p-dx   { color: #c9a6f5; }
 .proof-rat { font-size: 12px; color: var(--navy-100); font-style: italic; line-height: 1.5; }
 .proof-conclusion { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 12px 14px; background: rgba(232,153,58,.08); border: 1px solid rgba(232,153,58,.2); border-radius: 8px; }
@@ -140,14 +140,16 @@ body { font-family: var(--font-sans); background: var(--bg); color: var(--text);
 .test-chip { padding: 3px 9px; background: var(--navy-800); border: 1px solid var(--navy-600); border-radius: 100px; font-size: 11px; color: var(--navy-100); font-family: var(--font-mono); }
 
 /* ── Prolog rule box ── */
-.rule-box { background: var(--navy-950); border: 1px solid var(--navy-700); border-radius: var(--r-lg); padding: 20px 24px; margin-bottom: 16px; }
+.rule-box { background: var(--navy-950); border: 1px solid var(--navy-700); border-radius: var(--r-lg); padding: 20px 24px; margin-bottom: 16px; overflow-x: auto; }
 .rule-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--amber); font-family: var(--font-mono); margin-bottom: 12px; }
-.rule-code { font-family: var(--font-mono); font-size: 13px; line-height: 1.8; }
-.r-pred { color: #7eb8f7; } .r-atom { color: #f0ad55; }
-.r-val  { color: #9fdfb0; } .r-op   { color: var(--navy-200); }
-.r-comment { color: #4a5578; font-style: italic; }
-.r-fail { color: var(--red); font-weight: 500; }
-.r-pass { color: var(--green); }
+.rule-code { font-family: var(--font-mono); font-size: 12px; line-height: 1.9; white-space: nowrap; color: #bcc5db; }
+.r-pred    { color: #7eb8f7; }
+.r-atom    { color: #f0ad55; }
+.r-val     { color: #9fdfb0; }
+.r-op      { color: #8496c0; }
+.r-comment { color: #6b7fa3; font-style: italic; }
+.r-fail    { color: #f09595; font-weight: 500; }
+.r-pass    { color: #5dcaa5; }
 
 /* ── Callout box ── */
 .callout { border-radius: var(--r); padding: 14px 18px; margin-bottom: 16px; font-size: 13px; line-height: 1.65; }
@@ -237,8 +239,7 @@ p strong { color: var(--text); font-weight: 600; }
 const STEPS = [
   { label: "Introducción", sub: "El caso" },
   { label: "Fase 1", sub: "Datos demográficos" },
-  { label: "Fase 2a", sub: "Síntomas clave" },
-  { label: "Fase 2b", sub: "Síntomas negativos" },
+  { label: "Fase 2", sub: "Historia clínica" },
   { label: "Fase 3", sub: "Exploración" },
   { label: "Fase 4a", sub: "Diagnósticos activos" },
   { label: "Fase 4b", sub: "Traza de demostración" },
@@ -253,17 +254,17 @@ const SLIDES = [
 /* 0 — Introduction */
 `<div class="phase-badge badge-intro">Introducción al caso</div>
 <h1 class="slide-title">Un hombre de 58 años con dolor torácico opresivo</h1>
-<p class="slide-sub">Siga esta guía <strong>con la aplicación en ejecución</strong> at <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 6px;border-radius:4px">localhost:5000</code> en paralelo. Ingrese las respuestas indicadas en cada paso y observe lo que aparece en pantalla.</p>
+<p class="slide-sub">Siga esta guía <strong>con la aplicación en ejecución</strong> en la dirección <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 6px;border-radius:4px">localhost:5000</code> en paralelo. Ingrese las respuestas indicadas en cada paso y observe lo que aparece en pantalla.</p>
 <div class="case-card">
   <div class="case-label">Caso clínico — Sr. Carlos Mendoza</div>
   <div class="case-patient">58 años · masculino · servicio de urgencias</div>
   <div class="case-body">
-    He walks in holding his chest. He describes a <strong>central, crushing</strong> pain that started <strong>25 minutes ago</strong> while sitting at his desk — it has not gone away. The pain <strong>radiates down his left arm</strong>. He is <strong>sweating profusely</strong>.<br><br>
-    He denies exertional symptoms before this episode. Antacids taken in the waiting room gave <strong>no relief</strong>.<br><br>
-    On examination: pulse 102, BP 148/94. <strong>ECG shows ST-elevation in V2–V5</strong>. Troponin is <strong>pending</strong> (sample taken on arrival). <strong>Pulses equal in all four limbs</strong>.
+    Ingresa sosteniéndose el pecho. Describe un dolor <strong>central, opresivo</strong> que inició <strong>hace 25 minutos</strong> mientras estaba sentado en su escritorio y que no ha cedido. El dolor <strong>irradia hacia el brazo izquierdo</strong>. Presenta <strong>diaforesis profusa</strong>.<br><br>
+    Niega haber tenido síntomas con el esfuerzo antes de este episodio. Los antiácidos que tomó en la sala de espera <strong>no le dieron alivio</strong>.<br><br>
+    En la exploración: pulso 102, TA 148/94. <strong>El ECG muestra elevación del ST en V2–V5</strong>. La troponina está <strong>pendiente</strong> (muestra tomada al ingreso). <strong>Pulsos iguales en las cuatro extremidades</strong>.
   </div>
 </div>
-<div class="callout callout-amber"><strong>Lo que observará:</strong> un diagnóstico dominante con traza de seis pasos, dos diagnósticos excluidos con fundamento clínico, y un negativo explícito (la angina no aparece). Cada resultado es rastreable línea por línea hasta <code>chest_pain.pl</code>.</div>`,
+<div class="callout callout-amber"><strong>Lo que observará:</strong> un diagnóstico dominante (IAM) con traza de seis pasos, ningún diagnóstico excluido en este caso (vea por qué en la Fase 4c), y un negativo explícito (la angina no aparece). Cada resultado es rastreable línea por línea hasta <code>chest_pain.pl</code>.</div>`,
 
 /* 1 — Phase 1 */
 `<div class="phase-badge badge-p1">Fase 1 — datos demográficos</div>
@@ -287,62 +288,75 @@ const SLIDES = [
 <div class="callout callout-navy"><strong>Lo que ocurre internamente:</strong> la sesión Flask almacena <code>presentation=chest_pain</code>, <code>age=58</code>, <code>sex=male</code>. Nada llega a Prolog todavía — el puente se ejecuta una sola vez, al final de la Fase 3.</div>`,
 
 /* 2 — Phase 2a key symptoms */
-`<div class="phase-badge badge-p2">Fase 2 — historia (respuestas clave)</div>
-<h1 class="slide-title">Los síntomas que determinarán el diagnóstico</h1>
-<p class="slide-sub">Estas seis respuestas son las más determinantes para este caso. Observe cómo cada una se mapea directamente a un átomo Prolog.</p>
-<table class="answer-table">
-<thead><tr><th>Pregunta</th><th>Respuesta</th><th>Prolog fact</th></tr></thead>
-<tbody>
-<tr class="key-row"><td>¿El paciente tiene dolor torácico?</td><td>Sí</td><td>symptom(chest_pain, yes)</td></tr>
-<tr class="key-row"><td>¿Cómo describe el paciente el dolor?</td><td>Crushing / tight</td><td>symptom(pain_character, crushing)</td></tr>
-<tr class="key-row"><td>¿El dolor se desencadena con el esfuerzo?</td><td><strong>No</strong></td><td>symptom(exertional, no)</td></tr>
-<tr class="key-row"><td>¿Cuánto dura cada episodio?</td><td><strong>25 minutes</strong></td><td>symptom(pain_duration_minutes, 25)</td></tr>
-<tr class="key-row"><td>¿El dolor irradia al brazo?</td><td>Sí</td><td>symptom(radiation_to_arm, yes)</td></tr>
-<tr class="key-row"><td>¿El paciente suda en exceso?</td><td>Sí</td><td>symptom(sweating, yes)</td></tr>
-</tbody></table>
-<div class="callout callout-amber"><strong>Las dos respuestas más importantes:</strong> <code>exertional = no</code> es lo que impide que aparezca la angina. <code>pain_duration_minutes = 25</code> satisface la restricción <code>D &gt;= 20</code> en la regla de IAM. Cambie cualquiera de los dos y el diagnóstico cambia.</div>
-<div style="margin-top:12px">
-<div class="q-mockup">
-  <div class="q-icon q-icon-hist"><svg width="18" height="18" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M11 7v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-  <div class="q-text">Is the pain brought on by exertion?</div>
-  <div class="q-answers"><span class="q-answer">Sí</span><span class="q-answer selected">No</span></div>
-  <div class="q-atom"><span class="q-atom-lbl">symptom atom</span><span class="q-atom-code">symptom(exertional, no)</span></div>
+`<div class="phase-badge badge-p2">Fase 2 — historia clínica</div>
+<h1 class="slide-title">Todos los síntomas en una sola tabla</h1>
+<p class="slide-sub">La Fase 2 muestra las 22 preguntas en una tabla. La columna derecha muestra el átomo Prolog que se asertará. <em>No</em> está preseleccionado — cambie solo los que apliquen al caso del Sr. Mendoza.</p>
+<div class="callout callout-amber"><strong>Las dos respuestas más importantes:</strong> <code>exertional = No</code> es lo que impide que aparezca la angina. <code>pain_duration_minutes = 25</code> satisface la restricción <code>D &gt;= 20</code> en la regla del IAM. Cambie cualquiera y el diagnóstico cambia.</div>
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px;">
+  <table style="width:100%;border-collapse:collapse;font-size:13px;">
+    <thead>
+      <tr style="background:var(--navy-50);">
+        <th style="padding:9px 14px;text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--hint);border-bottom:1px solid var(--border);">Pregunta</th>
+        <th style="padding:9px 14px;text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--hint);border-bottom:1px solid var(--border);">Respuesta</th>
+        <th style="padding:9px 14px;text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--hint);border-bottom:1px solid var(--border);">Átomo Prolog</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;color:var(--text);">¿El paciente tiene dolor torácico?</td>
+        <td style="padding:10px 14px;">
+          <div style="display:flex;gap:4px;">
+            <span style="padding:4px 12px;border:1.5px solid var(--navy-700);border-radius:100px;background:var(--navy-900);color:#fff;font-size:12px;font-weight:500;">Sí</span>
+            <span style="padding:4px 12px;border:1.5px solid var(--border);border-radius:100px;color:var(--muted);font-size:12px;">No</span>
+          </div>
+        </td>
+        <td style="padding:10px 14px;"><code style="font-family:var(--font-mono);font-size:11px;color:var(--muted);background:var(--navy-50);padding:2px 6px;border-radius:4px;">chest_pain</code></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;color:var(--text);">¿Cómo describe el paciente el dolor?</td>
+        <td style="padding:10px 14px;">
+          <select style="font-size:12px;border:1.5px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--text);background:var(--surface);max-width:180px;" disabled>
+            <option>Opresivo / constrictivo</option>
+          </select>
+        </td>
+        <td style="padding:10px 14px;"><code style="font-family:var(--font-mono);font-size:11px;color:var(--muted);background:var(--navy-50);padding:2px 6px;border-radius:4px;">pain_character</code></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);background:rgba(232,153,58,.04);">
+        <td style="padding:10px 14px;color:var(--text);">¿El dolor se desencadena con el esfuerzo?</td>
+        <td style="padding:10px 14px;">
+          <div style="display:flex;gap:4px;">
+            <span style="padding:4px 12px;border:1.5px solid var(--border);border-radius:100px;color:var(--muted);font-size:12px;">Sí</span>
+            <span style="padding:4px 12px;border:1.5px solid var(--navy-700);border-radius:100px;background:var(--navy-900);color:#fff;font-size:12px;font-weight:500;">No</span>
+          </div>
+        </td>
+        <td style="padding:10px 14px;"><code style="font-family:var(--font-mono);font-size:11px;color:var(--muted);background:var(--navy-50);padding:2px 6px;border-radius:4px;">exertional</code></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border);">
+        <td style="padding:10px 14px;color:var(--text);">¿Cuánto tiempo dura cada episodio (minutos)?</td>
+        <td style="padding:10px 14px;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="number" value="25" disabled style="width:60px;height:30px;text-align:center;border:1.5px solid var(--navy-400);border-radius:6px;font-size:14px;font-weight:300;color:var(--text);background:var(--surface);">
+            <span style="font-size:12px;color:var(--muted);">min</span>
+          </div>
+        </td>
+        <td style="padding:10px 14px;"><code style="font-family:var(--font-mono);font-size:11px;color:var(--muted);background:var(--navy-50);padding:2px 6px;border-radius:4px;">pain_duration_minutes</code></td>
+      </tr>
+      <tr>
+        <td style="padding:10px 14px;color:var(--hint);font-style:italic;font-size:12px;" colspan="3">… 18 preguntas más …</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-</div>`,
+<p>Las respuestas negativas también se asiertan como hechos Prolog — impiden que reglas incorrectas se activen. Al terminar la tabla haga clic en <strong>Continuar a exploración física</strong>.</p>`,
 
-/* 3 — Phase 2b negative symptoms */
-`<div class="phase-badge badge-p2">Fase 2 — historia (respuestas restantes)</div>
-<h1 class="slide-title">Los negativos son igualmente importantes</h1>
-<p class="slide-sub">Responda las 15 preguntas restantes con <strong>No</strong> u omítalas, salvo donde se indique. Las respuestas negativas también se convierten en hechos asertados — impiden que se activen reglas incorrectas.</p>
-<table class="answer-table">
-<thead><tr><th>Pregunta</th><th>Respuesta</th><th>Prolog fact</th></tr></thead>
-<tbody>
-<tr><td>¿Dónde se localiza el dolor?</td><td>Central / retrosternal</td><td>symptom(pain_location, central)</td></tr>
-<tr><td>¿El dolor irradia hacia la espalda?</td><td>No</td><td>symptom(radiation_to_back, no)</td></tr>
-<tr><td>¿El dolor empeora al inspirar?</td><td>No</td><td>symptom(pleuritic, no)</td></tr>
-<tr><td>¿El paciente tiene disnea?</td><td>No</td><td>symptom(dyspnoea, no)</td></tr>
-<tr><td>¿El paciente ha expectorado sangre?</td><td>No</td><td>symptom(haemoptysis, no)</td></tr>
-<tr><td>¿El paciente tiene tos?</td><td>No</td><td>symptom(cough, no)</td></tr>
-<tr><td>¿El paciente tiene fiebre?</td><td>No</td><td>symptom(fever, no)</td></tr>
-<tr><td>¿El dolor empeora al inclinarse o acostarse?</td><td>No</td><td>symptom(worse_on_bending_or_lying, no)</td></tr>
-<tr class="key-row"><td>¿El dolor cede con antiácidos?</td><td><strong>No</strong></td><td>symptom(relieved_by_antacids, no)</td></tr>
-<tr class="key-row"><td>¿El dolor cede con nitroglicerina sublingual?</td><td><strong>No</strong></td><td>symptom(relieved_by_gtn, no)</td></tr>
-<tr><td>¿El dolor cede al inclinarse hacia adelante?</td><td>No</td><td>symptom(relieved_by_sitting_forward, no)</td></tr>
-<tr><td>¿El dolor empeora con el movimiento o palpación?</td><td>No</td><td>symptom(worse_on_movement, no)</td></tr>
-<tr><td>¿El inicio fue súbito (en segundos)?</td><td>No (gradual en minutos)</td><td>symptom(sudden_onset, no)</td></tr>
-<tr><td>¿El dolor se limita a un lado en banda?</td><td>No</td><td>symptom(unilateral_dermatomal, no)</td></tr>
-<tr><td>¿El paciente ha tenido ánimo deprimido?</td><td>No</td><td>symptom(low_mood, no)</td></tr>
-</tbody></table>
-<div class="callout callout-navy"><strong>Consejo:</strong> use el atajo de teclado <strong>N</strong> y luego <strong>Enter</strong> para avanzar rápidamente por las respuestas negativas. Toda la fase de historia toma aproximadamente 90 segundos a ese ritmo.</div>`,
-
-/* 4 — Phase 3 */
+/* 3 — Fase 3 */
 `<div class="phase-badge badge-p3">Fase 3 — exploración física</div>
 <h1 class="slide-title">Ingrese los hallazgos de la exploración clínica</h1>
-<p class="slide-sub">Estos se convierten en <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 5px;border-radius:4px">finding/2</code> hechos en Prolog. Dos de ellos activarán reglas de exclusión.</p>
+<p class="slide-sub">La Fase 3 también muestra todos los hallazgos en una sola tabla. Cada valor se asertará como <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 5px;border-radius:4px">finding/2</code> en Prolog. Al terminar haga clic en <strong>Ver diagnóstico diferencial</strong>.</p>
 <table class="answer-table">
 <thead><tr><th>Pregunta</th><th>Respuesta</th><th>Prolog fact</th></tr></thead>
 <tbody>
-<tr class="key-row"><td>¿Los pulsos son simétricos en las cuatro extremidades?</td><td><strong>Sí</strong> (symmetric)</td><td>finding(pulse_asymmetry, no)</td></tr>
+<tr class="key-row"><td>¿Hay asimetría de pulsos entre las extremidades?</td><td><strong>No</strong> (no hay asimetría)</td><td>finding(pulse_asymmetry, no)</td></tr>
 <tr><td>¿La presión venosa yugular está elevada?</td><td>No</td><td>finding(jvp_elevated, no)</td></tr>
 <tr><td>¿Hay dolor localizado en la pared torácica?</td><td>No</td><td>finding(chest_wall_tenderness, no)</td></tr>
 <tr><td>¿Los ruidos respiratorios están disminuidos en un lado?</td><td>No</td><td>finding(breath_sounds_reduced_unilateral, no)</td></tr>
@@ -355,7 +369,7 @@ const SLIDES = [
 <tr><td>¿Resultado de dímero D?</td><td>No realizado</td><td>finding(d_dimer, not_done)</td></tr>
 </tbody></table>
 <div class="callout callout-amber"><strong>Nota sobre la troponina:</strong> la troponina se eleva dentro de las 6 horas del inicio del IAM. Este paciente llegó 25 minutos después del del inicio — el resultado está genuinamente pendiente. Responder "Aún no disponible" es clínicamente correcto e impide que la regla de exclusión del IAM se active incorrectamente. Es un buen ejemplo del manejo del tiempo clínico real.</div>
-<p style="margin-top:4px">Tras el último hallazgo, haga clic en <strong>Siguiente hallazgo</strong>. El puente se ejecuta automáticamente — Prolog corre, recopila todos los resultados y redirige a la página de diagnóstico.</p>`,
+<p style="margin-top:4px">Tras el último hallazgo, haga clic en <strong>Ver diagnóstico diferencial</strong>. El puente se ejecuta automáticamente — Prolog corre, recopila todos los resultados y redirige a la página de diagnóstico.</p>`,
 
 /* 5 — Phase 4a active diagnoses */
 `<div class="phase-badge badge-p4">Fase 4 — resultados</div>
@@ -446,7 +460,7 @@ const SLIDES = [
     &nbsp;&nbsp;( <span class="r-pred">finding</span>(ecg_changes, <span class="r-val">yes</span>)&nbsp;<span class="r-op">;</span>&nbsp;<span class="r-pred">finding</span>(troponin_elevated, <span class="r-val">yes</span>) ).
   </div>
 </div>
-<div class="callout callout-green"><strong>Para verlo en acción:</strong> ejecute la <strong>Variante D</strong> (última diapositiva). Un dolor desgarrador con irradiación dorsal hace que <code>diagnose/2</code> produzca <code>aortic_dissection</code>. Luego el hallazgo de pulsos simétricos activa <code>exclude_if/2</code> y el diagnóstico aparece tachado con su explicación.</div>`,
+<div class="callout callout-green"><strong>Para verlo en acción:</strong> ejecute la <strong>Variante D</strong> (última diapositiva). En la Sesión D1, la depresión aparece como diagnóstico activo. En la Sesión D2, las mismas respuestas pero con ECG positivo activan <code>exclude_if/2</code> y la depresión desaparece — excluida porque hay una anomalía cardíaca objetiva.</div>`,
 
 /* 8 — Why not angina */
 `<div class="phase-badge badge-p4">Fase 4 — rastreo de reglas</div>
@@ -496,7 +510,7 @@ const SLIDES = [
 
 /* 10 — Try it yourself */
 `<div class="phase-badge badge-learn">Practícalo</div>
-<h1 class="slide-title">Tres variantes para ejecutar antes de escribir su propio módulo</h1>
+<h1 class="slide-title">Cuatro variantes para ejecutar antes de escribir su propio módulo</h1>
 <p class="slide-sub">Cada variante cambia una o dos respuestas clave. Ejecútelas en la aplicación, luego abra <code style="font-family:var(--font-mono);font-size:12px;background:var(--navy-50);padding:2px 5px;border-radius:4px">chest_pain.pl</code> y rastree cada resultado hasta su regla.</p>
 <div class="variants">
   <div class="variant">
@@ -519,12 +533,12 @@ const SLIDES = [
   </div>
   <div class="variant">
     <div class="variant-letter">D</div>
-    <div class="variant-title">Exclusión en acción</div>
-    <div class="variant-body">Cualquier edad/sexo. Dolor: <strong>desgarrador</strong>, irradia a la espalda = <strong>Sí</strong>. Hallazgo: pulsos simétricos = <strong>Sí</strong> (pulse_asymmetry = no).</div>
-    <div class="variant-expect">→ diagnose/2 produce: aortic_dissection<br>→ exclude_if/2 lo tacha inmediatamente</div>
+    <div class="variant-title">exclude_if/2 en dos sesiones</div>
+    <div class="variant-body"><strong>Sesión D1:</strong> carácter atípico + ánimo deprimido = <strong>Sí</strong> + resto No + ECG = <strong>No</strong>. Depression aparece activa.<br><br><strong>Sesión D2:</strong> mismas respuestas pero ECG = <strong>Sí</strong>. La depresión desaparece — excluida por hallazgo orgánico.</div>
+    <div class="variant-expect">→ D1: depression (occasional) activa<br>→ D2: excluida por ecg_changes = yes</div>
   </div>
 </div>
-<div class="callout callout-amber"><strong>El ejercicio:</strong> para cada variante, abra la traza de demostración y lea cada oración de justificación. Luego encuentre la <code>explain_step/3</code> cláusula correspondiente en <code>chest_pain.pl</code>. Esa correspondencia uno a uno entre pantalla y fuente es exactamente lo que construirá para su propia presentación.</div>
+<div class="callout callout-amber"><strong>El ejercicio (A, B, C):</strong> abra la traza de demostración y rastree cada justificación hasta su cláusula <code>explain_step/3</code> en <code>chest_pain.pl</code>. Esa correspondencia uno a uno entre pantalla y fuente es exactamente lo que construirá para su propio módulo. <strong>Variante D:</strong> compare el resultado entre las dos sesiones y localice la cláusula <code>exclude_if/2</code> que cambia el resultado.</div>
 <div class="callout callout-green" style="margin-top:12px"><strong>Ya está listo/a</strong> para abrir su stub asignado en <code>prolog/stubs/</code>, leer <code>docs/PROLOG_CONTRACT.md</code>, y comenzar a escribir reglas. El flujo de trabajo es: completar la tabla de frecuencias → escribir reglas diagnose/2 → agregar suggest_test/2 → agregar explain_step/3 → ejecutar <code>pytest tests/test_kb.py</code> → todas las pruebas pasan → abrir un pull request.</div>`,
 
 ];

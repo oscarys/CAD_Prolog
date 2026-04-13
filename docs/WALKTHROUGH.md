@@ -54,12 +54,11 @@ Haga clic en **Iniciar interrogatorio**.
 
 ## Fase 2 — Historia clínica
 
-Ahora se recorrerán 21 preguntas sobre síntomas, una a la vez.
-El átomo que aparece en la parte inferior de cada tarjeta (p. ej.,
-`symptom(chest_pain, Value)`) es exactamente lo que se asertará en Prolog
-cuando el puente se ejecute.
+La Fase 2 muestra todas las preguntas en una sola tabla. La columna
+derecha muestra el átomo Prolog que se asertará para cada respuesta.
+Los campos Sí/No tienen *No* preseleccionado — cambie sólo los que apliquen.
 
-Responda cada pregunta de la siguiente manera:
+Responda según el caso del Sr. Mendoza:
 
 | Pregunta | Respuesta | Hecho Prolog asertado |
 |----------|-----------|----------------------|
@@ -86,19 +85,18 @@ Responda cada pregunta de la siguiente manera:
 | ¿El paciente ha presentado ánimo deprimido o depresión? | No | `symptom(low_mood, no)` |
 | ¿El paciente tiene antecedente de neoplasia conocida? | No | `symptom(history_of_malignancy, no)` |
 
-> **Consejo:** Use el atajo de teclado **Y** o **N** para preguntas de sí/no,
-> luego **Enter** para avanzar. Toda la fase de historia toma aproximadamente
-> 90 segundos a ese ritmo.
+Al terminar haga clic en **Continuar a exploración física**.
 
 ---
 
 ## Fase 3 — Exploración física
 
-Ahora se preguntará sobre los hallazgos de la exploración clínica.
+La Fase 3 muestra todos los hallazgos en una sola tabla. Registre
+los resultados de la exploración del Sr. Mendoza:
 
 | Pregunta | Respuesta | Hecho Prolog asertado |
 |----------|-----------|----------------------|
-| ¿Los pulsos son simétricos en las cuatro extremidades? | **Sí** (simétricos) | `finding(pulse_asymmetry, no)` |
+| ¿Hay asimetría de pulsos entre las extremidades? | **No** (no hay asimetría) | `finding(pulse_asymmetry, no)` |
 | ¿La presión venosa yugular está elevada? | No | `finding(jvp_elevated, no)` |
 | ¿Hay dolor localizado en la pared torácica a la palpación? | No | `finding(chest_wall_tenderness, no)` |
 | ¿Los ruidos respiratorios están disminuidos en un lado? | No | `finding(breath_sounds_reduced_unilateral, no)` |
@@ -115,7 +113,7 @@ Ahora se preguntará sobre los hallazgos de la exploración clínica.
 > está genuinamente pendiente. Responder "Aún no disponible" es clínicamente
 > correcto e impide que la regla de exclusión del IAM se active incorrectamente.
 
-Tras el último hallazgo, haga clic en **Siguiente hallazgo**. El puente se
+Al terminar haga clic en **Ver diagnóstico diferencial**. El puente se
 ejecuta automáticamente — Prolog corre, recopila todos los resultados y
 redirige a la página de diagnóstico.
 
@@ -318,13 +316,25 @@ Cualquier edad. Dolor ardoroso, dermatomérico unilateral = **Sí**.
 Hallazgo: exantema vesicular = **Sí**. Sin hallazgos cardíacos.
 El herpes zóster debe ser el único diagnóstico activo.
 
-**Variante D — Disección aórtica excluida (demuestra `exclude_if/2`):**
-Cualquier edad/sexo. Dolor: **desgarrador**, irradia hacia la espalda = **Sí**.
-Hallazgo: pulsos simétricos en las cuatro extremidades = **Sí** (es decir,
-`pulse_asymmetry = no`). Esta combinación hace que `diagnose/2` produzca
-`aortic_dissection`, y el `finding(pulse_asymmetry, no)` activa inmediatamente
-su `exclude_if/2`. Verá la disección aórtica en la lista, tachada, con la
-explicación clínica de la exclusión.
+**Variante D — `exclude_if/2` en dos pasos (depresión):**
+Esta variante se corre en **dos sesiones consecutivas** para ver el mecanismo
+de exclusión completo.
+
+*Sesión D1 — la depresión aparece:*
+Cualquier edad/sexo. Carácter del dolor: **Difícil de describir (atípico)**.
+Ánimo deprimido = **Sí**. Todas las demás respuestas: **No**.
+Hallazgo: ¿ECG con cambios isquémicos? = **No**.
+`diagnose/2` produce `depression (occasional)` como diagnóstico activo.
+
+*Sesión D2 — la depresión se excluye:*
+Exactamente las mismas respuestas, pero ahora el ECG regresa positivo:
+¿ECG con cambios isquémicos? = **Sí**.
+La depresión ya no aparece — `exclude_if/2` la elimina porque hay una
+anomalía cardíaca objetiva. El sistema nunca acepta causa psicológica
+mientras existan hallazgos orgánicos presentes.
+
+Esto ilustra una regla de seguridad clínica real: el resultado cambia
+**no por los síntomas** sino por un **hallazgo de exploración**.
 
 Para cada variante, abra la traza de demostración y rastree cada justificación
 hasta su cláusula `explain_step/3` en `chest_pain.pl`. Esa correspondencia
