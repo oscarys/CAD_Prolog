@@ -125,7 +125,7 @@ body { font-family: var(--font-sans); background: var(--bg); color: var(--text);
 .proof-hdr { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--amber); font-family: var(--font-mono); margin-bottom: 14px; }
 .proof-step { display: flex; gap: 0; margin-bottom: 4px; }
 .proof-bar { width: 1px; background: var(--navy-700); margin: 0 16px 0 8px; flex-shrink: 0; }
-.proof-body { flex: 1; padding: 8px 0 8px; }
+.proof-body { flex: 1; padding: 8px 0 8px; color: #bcc5db; }
 .proof-atom { font-family: var(--font-mono); font-size: 12px; margin-bottom: 4px; display: flex; flex-wrap: wrap; gap: 2px; align-items: center; }
 .p-pred { color: #7eb8f7; } .p-paren { color: var(--navy-200); }
 .p-sym  { color: #f0ad55; } .p-val  { color: #9fdfb0; }
@@ -142,7 +142,7 @@ body { font-family: var(--font-sans); background: var(--bg); color: var(--text);
 /* ── Prolog rule box ── */
 .rule-box { background: var(--navy-950); border: 1px solid var(--navy-700); border-radius: var(--r-lg); padding: 20px 24px; margin-bottom: 16px; overflow-x: auto; }
 .rule-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--amber); font-family: var(--font-mono); margin-bottom: 12px; }
-.rule-code { font-family: var(--font-mono); font-size: 12px; line-height: 1.9; white-space: nowrap; }
+.rule-code { font-family: var(--font-mono); font-size: 12px; line-height: 1.9; white-space: nowrap; color: #bcc5db; }
 .r-pred    { color: #7eb8f7; }
 .r-atom    { color: #f0ad55; }
 .r-val     { color: #9fdfb0; }
@@ -306,7 +306,7 @@ const SLIDES = [
 <div style="margin-top:12px">
 <div class="q-mockup">
   <div class="q-icon q-icon-hist"><svg width="18" height="18" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M11 7v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-  <div class="q-text">Is the pain brought on by exertion?</div>
+  <div class="q-text">¿El dolor se desencadena con el esfuerzo?</div>
   <div class="q-answers"><span class="q-answer">Sí</span><span class="q-answer selected">No</span></div>
   <div class="q-atom"><span class="q-atom-lbl">symptom atom</span><span class="q-atom-code">symptom(exertional, no)</span></div>
 </div>
@@ -344,7 +344,7 @@ const SLIDES = [
 <table class="answer-table">
 <thead><tr><th>Pregunta</th><th>Respuesta</th><th>Prolog fact</th></tr></thead>
 <tbody>
-<tr class="key-row"><td>¿Los pulsos son simétricos en las cuatro extremidades?</td><td><strong>Sí</strong> (symmetric)</td><td>finding(pulse_asymmetry, no)</td></tr>
+<tr class="key-row"><td>¿Hay asimetría de pulsos entre las extremidades?</td><td><strong>No</strong> (no hay asimetría)</td><td>finding(pulse_asymmetry, no)</td></tr>
 <tr><td>¿La presión venosa yugular está elevada?</td><td>No</td><td>finding(jvp_elevated, no)</td></tr>
 <tr><td>¿Hay dolor localizado en la pared torácica?</td><td>No</td><td>finding(chest_wall_tenderness, no)</td></tr>
 <tr><td>¿Los ruidos respiratorios están disminuidos en un lado?</td><td>No</td><td>finding(breath_sounds_reduced_unilateral, no)</td></tr>
@@ -448,7 +448,7 @@ const SLIDES = [
     &nbsp;&nbsp;( <span class="r-pred">finding</span>(ecg_changes, <span class="r-val">yes</span>)&nbsp;<span class="r-op">;</span>&nbsp;<span class="r-pred">finding</span>(troponin_elevated, <span class="r-val">yes</span>) ).
   </div>
 </div>
-<div class="callout callout-green"><strong>Para verlo en acción:</strong> ejecute la <strong>Variante D</strong> (última diapositiva). Un dolor desgarrador con irradiación dorsal hace que <code>diagnose/2</code> produzca <code>aortic_dissection</code>. Luego el hallazgo de pulsos simétricos activa <code>exclude_if/2</code> y el diagnóstico aparece tachado con su explicación.</div>`,
+<div class="callout callout-green"><strong>Para verlo en acción:</strong> ejecute la <strong>Variante D</strong> (última diapositiva). Un dolor desgarrador con irradiación dorsal hace que <code>diagnose/2</code> produzca <code>aortic_dissection</code>. Luego responder No a la asimetría de pulsos activa <code>exclude_if/2</code> y el diagnóstico aparece tachado con su explicación.</div>`,
 
 /* 8 — Why not angina */
 `<div class="phase-badge badge-p4">Fase 4 — rastreo de reglas</div>
@@ -522,7 +522,7 @@ const SLIDES = [
   <div class="variant">
     <div class="variant-letter">D</div>
     <div class="variant-title">Exclusión en acción</div>
-    <div class="variant-body">Cualquier edad/sexo. Dolor: <strong>desgarrador</strong>, irradia a la espalda = <strong>Sí</strong>. Hallazgo: pulsos simétricos = <strong>Sí</strong> (pulse_asymmetry = no).</div>
+    <div class="variant-body">Cualquier edad/sexo. Dolor: <strong>desgarrador</strong>, irradia a la espalda = <strong>Sí</strong>. Hallazgo: ¿asimetría de pulsos? = <strong>No</strong> (pulse_asymmetry = no).</div>
     <div class="variant-expect">→ diagnose/2 produce: aortic_dissection<br>→ exclude_if/2 lo tacha inmediatamente</div>
   </div>
 </div>

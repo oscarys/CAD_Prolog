@@ -139,7 +139,7 @@ HISTORY_QUESTIONS = {
 EXAM_QUESTIONS = {
 
     "chest_pain": [
-        {"finding": "pulse_asymmetry",              "question": "¿Los pulsos son simétricos en las cuatro extremidades?",          "type": "yesno", "inverted": True},
+        {"finding": "pulse_asymmetry",              "question": "¿Hay asimetría de pulsos entre las extremidades?",                  "type": "yesno"},
         {"finding": "jvp_elevated",                 "question": "¿La presión venosa yugular está elevada?",                             "type": "yesno"},
         {"finding": "chest_wall_tenderness",        "question": "¿Hay dolor localizado en la pared torácica a la palpación?", "type": "yesno"},
         {"finding": "breath_sounds_reduced_unilateral", "question": "¿Los ruidos respiratorios están disminuidos en un lado?",       "type": "yesno"},
@@ -317,6 +317,9 @@ def examination_post():
     if idx < len(questions):
         finding_name = questions[idx]["finding"]
         value = request.form.get("answer", "no")
+        # If the question is logically inverted, flip yes/no
+        if questions[idx].get("inverted") and value in ("yes", "no"):
+            value = "no" if value == "yes" else "yes"
         sess.record_finding(finding_name, value)
 
     return redirect(url_for("examination"))

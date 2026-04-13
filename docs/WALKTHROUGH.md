@@ -98,7 +98,7 @@ Ahora se preguntará sobre los hallazgos de la exploración clínica.
 
 | Pregunta | Respuesta | Hecho Prolog asertado |
 |----------|-----------|----------------------|
-| ¿Los pulsos son simétricos en las cuatro extremidades? | **Sí** (simétricos) | `finding(pulse_asymmetry, no)` |
+| ¿Hay asimetría de pulsos entre las extremidades? | **No** (no hay asimetría) | `finding(pulse_asymmetry, no)` |
 | ¿La presión venosa yugular está elevada? | No | `finding(jvp_elevated, no)` |
 | ¿Hay dolor localizado en la pared torácica a la palpación? | No | `finding(chest_wall_tenderness, no)` |
 | ¿Los ruidos respiratorios están disminuidos en un lado? | No | `finding(breath_sounds_reduced_unilateral, no)` |
@@ -320,7 +320,7 @@ El herpes zóster debe ser el único diagnóstico activo.
 
 **Variante D — Disección aórtica excluida (demuestra `exclude_if/2`):**
 Cualquier edad/sexo. Dolor: **desgarrador**, irradia hacia la espalda = **Sí**.
-Hallazgo: pulsos simétricos en las cuatro extremidades = **Sí** (es decir,
+Hallazgo: ¿asimetría de pulsos? = **No** (no hay asimetría, por lo tanto
 `pulse_asymmetry = no`). Esta combinación hace que `diagnose/2` produzca
 `aortic_dissection`, y el `finding(pulse_asymmetry, no)` activa inmediatamente
 su `exclude_if/2`. Verá la disección aórtica en la lista, tachada, con la
