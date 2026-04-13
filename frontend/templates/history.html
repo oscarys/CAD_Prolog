@@ -3,102 +3,83 @@
 {% block title %}Historia — {{ presentation_label }}{% endblock %}
 
 {% block content %}
-<div class="question-page">
+<div class="form-page">
 
-  <div class="question-context">
-    <span class="context-phase">Historia</span>
-    <span class="context-sep">·</span>
-    <span class="context-presentation">{{ presentation_label }}</span>
-  </div>
-
-  <!-- Progress bar -->
-  <div class="progress-track">
-    <div class="progress-fill" style="width: {{ progress.pct }}%"></div>
-  </div>
-  <div class="progress-label">Pregunta {{ progress.current }} de {{ progress.total }}</div>
-
-  <!-- The question card -->
-  <div class="question-card" id="questionCard">
-    <div class="question-icon history-icon">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-        <circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M11 7v4l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
+  <div class="page-header">
+    <div class="question-context">
+      <span class="context-phase">Historia clínica</span>
+      <span class="context-sep">·</span>
+      <span class="context-presentation">{{ presentation_label }}</span>
     </div>
-    <h2 class="question-text">{{ question.question }}</h2>
-
-    <form action="{{ url_for('history_post') }}" method="post" class="answer-form" id="answerForm">
-
-      {% if question.type == 'yesno' %}
-      <div class="yesno-group">
-        <label class="answer-card yesno-card" id="ansYes">
-          <input type="radio" name="answer" value="yes" required>
-          <span class="yesno-mark yes-mark">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          <span class="yesno-label">Sí</span>
-        </label>
-        <label class="answer-card yesno-card" id="ansNo">
-          <input type="radio" name="answer" value="no" required>
-          <span class="yesno-mark no-mark">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </span>
-          <span class="yesno-label">No</span>
-        </label>
-      </div>
-
-      {% elif question.type == 'choice' %}
-      <div class="choice-group">
-        {% for value, label in question.options %}
-        <label class="answer-card choice-card">
-          <input type="radio" name="answer" value="{{ value }}" required>
-          <span class="choice-label">{{ label }}</span>
-        </label>
-        {% endfor %}
-      </div>
-
-      {% elif question.type == 'number' %}
-      <div class="number-group">
-        <input class="number-input" type="number" name="answer" min="0" max="9999"
-               placeholder="Ingrese valor" required id="numberInput">
-        <span class="number-unit">minutos</span>
-      </div>
-
-      {% elif question.type == 'scale' %}
-      <div class="choice-group">
-        {% for value, label in [('mild','Mild'), ('moderate','Moderate'), ('severe','Severe')] %}
-        <label class="answer-card choice-card">
-          <input type="radio" name="answer" value="{{ value }}" required>
-          <span class="choice-label">{{ label }}</span>
-        </label>
-        {% endfor %}
-      </div>
-      {% endif %}
-
-      <div class="question-actions">
-        <button type="submit" class="btn-primary" id="nextBtn" disabled>
-          Siguiente pregunta
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button type="submit" name="answer" value="not_reported" class="btn-skip" formnovalidate>
-          No reportado / omitir
-        </button>
-      </div>
-
-    </form>
+    <h1 class="page-title">Interrogatorio por síntomas</h1>
+    <p class="page-subtitle">Responda cada pregunta según la presentación del paciente. Las preguntas Sí/No tienen <em>No</em> como valor predeterminado.</p>
   </div>
 
-  <!-- Symptom atom hint (useful for students debugging their Prolog) -->
-  <div class="dev-hint">
-    <span class="dev-hint-label">átomo de síntoma</span>
-    <code class="dev-hint-code">symptom({{ question.symptom }}, Value)</code>
-  </div>
+  <form action="{{ url_for('history_post') }}" method="post" id="historyForm">
 
+    <div class="q-table-card">
+      <table class="q-table">
+        <thead>
+          <tr>
+            <th class="col-question">Pregunta</th>
+            <th class="col-answer">Respuesta</th>
+            <th class="col-atom">Átomo Prolog</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for q in questions %}
+          <tr class="q-row">
+            <td class="cell-question">{{ q.question }}</td>
+            <td class="cell-answer">
+
+              {% if q.type == 'yesno' %}
+              <div class="inline-toggle">
+                <label class="toggle-pill">
+                  <input type="radio" name="{{ q.symptom }}" value="yes">
+                  <span>Sí</span>
+                </label>
+                <label class="toggle-pill">
+                  <input type="radio" name="{{ q.symptom }}" value="no" checked>
+                  <span>No</span>
+                </label>
+              </div>
+
+              {% elif q.type == 'choice' %}
+              <select class="inline-select" name="{{ q.symptom }}">
+                <option value="not_reported">— no reportado —</option>
+                {% for value, label in q.options %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+
+              {% elif q.type == 'number' %}
+              <div class="inline-number">
+                <input class="number-inline" type="number" name="{{ q.symptom }}"
+                       min="0" max="9999" placeholder="—">
+                <span class="number-unit-inline">min</span>
+              </div>
+
+              {% endif %}
+            </td>
+            <td class="cell-atom">
+              <code class="atom-hint">{{ q.symptom }}</code>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="form-actions" style="margin-top: 24px;">
+      <button type="submit" class="btn-primary">
+        Continuar a exploración física
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </form>
 </div>
 {% endblock %}

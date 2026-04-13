@@ -54,12 +54,11 @@ Haga clic en **Iniciar interrogatorio**.
 
 ## Fase 2 — Historia clínica
 
-Ahora se recorrerán 21 preguntas sobre síntomas, una a la vez.
-El átomo que aparece en la parte inferior de cada tarjeta (p. ej.,
-`symptom(chest_pain, Value)`) es exactamente lo que se asertará en Prolog
-cuando el puente se ejecute.
+La Fase 2 muestra todas las preguntas en una sola tabla. La columna
+derecha muestra el átomo Prolog que se asertará para cada respuesta.
+Los campos Sí/No tienen *No* preseleccionado — cambie sólo los que apliquen.
 
-Responda cada pregunta de la siguiente manera:
+Responda según el caso del Sr. Mendoza:
 
 | Pregunta | Respuesta | Hecho Prolog asertado |
 |----------|-----------|----------------------|
@@ -86,15 +85,14 @@ Responda cada pregunta de la siguiente manera:
 | ¿El paciente ha presentado ánimo deprimido o depresión? | No | `symptom(low_mood, no)` |
 | ¿El paciente tiene antecedente de neoplasia conocida? | No | `symptom(history_of_malignancy, no)` |
 
-> **Consejo:** Use el atajo de teclado **Y** o **N** para preguntas de sí/no,
-> luego **Enter** para avanzar. Toda la fase de historia toma aproximadamente
-> 90 segundos a ese ritmo.
+Al terminar haga clic en **Continuar a exploración física**.
 
 ---
 
 ## Fase 3 — Exploración física
 
-Ahora se preguntará sobre los hallazgos de la exploración clínica.
+La Fase 3 muestra todos los hallazgos en una sola tabla. Registre
+los resultados de la exploración del Sr. Mendoza:
 
 | Pregunta | Respuesta | Hecho Prolog asertado |
 |----------|-----------|----------------------|
@@ -115,7 +113,7 @@ Ahora se preguntará sobre los hallazgos de la exploración clínica.
 > está genuinamente pendiente. Responder "Aún no disponible" es clínicamente
 > correcto e impide que la regla de exclusión del IAM se active incorrectamente.
 
-Tras el último hallazgo, haga clic en **Siguiente hallazgo**. El puente se
+Al terminar haga clic en **Ver diagnóstico diferencial**. El puente se
 ejecuta automáticamente — Prolog corre, recopila todos los resultados y
 redirige a la página de diagnóstico.
 
