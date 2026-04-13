@@ -318,13 +318,25 @@ Cualquier edad. Dolor ardoroso, dermatomérico unilateral = **Sí**.
 Hallazgo: exantema vesicular = **Sí**. Sin hallazgos cardíacos.
 El herpes zóster debe ser el único diagnóstico activo.
 
-**Variante D — Disección aórtica excluida (demuestra `exclude_if/2`):**
-Cualquier edad/sexo. Dolor: **desgarrador**, irradia hacia la espalda = **Sí**.
-Hallazgo: ¿asimetría de pulsos? = **No** (no hay asimetría, por lo tanto
-`pulse_asymmetry = no`). Esta combinación hace que `diagnose/2` produzca
-`aortic_dissection`, y el `finding(pulse_asymmetry, no)` activa inmediatamente
-su `exclude_if/2`. Verá la disección aórtica en la lista, tachada, con la
-explicación clínica de la exclusión.
+**Variante D — `exclude_if/2` en dos pasos (depresión):**
+Esta variante se corre en **dos sesiones consecutivas** para ver el mecanismo
+de exclusión completo.
+
+*Sesión D1 — la depresión aparece:*
+Cualquier edad/sexo. Carácter del dolor: **Difícil de describir (atípico)**.
+Ánimo deprimido = **Sí**. Todas las demás respuestas: **No**.
+Hallazgo: ¿ECG con cambios isquémicos? = **No**.
+`diagnose/2` produce `depression (occasional)` como diagnóstico activo.
+
+*Sesión D2 — la depresión se excluye:*
+Exactamente las mismas respuestas, pero ahora el ECG regresa positivo:
+¿ECG con cambios isquémicos? = **Sí**.
+La depresión ya no aparece — `exclude_if/2` la elimina porque hay una
+anomalía cardíaca objetiva. El sistema nunca acepta causa psicológica
+mientras existan hallazgos orgánicos presentes.
+
+Esto ilustra una regla de seguridad clínica real: el resultado cambia
+**no por los síntomas** sino por un **hallazgo de exploración**.
 
 Para cada variante, abra la traza de demostración y rastree cada justificación
 hasta su cláusula `explain_step/3` en `chest_pain.pl`. Esa correspondencia

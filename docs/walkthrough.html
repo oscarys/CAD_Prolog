@@ -448,7 +448,7 @@ const SLIDES = [
     &nbsp;&nbsp;( <span class="r-pred">finding</span>(ecg_changes, <span class="r-val">yes</span>)&nbsp;<span class="r-op">;</span>&nbsp;<span class="r-pred">finding</span>(troponin_elevated, <span class="r-val">yes</span>) ).
   </div>
 </div>
-<div class="callout callout-green"><strong>Para verlo en acción:</strong> ejecute la <strong>Variante D</strong> (última diapositiva). Un dolor desgarrador con irradiación dorsal hace que <code>diagnose/2</code> produzca <code>aortic_dissection</code>. Luego responder No a la asimetría de pulsos activa <code>exclude_if/2</code> y el diagnóstico aparece tachado con su explicación.</div>`,
+<div class="callout callout-green"><strong>Para verlo en acción:</strong> ejecute la <strong>Variante D</strong> (última diapositiva). En la Sesión D1, la depresión aparece como diagnóstico activo. En la Sesión D2, las mismas respuestas pero con ECG positivo activan <code>exclude_if/2</code> y la depresión desaparece — excluida porque hay una anomalía cardíaca objetiva.</div>`,
 
 /* 8 — Why not angina */
 `<div class="phase-badge badge-p4">Fase 4 — rastreo de reglas</div>
@@ -521,12 +521,12 @@ const SLIDES = [
   </div>
   <div class="variant">
     <div class="variant-letter">D</div>
-    <div class="variant-title">Exclusión en acción</div>
-    <div class="variant-body">Cualquier edad/sexo. Dolor: <strong>desgarrador</strong>, irradia a la espalda = <strong>Sí</strong>. Hallazgo: ¿asimetría de pulsos? = <strong>No</strong> (pulse_asymmetry = no).</div>
-    <div class="variant-expect">→ diagnose/2 produce: aortic_dissection<br>→ exclude_if/2 lo tacha inmediatamente</div>
+    <div class="variant-title">exclude_if/2 en dos sesiones</div>
+    <div class="variant-body"><strong>Sesión D1:</strong> carácter atípico + ánimo deprimido = <strong>Sí</strong> + resto No + ECG = <strong>No</strong>. Depression aparece activa.<br><br><strong>Sesión D2:</strong> mismas respuestas pero ECG = <strong>Sí</strong>. La depresión desaparece — excluida por hallazgo orgánico.</div>
+    <div class="variant-expect">→ D1: depression (occasional) activa<br>→ D2: excluida por ecg_changes = yes</div>
   </div>
 </div>
-<div class="callout callout-amber"><strong>El ejercicio:</strong> para cada variante, abra la traza de demostración y lea cada oración de justificación. Luego encuentre la <code>explain_step/3</code> cláusula correspondiente en <code>chest_pain.pl</code>. Esa correspondencia uno a uno entre pantalla y fuente es exactamente lo que construirá para su propia presentación.</div>
+<div class="callout callout-amber"><strong>El ejercicio (A, B, C):</strong> abra la traza de demostración y rastree cada justificación hasta su cláusula <code>explain_step/3</code> en <code>chest_pain.pl</code>. Esa correspondencia uno a uno entre pantalla y fuente es exactamente lo que construirá para su propio módulo. <strong>Variante D:</strong> compare el resultado entre las dos sesiones y localice la cláusula <code>exclude_if/2</code> que cambia el resultado.</div>
 <div class="callout callout-green" style="margin-top:12px"><strong>Ya está listo/a</strong> para abrir su stub asignado en <code>prolog/stubs/</code>, leer <code>docs/PROLOG_CONTRACT.md</code>, y comenzar a escribir reglas. El flujo de trabajo es: completar la tabla de frecuencias → escribir reglas diagnose/2 → agregar suggest_test/2 → agregar explain_step/3 → ejecutar <code>pytest tests/test_kb.py</code> → todas las pruebas pasan → abrir un pull request.</div>`,
 
 ];
