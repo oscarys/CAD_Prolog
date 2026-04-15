@@ -106,7 +106,7 @@ pytest tests/
 
 ## Student task overview
 
-0. Follow `docs/WALKTHROUGH.md` (or open `docs/walkthrough.html` in a browser) — this is a self-guided full practice of the system to be xercised before writing any Prolog code.
+0. Follow `docs/WALKTHROUGH.md` (or open `docs/walkthrough.html` in a browser) — this is a self-guided full practice of the system to be exercised before writing any Prolog code.
 1. Read `docs/PROLOG_CONTRACT.md` in full. It defines every predicate you must implement.
 2. Read `prolog/modules/chest_pain.pl` — the fully worked reference module.
 3. Copy `prolog/stubs/STUB_TEMPLATE.pl` into `prolog/modules/` and rename it for your presentation.
