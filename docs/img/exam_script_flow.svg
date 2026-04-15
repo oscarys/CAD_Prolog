@@ -3,7 +3,7 @@
   <rect width="720" height="430" fill="#f8f9fc" rx="12"/>
 
   <text x="360" y="32" text-anchor="middle" font-size="15" font-weight="600" fill="#0f1629">Exam script — 4-phase session flow</text>
-  <text x="360" y="50" text-anchor="middle" font-size="11" fill="#8496c0">One screen per question · Prolog queried once at the end</text>
+  <text x="360" y="50" text-anchor="middle" font-size="11" fill="#8496c0">Tabla de síntomas · Tabla de hallazgos · Prolog consultado al final</text>
 
   <defs>
     <marker id="arrFlow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -39,9 +39,9 @@
   <rect x="210" y="88" width="148" height="14" fill="#7F77DD"/>
   <text x="284" y="91" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Phase 2</text>
   <text x="284" y="107" text-anchor="middle" font-size="11" font-weight="600" fill="#26215C">History</text>
-  <text x="284" y="126" text-anchor="middle" font-size="10" fill="#534AB7">One question per screen</text>
-  <text x="284" y="141" text-anchor="middle" font-size="10" fill="#534AB7">Yes/No · Choice · Number</text>
-  <text x="284" y="156" text-anchor="middle" font-size="10" fill="#534AB7">Skip available</text>
+  <text x="284" y="126" text-anchor="middle" font-size="10" fill="#534AB7">Tabla única de síntomas</text>
+  <text x="284" y="141" text-anchor="middle" font-size="10" fill="#534AB7">Sí/No · Selección · Número</text>
+  <text x="284" y="156" text-anchor="middle" font-size="10" fill="#534AB7">No preseleccionado</text>
   <rect x="226" y="170" width="116" height="48" rx="6" fill="#CECBF6" stroke="#7F77DD" stroke-width="0.7"/>
   <text x="284" y="189" text-anchor="middle" font-size="10" fill="#26215C" font-weight="500">assert:</text>
   <text x="284" y="204" text-anchor="middle" font-size="10" fill="#26215C" font-family="monospace">symptom(Name,</text>
@@ -56,9 +56,9 @@
   <rect x="380" y="88" width="148" height="14" fill="#639922"/>
   <text x="454" y="91" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">Phase 3</text>
   <text x="454" y="107" text-anchor="middle" font-size="11" font-weight="600" fill="#173404">Examination</text>
-  <text x="454" y="126" text-anchor="middle" font-size="10" fill="#3B6D11">Clinical findings</text>
-  <text x="454" y="141" text-anchor="middle" font-size="10" fill="#3B6D11">Yes/No · Choice</text>
-  <text x="454" y="156" text-anchor="middle" font-size="10" fill="#3B6D11">Skip available</text>
+  <text x="454" y="126" text-anchor="middle" font-size="10" fill="#3B6D11">Hallazgos clínicos</text>
+  <text x="454" y="141" text-anchor="middle" font-size="10" fill="#3B6D11">Sí/No · Selección</text>
+  <text x="454" y="156" text-anchor="middle" font-size="10" fill="#3B6D11">No preseleccionado</text>
   <rect x="396" y="170" width="116" height="48" rx="6" fill="#C0DD97" stroke="#639922" stroke-width="0.7"/>
   <text x="454" y="189" text-anchor="middle" font-size="10" fill="#173404" font-weight="500">assert:</text>
   <text x="454" y="204" text-anchor="middle" font-size="10" fill="#173404" font-family="monospace">finding(Name,</text>
