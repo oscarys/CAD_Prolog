@@ -13,7 +13,7 @@ You are encoding the diagnostic logic from Churchill's Pocketbook into Prolog
 rules. The system works in four steps:
 
 ```
-1. Patient answers questions in the UI
+1. User answers questions in the UI
 2. Bridge asserts answers as dynamic Prolog facts
 3. Bridge calls diagnose/2  -  Prolog finds all matching diagnoses
 4. Bridge calls explain_step/3 for each  -  Prolog returns proof trace
