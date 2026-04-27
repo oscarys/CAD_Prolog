@@ -24,16 +24,17 @@
 frequency(angina,                common).
 frequency(myocardial_infarction, common).
 frequency(reflux_oesophagitis,   common).
-frequency(costochondritis,       common).
-frequency(pericarditis,          occasional).
-frequency(aortic_dissection,     occasional).
+frequency(costochondritis,       occasional).
+frequency(pericarditis,          rare).
+frequency(aortic_dissection,     rare).
 frequency(oesophageal_spasm,     occasional).
 frequency(peptic_ulcer,          occasional).
-frequency(pneumonia,             occasional).
-frequency(pneumothorax,          occasional).
+frequency(pneumonia,             common).
+frequency(pneumothorax,          common).
 frequency(pulmonary_embolism,    occasional).
 frequency(herpes_zoster,         occasional).
-frequency(depression,            occasional).
+frequency(depression,            common).
+frequency(chest_wall_injuries,   common).
 frequency(rib_metastasis,        rare).
 
 
@@ -151,6 +152,13 @@ diagnose(rib_metastasis, Frequency) :-
     finding(localised_rib_tenderness, yes),
     frequency(rib_metastasis, Frequency).
 
+diagnose(chest_wall_injuries, Frequency) :-
+    symptom(chest_pain, yes),
+    symptom(worse_on_movement, yes),
+    finding(chest_wall_tenderness, yes),
+    symptom(preceding_trauma, yes),
+    frequency(chest_wall_injuries, Frequency).
+
 % --- Psychological ---
 
 diagnose(depression, Frequency) :-
@@ -216,6 +224,9 @@ suggest_test(pulmonary_embolism,    fbc).
 suggest_test(pulmonary_embolism,    doppler_lower_limbs).
 
 suggest_test(costochondritis,       cxr).
+
+suggest_test(chest_wall_injuries,   cxr).
+suggest_test(chest_wall_injuries,   rib_xray).
 
 suggest_test(herpes_zoster,         clinical_diagnosis).
 suggest_test(herpes_zoster,         viral_swab_pcr).
@@ -340,6 +351,16 @@ explain_step(costochondritis, worse_on_movement,
     'El movimiento del tórax agrava la inflamación costocondral').
 explain_step(costochondritis, chest_wall_tenderness,
     'El dolor reproducible a la palpación de las uniones costocondrales es el hallazgo diagnóstico clave').
+
+% --- chest_wall_injuries ---
+explain_step(chest_wall_injuries, chest_pain,
+    'El traumatismo de la pared torácica causa dolor localizado por lesión directa de costillas, cartílagos o músculos intercostales').
+explain_step(chest_wall_injuries, worse_on_movement,
+    'El movimiento del tórax agrava el dolor de origen musculoesquelético  -  rasgo típico de las lesiones de la pared torácica').
+explain_step(chest_wall_injuries, chest_wall_tenderness,
+    'El dolor reproducible a la palpación directa sobre la zona afectada confirma el origen musculoesquelético').
+explain_step(chest_wall_injuries, preceding_trauma,
+    'El antecedente de traumatismo contuso o estiramiento indica directamente la etiología de la lesión de la pared torácica').
 
 % --- herpes_zoster ---
 explain_step(herpes_zoster, chest_pain,

@@ -8,18 +8,19 @@ See `prolog/modules/chest_pain.pl` for the complete reference implementation.
 |------|-------------|-----------|
 | `angina` | Angina pectoris | common |
 | `myocardial_infarction` | Myocardial infarction | common |
-| `pericarditis` | Pericarditis | occasional |
-| `aortic_dissection` | Aortic dissection | occasional |
+| `pericarditis` | Pericarditis | rare |
+| `aortic_dissection` | Aortic dissection | rare |
 | `reflux_oesophagitis` | Reflux oesophagitis | common |
 | `oesophageal_spasm` | Oesophageal spasm | occasional |
-| `peptic_ulcer` | Peptic ulcer | common |
-| `pneumonia` | Pneumonia | occasional |
-| `pneumothorax` | Pneumothorax | occasional |
+| `peptic_ulcer` | Peptic ulcer | occasional |
+| `pneumonia` | Pneumonia | common |
+| `pneumothorax` | Pneumothorax | common |
 | `pulmonary_embolism` | Pulmonary embolism | occasional |
-| `costochondritis` | Costochondritis | common |
+| `costochondritis` | Costochondritis | occasional |
 | `herpes_zoster` | Herpes zoster | occasional |
+| `chest_wall_injuries` | Chest wall injuries | common |
 | `rib_metastasis` | Rib metastasis | rare |
-| `depression` | Depression | occasional |
+| `depression` | Depression | common |
 
 ## Symptom atoms
 
@@ -46,6 +47,7 @@ See `prolog/modules/chest_pain.pl` for the complete reference implementation.
 | `sudden_onset` | yesno | `yes` / `no` |
 | `unilateral_dermatomal` | yesno | `yes` / `no` |
 | `low_mood` | yesno | `yes` / `no` |
+| `preceding_trauma` | yesno | `yes` / `no` |
 | `history_of_malignancy` | yesno | `yes` / `no` |
 
 ## Finding atoms
