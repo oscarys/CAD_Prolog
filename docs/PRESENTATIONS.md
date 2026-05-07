@@ -10,27 +10,27 @@ the UI questions) and your `.pl` module. Use them verbatim.
 
 ## The 18 presentations
 
-| System | Presentation | Churchill's p. | File |
+| System | Presentation | Churchill's p. | File | RESPONSABLE |
 |--------|-------------|----------------|------|
-| Cardiovascular | Chest pain ★ | 57–61 | [chest_pain.md](presentations/chest_pain.md) |
-| Cardiovascular | Palpitations | 351–353 | [palpitations.md](presentations/palpitations.md) |
-| Cardiovascular | Syncope | 427–430 | [syncope.md](presentations/syncope.md) |
-| Respiratory | Dyspnoea | 109–114 | [dyspnoea.md](presentations/dyspnoea.md) |
-| Respiratory | Cough / haemoptysis | 84–90, 191–195 | [cough_haemoptysis.md](presentations/cough_haemoptysis.md) |
-| Respiratory | Stridor | 419–422 | [stridor.md](presentations/stridor.md) |
-| Gastrointestinal | Abdominal pain | 3–8 | [abdominal_pain.md](presentations/abdominal_pain.md) |
-| Gastrointestinal | Jaundice | 240–249 | [jaundice.md](presentations/jaundice.md) |
-| Gastrointestinal | Haematemesis | 182–186 | [haematemesis.md](presentations/haematemesis.md) |
-| Gastrointestinal | Diarrhoea | 95–100 | [diarrhoea.md](presentations/diarrhoea.md) |
-| Neurological | Headache | 207–211 | [headache.md](presentations/headache.md) |
-| Neurological | Convulsions | 80–83 | [convulsions.md](presentations/convulsions.md) |
-| Neurological | Coma / confusion | 67–79 | [coma_confusion.md](presentations/coma_confusion.md) |
-| Systemic | Pyrexia of unknown origin | 374–377 | [pyrexia_unknown_origin.md](presentations/pyrexia_unknown_origin.md) |
-| Systemic | Weight loss | 483–490 | [weight_loss.md](presentations/weight_loss.md) |
-| Systemic | Shock | 406–409 | [shock.md](presentations/shock.md) |
-| Urogenital / Endocrine | Haematuria | 187–190 | [haematuria.md](presentations/haematuria.md) |
-| Urogenital / Endocrine | Polyuria / thirst | 359–362, 431–433 | [polyuria_thirst.md](presentations/polyuria_thirst.md) |
-| Urogenital / Endocrine | Oedema | 343–346 | [oedema.md](presentations/oedema.md) |
+| Cardiovascular | Chest pain ★ | 57–61 | [chest_pain.md](presentations/chest_pain.md) | Listo Prolog y HTML |
+| Cardiovascular | Palpitations | 351–353 | [palpitations.md](presentations/palpitations.md) | |
+| Cardiovascular | Syncope | 427–430 | [syncope.md](presentations/syncope.md) | |
+| Respiratory | Dyspnoea | 109–114 | [dyspnoea.md](presentations/dyspnoea.md) | Christopher |
+| Respiratory | Cough / haemoptysis | 84–90, 191–195 | [cough_haemoptysis.md](presentations/cough_haemoptysis.md) | ROdrigo |
+| Respiratory | Stridor | 419–422 | [stridor.md](presentations/stridor.md) | |
+| Gastrointestinal | Abdominal pain | 3–8 | [abdominal_pain.md](presentations/abdominal_pain.md) | Oscar |
+| Gastrointestinal | Jaundice | 240–249 | [jaundice.md](presentations/jaundice.md) | |
+| Gastrointestinal | Haematemesis | 182–186 | [haematemesis.md](presentations/haematemesis.md) | |
+| Gastrointestinal | Diarrhoea | 95–100 | [diarrhoea.md](presentations/diarrhoea.md) | |
+| Neurological | Headache | 207–211 | [headache.md](presentations/headache.md) | Oscar |
+| Neurological | Convulsions | 80–83 | [convulsions.md](presentations/convulsions.md) | Melissa |
+| Neurological | Coma / confusion | 67–79 | [coma_confusion.md](presentations/coma_confusion.md) | |
+| Systemic | Pyrexia of unknown origin | 374–377 | [pyrexia_unknown_origin.md](presentations/pyrexia_unknown_origin.md) | |
+| Systemic | Weight loss | 483–490 | [weight_loss.md](presentations/weight_loss.md) | Alejandro |
+| Systemic | Shock | 406–409 | [shock.md](presentations/shock.md) | |
+| Urogenital / Endocrine | Haematuria | 187–190 | [haematuria.md](presentations/haematuria.md) | |
+| Urogenital / Endocrine | Polyuria / thirst | 359–362, 431–433 | [polyuria_thirst.md](presentations/polyuria_thirst.md) | |
+| Urogenital / Endocrine | Oedema | 343–346 | [oedema.md](presentations/oedema.md) | |
 
 ★ Chest pain is the **worked example** — read `prolog/modules/chest_pain.pl`
 alongside its reference file before starting your own module.
