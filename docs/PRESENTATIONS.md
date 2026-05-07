@@ -11,7 +11,7 @@ the UI questions) and your `.pl` module. Use them verbatim.
 ## The 18 presentations
 
 | System | Presentation | Churchill's p. | File | RESPONSABLE |
-|--------|-------------|----------------|------|
+|--------|-------------|----------------|------|------|
 | Cardiovascular | Chest pain ★ | 57–61 | [chest_pain.md](presentations/chest_pain.md) | Listo Prolog y HTML |
 | Cardiovascular | Palpitations | 351–353 | [palpitations.md](presentations/palpitations.md) | |
 | Cardiovascular | Syncope | 427–430 | [syncope.md](presentations/syncope.md) | |
