@@ -100,11 +100,10 @@ def module_files():
 
 @pytest.mark.parametrize("filename", module_files())
 def test_module_loads(filename):
-    """Module must consult without error."""
+    """Module must load without error."""
     path = os.path.join(MODULES_DIR, filename).replace("\\", "/")
     p = fresh_prolog()
-    # This will raise if the file has syntax errors
-    list(p.query(f"consult('{path}')"))
+    list(p.query(f"use_module('{path}')"))
 
 
 @pytest.mark.parametrize("presentation,session", CANONICAL_SYMPTOMS.items())
@@ -116,11 +115,11 @@ def test_canonical_case_fires(presentation, session):
 
     p = fresh_prolog()
     p_path = module_path.replace("\\", "/")
-    list(p.query(f"consult('{p_path}')"))
+    list(p.query(f"use_module('{p_path}')"))
 
     assert_session(p, session)
     try:
-        results = list(p.query("diagnose(D, F)"))
+        results = list(p.query(f"{presentation}:diagnose(D, F)"))
         assert len(results) > 0, (
             f"diagnose/2 returned no results for canonical {presentation} symptoms. "
             "Check that your rules match the canonical symptom set."
@@ -133,13 +132,13 @@ def test_canonical_case_fires(presentation, session):
 def test_all_diagnoses_have_frequency(filename):
     """Every atom produced by diagnose/2 must have a frequency/2 fact."""
     path = os.path.join(MODULES_DIR, filename).replace("\\", "/")
+    mod = filename.replace(".pl", "")
     p = fresh_prolog()
-    list(p.query(f"consult('{path}')"))
+    list(p.query(f"use_module('{path}')"))
 
-    # Get all diagnoses declared via frequency/2 (no need to assert symptoms)
-    diagnoses = [str(s["D"]) for s in p.query("frequency(D, _)")]
+    diagnoses = [str(s["D"]) for s in p.query(f"{mod}:frequency(D, _)")]
     for dx in diagnoses:
-        result = list(p.query(f"frequency({dx}, _)"))
+        result = list(p.query(f"{mod}:frequency({dx}, _)"))
         assert result, f"No frequency/2 for diagnosis '{dx}' in {filename}"
 
 
@@ -147,12 +146,13 @@ def test_all_diagnoses_have_frequency(filename):
 def test_all_diagnoses_have_tests(filename):
     """Every diagnosis declared in frequency/2 must have at least one suggest_test/2."""
     path = os.path.join(MODULES_DIR, filename).replace("\\", "/")
+    mod = filename.replace(".pl", "")
     p = fresh_prolog()
-    list(p.query(f"consult('{path}')"))
+    list(p.query(f"use_module('{path}')"))
 
-    diagnoses = [str(s["D"]) for s in p.query("frequency(D, _)")]
+    diagnoses = [str(s["D"]) for s in p.query(f"{mod}:frequency(D, _)")]
     for dx in diagnoses:
-        tests = list(p.query(f"suggest_test({dx}, _)"))
+        tests = list(p.query(f"{mod}:suggest_test({dx}, _)"))
         assert tests, (
             f"No suggest_test/2 facts for '{dx}' in {filename}. "
             "Every diagnosis needs at least one recommended investigation."
@@ -163,12 +163,13 @@ def test_all_diagnoses_have_tests(filename):
 def test_explain_step_exists_for_each_diagnosis(filename):
     """Every diagnosis must have at least one explain_step/3 clause."""
     path = os.path.join(MODULES_DIR, filename).replace("\\", "/")
+    mod = filename.replace(".pl", "")
     p = fresh_prolog()
-    list(p.query(f"consult('{path}')"))
+    list(p.query(f"use_module('{path}')"))
 
-    diagnoses = [str(s["D"]) for s in p.query("frequency(D, _)")]
+    diagnoses = [str(s["D"]) for s in p.query(f"{mod}:frequency(D, _)")]
     for dx in diagnoses:
-        steps = list(p.query(f"explain_step({dx}, _, _)"))
+        steps = list(p.query(f"{mod}:explain_step({dx}, _, _)"))
         assert steps, (
             f"No explain_step/3 clauses for '{dx}' in {filename}. "
             "Every diagnosis needs proof trace steps."
@@ -186,13 +187,13 @@ def test_chest_pain_reference_module():
 
     p = fresh_prolog()
     p_path = module_path.replace("\\", "/")
-    list(p.query(f"consult('{p_path}')"))
+    list(p.query(f"use_module('{p_path}')"))
 
     # Scenario 1: Classic angina
     list(p.query("assertz(symptom(chest_pain, yes))"))
     list(p.query("assertz(symptom(pain_character, crushing))"))
     list(p.query("assertz(symptom(exertional, yes))"))
-    results = list(p.query("diagnose(D, F)"))
+    results = list(p.query("chest_pain:diagnose(D, F)"))
     diagnoses = [str(r["D"]) for r in results]
     assert "angina" in diagnoses, "Angina should be diagnosed in classic exertional crushing chest pain"
     retract_all(p)
@@ -202,7 +203,7 @@ def test_chest_pain_reference_module():
     list(p.query("assertz(symptom(pleuritic, yes))"))
     list(p.query("assertz(symptom(dyspnoea, yes))"))
     list(p.query("assertz(symptom(haemoptysis, yes))"))
-    results = list(p.query("diagnose(D, F)"))
+    results = list(p.query("chest_pain:diagnose(D, F)"))
     diagnoses = [str(r["D"]) for r in results]
     assert "pulmonary_embolism" in diagnoses, "PE should be diagnosed with pleuritic pain + dyspnoea + haemoptysis"
     retract_all(p)
@@ -212,7 +213,7 @@ def test_chest_pain_reference_module():
     list(p.query("assertz(symptom(pain_character, burning))"))
     list(p.query("assertz(symptom(unilateral_dermatomal, yes))"))
     list(p.query("assertz(finding(vesicular_rash, yes))"))
-    results = list(p.query("diagnose(D, F)"))
+    results = list(p.query("chest_pain:diagnose(D, F)"))
     diagnoses = [str(r["D"]) for r in results]
     assert "herpes_zoster" in diagnoses, "Herpes zoster should be diagnosed with burning dermatomal pain + vesicular rash"
     retract_all(p)
@@ -224,7 +225,7 @@ def test_chest_pain_reference_module():
     list(p.query("assertz(symptom(pain_duration_minutes, 30))"))
     list(p.query("assertz(finding(ecg_changes, no))"))
     list(p.query("assertz(finding(troponin_at_12h, negative))"))
-    exclusions = list(p.query("exclude_if(myocardial_infarction, R)"))
+    exclusions = list(p.query("chest_pain:exclude_if(myocardial_infarction, R)"))
     assert exclusions, "MI should be excluded when ECG normal and troponin negative at 12h"
     retract_all(p)
 

@@ -45,6 +45,7 @@ class DiagnosisResult:
     name: str                           # e.g. "myocardial_infarction"
     display_name: str                   # e.g. "Myocardial infarction"
     frequency: str                      # "common" | "occasional" | "rare"
+    module: str = "chest_pain"          # Prolog module that produced this result
     proof: list[ProofStep] = field(default_factory=list)
     tests: list[str] = field(default_factory=list)
     excluded: bool = False
@@ -107,12 +108,13 @@ class CADBridge:
         """
         with self._lock:
             try:
+                module = session.get("presentation", "chest_pain")
                 self._assert_facts(session)
-                diagnoses = self._collect_diagnoses()
+                diagnoses = self._collect_diagnoses(module)
                 diagnoses = self._apply_exclusions(diagnoses)
                 for dx in diagnoses:
-                    dx.proof = self._collect_proof(dx.name)
-                    dx.tests = self._collect_tests(dx.name)
+                    dx.proof = self._collect_proof(dx.name, dx.module)
+                    dx.tests = self._collect_tests(dx.name, dx.module)
                 return sorted(
                     diagnoses,
                     key=lambda d: _FREQUENCY_ORDER.get(d.frequency, 99)
@@ -160,12 +162,12 @@ class CADBridge:
     # Internal: queries
     # ------------------------------------------------------------------
 
-    def _collect_diagnoses(self) -> list[DiagnosisResult]:
+    def _collect_diagnoses(self, module: str) -> list[DiagnosisResult]:
         """Run diagnose/2 and return all solutions."""
         results = []
         seen = set()
         try:
-            for sol in self._prolog.query("diagnose(D, F)"):
+            for sol in self._prolog.query(f"{module}:diagnose(D, F)"):
                 name = str(sol["D"])
                 freq = str(sol["F"])
                 if name not in seen:
@@ -174,6 +176,7 @@ class CADBridge:
                         name=name,
                         display_name=_display_name(name),
                         frequency=freq,
+                        module=module,
                     ))
         except Exception as e:
             raise BridgeError(f"diagnose/2 query failed: {e}") from e
@@ -190,7 +193,7 @@ class CADBridge:
         for dx in diagnoses:
             try:
                 solutions = list(self._prolog.query(
-                    f"exclude_if({dx.name}, Reason)"
+                    f"{dx.module}:exclude_if({dx.name}, Reason)"
                 ))
                 if solutions:
                     dx.excluded = True
@@ -199,13 +202,13 @@ class CADBridge:
                 pass  # exclude_if is optional; if it errors, skip
         return diagnoses
 
-    def _collect_proof(self, diagnosis: str) -> list[ProofStep]:
+    def _collect_proof(self, diagnosis: str, module: str) -> list[ProofStep]:
         """Collect all explain_step/3 results for a diagnosis."""
         steps = []
         seen_symptoms = set()
         try:
             for sol in self._prolog.query(
-                f"explain_step({diagnosis}, S, R)"
+                f"{module}:explain_step({diagnosis}, S, R)"
             ):
                 symptom = str(sol["S"])
                 rationale = str(sol["R"])
@@ -221,11 +224,11 @@ class CADBridge:
             ) from e
         return steps
 
-    def _collect_tests(self, diagnosis: str) -> list[str]:
+    def _collect_tests(self, diagnosis: str, module: str) -> list[str]:
         """Collect all suggest_test/2 results for a diagnosis."""
         tests = []
         try:
-            for sol in self._prolog.query(f"suggest_test({diagnosis}, T)"):
+            for sol in self._prolog.query(f"{module}:suggest_test({diagnosis}, T)"):
                 tests.append(_display_name(str(sol["T"])))
         except Exception:
             pass

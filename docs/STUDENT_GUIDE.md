@@ -195,7 +195,51 @@ which predicate is missing for which diagnosis.
 
 ---
 
-## Step 10  -  Uncomment your module in loader.pl
+## Step 10  -  Add your exam questions to app.py
+
+Open `frontend/app.py` and find `EXAM_QUESTIONS`. Locate the entry for
+your presentation — it will be an empty list:
+
+```python
+"abdominal_pain": [],
+```
+
+Replace it with one dict per finding atom your module uses, following
+the same format as `chest_pain` above it:
+
+```python
+"abdominal_pain": [
+    {"finding": "guarding",           "question": "¿Hay defensa muscular?",   "type": "yesno"},
+    {"finding": "rebound_tenderness", "question": "¿Signo de Blumberg?",      "type": "yesno"},
+    {"finding": "bowel_sounds",       "question": "¿Cómo son los ruidos?",    "type": "choice",
+     "options": [("normal","Normales"), ("absent","Ausentes"), ("tinkling","Metálicos")]},
+    # ... one entry per finding atom in your module
+],
+```
+
+**If you skip this step the examination phase will not appear** — the app
+will jump straight from the history page to the results page, and none of
+your `finding/2` facts will be asserted into Prolog.
+
+The finding atoms to include are listed in your presentation's file in
+`docs/presentations/<your_presentation>.md` under **Finding atoms**.
+
+---
+
+## Step 11  -  Move your module and clean up the stub
+
+Copy your finished `.pl` file into `prolog/modules/`:
+
+```bash
+cp prolog/stubs/abdominal_pain.pl prolog/modules/abdominal_pain.pl
+```
+
+Then **delete the stub** — if both files exist the test suite will fail
+with a module redefinition error:
+
+```bash
+rm prolog/stubs/abdominal_pain.pl
+```
 
 Open `prolog/loader.pl` and uncomment the line for your presentation:
 
@@ -211,12 +255,13 @@ cd frontend && python app.py
 
 ---
 
-## Step 11  -  Submit a pull request
+## Step 12  -  Submit a pull request
 
 Your PR must include:
 1. Your `.pl` file in `prolog/modules/`
-2. Your module line uncommented in `prolog/loader.pl`
-3. PR description listing every diagnosis you encoded and the Churchill's
+2. Your exam questions filled in `frontend/app.py`
+3. Your module line uncommented in `prolog/loader.pl`
+4. PR description listing every diagnosis you encoded and the Churchill's
    page number you used as the source
 
 **Marking rubric:**
@@ -225,10 +270,11 @@ Your PR must include:
 |-----------|-------|
 | Module loads and tests pass | 20% |
 | Diagnoses accurately reflect Churchill's | 25% |
-| explain_step/3 rationales are clinically meaningful | 25% |
+| explain_step/3 rationales are clinically meaningful | 20% |
 | Frequency coding matches Churchill's colour coding | 10% |
+| Exam questions filled in app.py (all finding atoms covered) | 10% |
 | At least one exclude_if/2 rule | 10% |
-| Code quality (clear naming, no singleton warnings) | 10% |
+| Code quality (clear naming, no singleton warnings) | 5% |
 
 ---
 

@@ -165,7 +165,15 @@ EXAM_QUESTIONS = {
     ],
 
     # Stubs for remaining presentations
-    "abdominal_pain":         [],
+    "abdominal_pain": [
+        {"finding": "guarding",               "question": "¿Hay defensa muscular abdominal?",                        "type": "yesno"},
+        {"finding": "rigidity",               "question": "¿Hay rigidez abdominal (vientre en tabla)?",              "type": "yesno"},
+        {"finding": "rebound_tenderness",     "question": "¿Hay signo de Blumberg (dolor a la descompresión)?",      "type": "yesno"},
+        {"finding": "bowel_sounds",           "question": "¿Cómo son los ruidos hidroaéreos?",                       "type": "choice",
+         "options": [("normal","Normales"), ("absent","Ausentes"), ("tinkling","Metálicos / tintineo")]},
+        {"finding": "pulsatile_mass",         "question": "¿Se palpa masa pulsátil abdominal?",                      "type": "yesno"},
+        {"finding": "hernial_orifice_tender", "question": "¿Hay orificio herniario doloroso?",                       "type": "yesno"},
+    ],
     "dyspnoea":               [],
     "cough_haemoptysis":      [],
     "stridor":                [],
