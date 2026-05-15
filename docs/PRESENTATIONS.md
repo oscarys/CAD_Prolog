@@ -12,17 +12,17 @@ the UI questions) and your `.pl` module. Use them verbatim.
 
 | System | Presentation | Churchill's p. | File | RESPONSABLE |
 |--------|-------------|----------------|------|------|
-| Cardiovascular | Chest pain ★ | 57–61 | [chest_pain.md](presentations/chest_pain.md) | Listo Prolog y HTML |
+| Cardiovascular | Chest pain ★ | 57–61 | [chest_pain.md](presentations/chest_pain.md) | Ok |
 | Cardiovascular | Palpitations | 351–353 | [palpitations.md](presentations/palpitations.md) | |
 | Cardiovascular | Syncope | 427–430 | [syncope.md](presentations/syncope.md) | |
 | Respiratory | Dyspnoea | 109–114 | [dyspnoea.md](presentations/dyspnoea.md) | Christopher |
 | Respiratory | Cough / haemoptysis | 84–90, 191–195 | [cough_haemoptysis.md](presentations/cough_haemoptysis.md) | Rodrigo |
 | Respiratory | Stridor | 419–422 | [stridor.md](presentations/stridor.md) | |
-| Gastrointestinal | Abdominal pain | 3–8 | [abdominal_pain.md](presentations/abdominal_pain.md) | Oscar |
+| Gastrointestinal | Abdominal pain | 3–8 | [abdominal_pain.md](presentations/abdominal_pain.md) | Ok |
 | Gastrointestinal | Jaundice | 240–249 | [jaundice.md](presentations/jaundice.md) | |
 | Gastrointestinal | Haematemesis | 182–186 | [haematemesis.md](presentations/haematemesis.md) | |
 | Gastrointestinal | Diarrhoea | 95–100 | [diarrhoea.md](presentations/diarrhoea.md) | |
-| Neurological | Headache | 207–211 | [headache.md](presentations/headache.md) | Oscar |
+| Neurological | Headache | 207–211 | [headache.md](presentations/headache.md) | Ok |
 | Neurological | Convulsions | 80–83 | [convulsions.md](presentations/convulsions.md) | Melissa |
 | Neurological | Coma / confusion | 67–79 | [coma_confusion.md](presentations/coma_confusion.md) | |
 | Systemic | Pyrexia of unknown origin | 374–377 | [pyrexia_unknown_origin.md](presentations/pyrexia_unknown_origin.md) | |
