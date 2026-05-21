@@ -98,7 +98,7 @@ diagnose(malignancy, Frequency) :-
 
 diagnose(malignancy, Frequency) :-
     symptom(weight_loss, yes),
-    symptom(tenesmus, yes) ; true ),
+    ( symptom(tenesmus, yes) ; true ),
     frequency(malignancy, Frequency).
 
 diagnose(cardiac_failure, Frequency) :-
@@ -279,22 +279,23 @@ suggest_test(at_illness, joint_x_rays).
 suggest_test(helminth_infection, stool_cultures).
 
 suggest_test(hiv, hiv_antibodies).
+suggest_test(anorexia_nervosa,         fbc).
+suggest_test(anorexia_nervosa,         urea_and_electrolytes).
+suggest_test(anorexia_nervosa,         bone_density_scan).
 
-suggest_test(depression,          phq9_screening).
-suggest_test(depression,          fbc).
-suggest_test(depression,          tfts).
+suggest_test(depression,               phq9_screening).
+suggest_test(depression,               fbc).
+suggest_test(depression,               tfts).
 
-suggest_test(anorexia_nervosa,    fbc).
-suggest_test(anorexia_nervosa,    urea_and_electrolytes).
-suggest_test(anorexia_nervosa,    bone_density_scan).
+suggest_test(poor_nutrition,           fbc).
+suggest_test(poor_nutrition,           urea_and_electrolytes).
+suggest_test(poor_nutrition,           albumin).
 
-suggest_test(poor_nutrition,      fbc).
-suggest_test(poor_nutrition,      urea_and_electrolytes).
-suggest_test(poor_nutrition,      albumin).
+suggest_test(substance_abuse,          fbc).
+suggest_test(substance_abuse,          lfts).
+suggest_test(substance_abuse,          urine_drug_screen).
 
-suggest_test(substance_abuse,     fbc).
-suggest_test(substance_abuse,     lfts).
-suggest_test(substance_abuse,     urine_drug_screen).
+
 
 /* ------------------------------------------------------------
    SECTION 4 -- PROOF TRACE
