@@ -148,8 +148,7 @@ HISTORY_QUESTIONS = {
         {"symptom": "steatorrhoea",                 "question": "¿Sus heces son grasosas, pálidas o difíciles de eliminar con el agua?", "type": "yesno"},
         {"symptom": "abdominal_discomfort",         "question": "¿Siente molestias, dolor o distensión en el abdomen?", "type": "yesno"},
         {"symptom": "dark_urine",                   "question": "¿Su orina es de un color muy oscuro?", "type": "yesno"},
-        {"symptERROR: /home/oscar/Proyectos/CAD_Prolog/prolog/modules/weight_loss.pl:101:33: Syntax error: Illegal start of term
-om": "pale_stools",                  "question": "¿Sus heces son de color muy claro o blanquecinas?", "type": "yesno"},
+        {"symptom": "pale_stools",                  "question": "¿Sus heces son de color muy claro o blanquecinas?", "type": "yesno"},
         {"symptom": "polydipsia",                   "question": "¿Siente una sed excesiva e insaciable?", "type": "yesno"},
         {"symptom": "voracious_appetite",           "question": "¿Tiene un apetito aumentado o voraz a pesar de perder peso?", "type": "yesno"},
         {"symptom": "heat_intolerance",             "question": "¿Siente que tolera muy mal el calor o suda más de lo normal?", "type": "yesno"},
