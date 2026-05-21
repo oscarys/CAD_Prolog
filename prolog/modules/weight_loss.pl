@@ -280,6 +280,22 @@ suggest_test(helminth_infection, stool_cultures).
 
 suggest_test(hiv, hiv_antibodies).
 
+suggest_test(depression,          phq9_screening).
+suggest_test(depression,          fbc).
+suggest_test(depression,          tfts).
+
+suggest_test(anorexia_nervosa,    fbc).
+suggest_test(anorexia_nervosa,    urea_and_electrolytes).
+suggest_test(anorexia_nervosa,    bone_density_scan).
+
+suggest_test(poor_nutrition,      fbc).
+suggest_test(poor_nutrition,      urea_and_electrolytes).
+suggest_test(poor_nutrition,      albumin).
+
+suggest_test(substance_abuse,     fbc).
+suggest_test(substance_abuse,     lfts).
+suggest_test(substance_abuse,     urine_drug_screen).
+
 /* ------------------------------------------------------------
    SECTION 4 -- PROOF TRACE
    One explain_step/3 clause per symptom/finding each rule depends on.
