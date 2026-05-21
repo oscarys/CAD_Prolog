@@ -28,6 +28,18 @@ The repo is split into two halves:
 
 ---
 
+## Web app screenshots
+
+![Presentations](docs/img/web_01_presentations.png)
+
+![Symptoms](docs/img/web_02_symptoms.png)
+
+![Findings](docs/img/web_03_findings.png)
+
+![Diagnosis](docs/img/web_04_diagnosis.png)
+
+---
+
 ## Repository layout
 
 ```
