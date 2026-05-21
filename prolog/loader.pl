@@ -32,7 +32,7 @@
 % :- use_module('modules/coma_confusion',          []).
 % :- use_module('modules/pyrexia_unknown_origin',  []).
 % :- use_module('modules/weight_loss',             []).
-% :- use_module('modules/shock',                   []).
+:- use_module('modules/shock',                   []).
 % :- use_module('modules/haematuria',              []).
 % :- use_module('modules/polyuria_thirst',         []).
 % :- use_module('modules/oedema',                  []).

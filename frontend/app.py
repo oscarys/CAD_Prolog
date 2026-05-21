@@ -127,7 +127,22 @@ HISTORY_QUESTIONS = {
     "coma_confusion":         [],
     "pyrexia_unknown_origin": [],
     "weight_loss":            [],
-    "shock":                  [],
+
+    "shock": [
+        {"symptom": "shock",                              "question": "¿El paciente se encuentra en choque?",                                   "type": "yesno"},
+        {"symptom": "tachycardia",                        "question": "¿El paciente presenta taquicardia?",                                   "type": "yesno"},
+        {"symptom": "preceding_trauma",                   "question": "¿El paciente se presenta con trauma?",                                   "type": "yesno"},
+        {"symptom": "thermal_injury",                     "question": "¿Se presentan lesiones por quemadura?",                                   "type": "yesno"},
+        {"symptom": "vomiting",                           "question": "¿El paciente tiene vómito?",                                   "type": "yesno"},
+        {"symptom": "diarrhoea",                          "question": "¿El paciente tiene diarrea?",                                   "type": "yesno"},
+        {"symptom": "intestinal_obstruction",             "question": "¿El paciente tiene obstrucción intestinal?",                                   "type": "yesno"},
+        {"symptom": "chest_pain",                         "question": "¿El paciente presenta dolor torácico?",                                   "type": "yesno"},
+        {"symptom": "infection_presence",                 "question": "¿Hay presencia de infección?",                                   "type": "yesno"},
+        {"symptom": "allergy_exposure",                   "question": "¿El paciente estuvo expuesto a alérgenos?",                                   "type": "yesno"},
+        {"symptom": "acute_paralysis",                    "question": "¿El paciente tiene parálisis aguda?",                                   "type": "yesno"},
+        {"symptom": "dyspnoea",                           "question": "¿El paciente tiene disnea?",                                   "type": "yesno"},
+    ],
+
     "haematuria":             [],
     "polyuria_thirst":        [],
     "oedema":                 [],
