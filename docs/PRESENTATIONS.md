@@ -23,7 +23,7 @@ the UI questions) and your `.pl` module. Use them verbatim.
 | Gastrointestinal | Haematemesis | 182–186 | [haematemesis.md](presentations/haematemesis.md) | |
 | Gastrointestinal | Diarrhoea | 95–100 | [diarrhoea.md](presentations/diarrhoea.md) | |
 | Neurological | Headache | 207–211 | [headache.md](presentations/headache.md) | Ok |
-| Neurological | Convulsions | 80–83 | [convulsions.md](presentations/convulsions.md) | Melissa |
+| Neurological | Convulsions | 80–83 | [convulsions.md](presentations/convulsions.md) | Ok |
 | Neurological | Coma / confusion | 67–79 | [coma_confusion.md](presentations/coma_confusion.md) | |
 | Systemic | Pyrexia of unknown origin | 374–377 | [pyrexia_unknown_origin.md](presentations/pyrexia_unknown_origin.md) | |
 | Systemic | Weight loss | 483–490 | [weight_loss.md](presentations/weight_loss.md) | Ok |

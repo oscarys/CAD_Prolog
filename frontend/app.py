@@ -139,7 +139,21 @@ HISTORY_QUESTIONS = {
     "jaundice":               [],
     "haematemesis":           [],
     "diarrhoea":              [],
-    "convulsions":            [],
+
+    "convulsions":            [
+        {"symptom": "convulsion",         "question": "¿El paciente ha presentado una convulsión?", "type": "yesno"},
+        {"symptom": "fever",              "question": "¿El paciente tiene fiebre?", "type": "yesno"},
+        {"symptom": "aura",               "question": "¿El paciente tuvo aura antes de la convulsión (p. ej. sensación extraña, alteración visual)?", "type": "yesno"},
+        {"symptom": "postictal_confusion","question": "¿El paciente presentó confusión o somnolencia después de la convulsión?", "type": "yesno"},
+        {"symptom": "tongue_biting",      "question": "¿El paciente se mordió la lengua durante la convulsión?", "type": "yesno"},
+        {"symptom": "incontinence",       "question": "¿El paciente tuvo pérdida de control de esfínteres durante la convulsión?", "type": "yesno"},
+        {"symptom": "focal_onset",        "question": "¿La convulsión inició en una parte del cuerpo antes de generalizarse?", "type": "yesno"},
+        {"symptom": "diabetes",           "question": "¿El paciente tiene antecedente de diabetes?", "type": "yesno"},
+        {"symptom": "alcohol_use",        "question": "¿El paciente consume alcohol de forma crónica o redujo su consumo recientemente?", "type": "yesno"},
+        {"symptom": "drug_use",           "question": "¿El paciente consume drogas?", "type": "yesno"},
+        {"symptom": "pregnancy",          "question": "¿La paciente está embarazada?", "type": "yesno"},
+    ],
+
     "coma_confusion":         [],
     "pyrexia_unknown_origin": [],
 
@@ -281,7 +295,17 @@ EXAM_QUESTIONS = {
     "jaundice":               [],
     "haematemesis":           [],
     "diarrhoea":              [],
-    "convulsions":            [],
+
+    "convulsions":            [
+        {"finding": "pyrexia",            "question": "¿El paciente tiene fiebre?", "type": "yesno"},
+        {"finding": "neck_stiffness",     "question": "¿Hay rigidez de nuca?", "type": "yesno"},
+        {"finding": "papilloedema",       "question": "¿Hay papiledema en el fondo de ojo?", "type": "yesno"},
+        {"finding": "focal_neurology",    "question": "¿Hay déficit neurológico focal persistente tras la convulsión?", "type": "yesno"},
+        {"finding": "blood_glucose_low",  "question": "¿Muestra glucemia baja (hipoglucemia)?", "type": "yesno"},
+        {"finding": "blood_glucose_high", "question": "¿Muestra glucemia elevada (hiperglucemia)?", "type": "yesno"},
+        {"finding": "sodium_abnormal",    "question": "¿Muestra niveles anormales de sodio?", "type": "yesno"},
+    ],
+
     "coma_confusion":         [],
     "pyrexia_unknown_origin": [],
 

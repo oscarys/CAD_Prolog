@@ -28,7 +28,7 @@
 % :- use_module('modules/haematemesis',            []).
 % :- use_module('modules/diarrhoea',               []).
 :- use_module('modules/headache',                []).
-% :- use_module('modules/convulsions',             []).
+:- use_module('modules/convulsions',             []).
 % :- use_module('modules/coma_confusion',          []).
 % :- use_module('modules/pyrexia_unknown_origin',  []).
 :- use_module('modules/weight_loss',             []).
