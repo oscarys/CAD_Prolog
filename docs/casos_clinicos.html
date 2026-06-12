@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casos Clínicos — aDx Demo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+  :root {
+    --ink:       #0f1629;
+    --paper:     #f5f3ef;
+    --muted:     #8496c0;
+    --rule:      #d4cfc6;
+
+    /* per-card accent colours */
+    --c1-accent: #c0392b;   /* rojo — dolor torácico */
+    --c1-light:  #fdf0ee;
+    --c2-accent: #7b4fa6;   /* morado — cefalea */
+    --c2-light:  #f6f0fc;
+    --c3-accent: #1a6e8a;   /* azul petróleo — síncope */
+    --c3-light:  #eef6fa;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 24px;
+  }
+
+  /* ── Page header ─────────────────────────────────── */
+  .page-header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .page-header .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+  .page-header .subtitle {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .page-header .url {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--ink);
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 3px;
+    letter-spacing: .04em;
+  }
+
+  /* ── Card grid ───────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  /* ── Individual card ─────────────────────────────── */
+  .card {
+    border: 1.5px solid var(--accent);
+    border-radius: 6px;
+    overflow: hidden;
+    page-break-inside: avoid;
+  }
+
+  .card-header {
+    background: var(--accent);
+    color: #fff;
+    padding: 14px 16px 12px;
+  }
+  .card-header .case-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    opacity: .8;
+    margin-bottom: 3px;
+  }
+  .card-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .card-header .presentation-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    margin-top: 5px;
+    opacity: .75;
+    letter-spacing: .06em;
+  }
+
+  .card-body {
+    background: var(--light);
+    padding: 14px 16px;
+  }
+
+  /* vignette */
+  .vignette {
+    font-style: italic;
+    font-size: 12.5px;
+    color: #3a3a4a;
+    border-left: 3px solid var(--accent);
+    padding-left: 10px;
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  /* phase sections */
+  .phase {
+    margin-bottom: 12px;
+  }
+  .phase-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 6px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* answer table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+  }
+  td {
+    padding: 3px 4px;
+    vertical-align: top;
+  }
+  td:first-child {
+    color: #555;
+    width: 68%;
+    line-height: 1.4;
+  }
+  td:last-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: right;
+  }
+  tr:nth-child(even) td { background: rgba(0,0,0,.03); }
+
+  /* diagnosis reveal */
+  .diagnosis-box {
+    margin-top: 14px;
+    border: 1.5px solid var(--accent);
+    border-radius: 4px;
+    padding: 10px 12px;
+    background: #fff;
+  }
+  .diagnosis-box .dx-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .diagnosis-box .dx-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    color: var(--accent);
+  }
+  .diagnosis-box .dx-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .diagnosis-box .dx-trace {
+    margin-top: 7px;
+    font-size: 11px;
+    color: #555;
+    line-height: 1.5;
+  }
+  .diagnosis-box .dx-trace span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+  }
+
+  /* tip */
+  .tip {
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* card colour overrides */
+  .card-1 { --accent: var(--c1-accent); --light: var(--c1-light); }
+  .card-2 { --accent: var(--c2-accent); --light: var(--c2-light); }
+  .card-3 { --accent: var(--c3-accent); --light: var(--c3-light); }
+
+  /* ── Print ───────────────────────────────────────── */
+  @media print {
+    body { padding: 10px; font-size: 11px; }
+    .grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .page-header { margin-bottom: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="eyebrow">CNIB 2026 · Demostración en vivo</div>
+  <h1>Casos Clínicos — aDx</h1>
+  <div class="subtitle">
+    Sigue cada caso paso a paso en el sitio y observa el diagnóstico diferencial generado por Prolog
+  </div>
+  <div class="url">oyanez.pythonanywhere.com</div>
+</div>
+
+<div class="grid">
+
+  <!-- ══════════════════════════════════════════════
+       CASO 1 — DOLOR TORÁCICO / IAM
+       ══════════════════════════════════════════════ -->
+  <div class="card card-1">
+    <div class="card-header">
+      <div class="case-label">Caso 1</div>
+      <h2>El hombre del partido</h2>
+      <div class="presentation-tag">Presentación → Dolor torácico</div>
+    </div>
+    <div class="card-body">
+
+      <div class="vignette">
+        Ernesto, 58 años, masculino. Durante el partido de fútbol de su hijo
+        siente un dolor opresivo intenso en el centro del pecho que se irradia
+        al brazo izquierdo. Suda profusamente. El dolor lleva 25 minutos y
+        no cede con el reposo.
+      </div>
+
+      <!-- Fase 1 -->
+      <div class="phase">
+        <div class="phase-title">Fase 1 — Paciente</div>
+        <table>
+          <tr><td>Edad</td><td>58 años</td></tr>
+          <tr><td>Sexo</td><td>Masculino</td></tr>
+          <tr><td>Presentación</td><td>Dolor torácico</td></tr>
+        </table>
+      </div>
+
+      <!-- Fase 2 -->
+      <div class="phase">
+        <div class="phase-title">Fase 2 — Historia clínica</div>
+        <table>
+          <tr><td>¿Tiene dolor torácico?</td><td>Sí</td></tr>
+          <tr><td>¿Cómo describe el dolor?</td><td>Opresivo</td></tr>
+          <tr><td>¿Dónde se localiza?</td><td>Central / retroesternal</td></tr>
+          <tr><td>¿Se desencadena con el esfuerzo?</td><td>No (ocurre en reposo)</td></tr>
+          <tr><td>¿Cuánto tiempo dura? (min)</td><td>25</td></tr>
+          <tr><td>¿Irradia al brazo izquierdo?</td><td>Sí</td></tr>
+          <tr><td>¿Irradia a la espalda?</td><td>No</td></tr>
+          <tr><td>¿Suda en exceso?</td><td>Sí</td></tr>
+          <tr><td>¿Tiene disnea?</td><td>Sí</td></tr>
+          <tr><td>¿Tiene fiebre?</td><td>No</td></tr>
+        </table>
+      </div>
+
+      <!-- Fase 3 -->
+      <div class="phase">
+        <div class="phase-title">Fase 3 — Exploración física</div>
+        <table>
+          <tr><td>¿Asimetría de pulsos?</td><td>No</td></tr>
+          <tr><td>¿Dolor en pared torácica?</td><td>No</td></tr>
+          <tr><td>¿Cambios en el ECG?</td><td>Sí</td></tr>
+          <tr><td>¿Troponina elevada?</td><td>Sí</td></tr>
+          <tr><td>¿Dímero D?</td><td>No realizado</td></tr>
+        </table>
+      </div>
+
+      <div class="diagnosis-box">
+        <div class="dx-label">Diagnóstico esperado</div>
+        <div class="dx-name">
+          Infarto agudo de miocardio
+          <span class="dx-badge">común</span>
+        </div>
+        <div class="dx-trace">
+          La traza Prolog mostrará:<br>
+          <span>symptom(exertional, no)</span> →
+          "A diferencia de la angina, el IAM ocurre en reposo"<br>
+          <span>symptom(pain_duration_minutes, 25)</span> →
+          "Dolor ≥ 20 min sin ceder sugiere necrosis miocárdica"
+        </div>
+      </div>
+
+      <div class="tip">
+        💡 Observa cómo la regla <em>exclude_if</em> elimina la depresión
+        del diferencial en cuanto marcas ECG alterado y troponina positiva.
+      </div>
+
+    </div>
+  </div><!-- /card-1 -->
+
+
+  <!-- ══════════════════════════════════════════════
+       CASO 2 — CEFALEA / HSA
+       ══════════════════════════════════════════════ -->
+  <div class="card card-2">
+    <div class="card-header">
+      <div class="case-label">Caso 2</div>
+      <h2>La peor cefalea de su vida</h2>
+      <div class="presentation-tag">Presentación → Cefalea</div>
+    </div>
+    <div class="card-body">
+
+      <div class="vignette">
+        Valentina, 41 años, femenina. Mientras levantaba una caja siente
+        de golpe una cefalea "como un martillazo" — la describe como la peor
+        de su vida. Aparece rigidez en el cuello y fotofobia intensa.
+        No tiene fiebre ni déficit neurológico.
+      </div>
+
+      <!-- Fase 1 -->
+      <div class="phase">
+        <div class="phase-title">Fase 1 — Paciente</div>
+        <table>
+          <tr><td>Edad</td><td>41 años</td></tr>
+          <tr><td>Sexo</td><td>Femenino</td></tr>
+          <tr><td>Presentación</td><td>Cefalea</td></tr>
+        </table>
+      </div>
+
+      <!-- Fase 2 -->
+      <div class="phase">
+        <div class="phase-title">Fase 2 — Historia clínica</div>
+        <table>
+          <tr><td>¿Tiene cefalea?</td><td>Sí</td></tr>
+          <tr><td>¿Cómo fue el inicio?</td><td>Súbito</td></tr>
+          <tr><td>¿Tiene rigidez de nuca?</td><td>Sí</td></tr>
+          <tr><td>¿Tiene fotofobia?</td><td>Sí</td></tr>
+          <tr><td>¿Náusea o vómito?</td><td>Sí</td></tr>
+          <tr><td>¿Tiene fiebre?</td><td>No</td></tr>
+          <tr><td>¿Tiene aura visual?</td><td>No</td></tr>
+          <tr><td>¿Empeora por la mañana?</td><td>No</td></tr>
+          <tr><td>¿Empeora con la tos?</td><td>No</td></tr>
+          <tr><td>¿Antecedente de malignidad?</td><td>No</td></tr>
+        </table>
+      </div>
+
+      <!-- Fase 3 -->
+      <div class="phase">
+        <div class="phase-title">Fase 3 — Exploración física</div>
+        <table>
+          <tr><td>¿Rigidez de nuca confirmada?</td><td>Sí</td></tr>
+          <tr><td>¿Papiledema?</td><td>No</td></tr>
+          <tr><td>¿Déficit neurológico focal?</td><td>No</td></tr>
+          <tr><td>¿Exantema petequial?</td><td>No</td></tr>
+          <tr><td>¿TA elevada?</td><td>No</td></tr>
+        </table>
+      </div>
+
+      <div class="diagnosis-box">
+        <div class="dx-label">Diagnóstico esperado</div>
+        <div class="dx-name">
+          Hemorragia subaracnoidea
+          <span class="dx-badge">ocasional</span>
+        </div>
+        <div class="dx-trace">
+          La traza Prolog mostrará:<br>
+          <span>symptom(onset, sudden)</span> →
+          "Inicio en trueno: ruptura de aneurisma"<br>
+          <span>symptom(neck_stiffness, yes)</span> →
+          "Irritación meníngea por sangre en el LCR"
+        </div>
+      </div>
+
+      <div class="tip">
+        💡 Observa cómo la <em>migraña</em> también aparece en el diferencial
+        pero es desplazada por la HSA al estar presentes rigidez de nuca
+        e inicio en trueno simultáneamente.
+      </div>
+
+    </div>
+  </div><!-- /card-2 -->
+
+
+  <!-- ══════════════════════════════════════════════
+       CASO 3 — SÍNCOPE / VASOVAGAL
+       ══════════════════════════════════════════════ -->
+  <div class="card card-3">
+    <div class="card-header">
+      <div class="case-label">Caso 3</div>
+      <h2>El desmayo en la sala de espera</h2>
+      <div class="presentation-tag">Presentación → Síncope</div>
+    </div>
+    <div class="card-body">
+
+      <div class="vignette">
+        Diego, 22 años, masculino. Lleva 40 minutos de pie en la sala de espera
+        del laboratorio esperando su turno para una venopunción. De repente
+        siente náusea, ve todo borroso y se desmaya. Recupera el conocimiento
+        en menos de un minuto, sin confusión posterior.
+      </div>
+
+      <!-- Fase 1 -->
+      <div class="phase">
+        <div class="phase-title">Fase 1 — Paciente</div>
+        <table>
+          <tr><td>Edad</td><td>22 años</td></tr>
+          <tr><td>Sexo</td><td>Masculino</td></tr>
+          <tr><td>Presentación</td><td>Síncope</td></tr>
+        </table>
+      </div>
+
+      <!-- Fase 2 -->
+      <div class="phase">
+        <div class="phase-title">Fase 2 — Historia clínica</div>
+        <table>
+          <tr><td>¿Pérdida de conocimiento?</td><td>Sí</td></tr>
+          <tr><td>¿Hubo pródromos?</td><td>Sí (náusea, visión borrosa)</td></tr>
+          <tr><td>¿Fue completamente brusco?</td><td>No</td></tr>
+          <tr><td>¿Hubo desencadenante claro?</td><td>Sí (posición prolongada)</td></tr>
+          <tr><td>¿Ocurrió al ponerse de pie?</td><td>No</td></tr>
+          <tr><td>¿Hubo palpitaciones previas?</td><td>No</td></tr>
+          <tr><td>¿Movimientos convulsivos?</td><td>No</td></tr>
+          <tr><td>¿Confusión >5 min tras el episodio?</td><td>No</td></tr>
+          <tr><td>¿Dolor torácico?</td><td>No</td></tr>
+          <tr><td>¿Antecedente de cardiopatía?</td><td>No</td></tr>
+        </table>
+      </div>
+
+      <!-- Fase 3 -->
+      <div class="phase">
+        <div class="phase-title">Fase 3 — Exploración física</div>
+        <table>
+          <tr><td>¿Caída postural de TA?</td><td>No</td></tr>
+          <tr><td>¿ECG anormal?</td><td>No</td></tr>
+          <tr><td>¿Bradicardia?</td><td>No</td></tr>
+          <tr><td>¿Soplo sistólico eyectivo?</td><td>No</td></tr>
+          <tr><td>¿Saturación O₂ baja?</td><td>No</td></tr>
+          <tr><td>¿Glucemia baja?</td><td>No</td></tr>
+        </table>
+      </div>
+
+      <div class="diagnosis-box">
+        <div class="dx-label">Diagnóstico esperado</div>
+        <div class="dx-name">
+          Síncope situacional (vasovagal)
+          <span class="dx-badge">común</span>
+        </div>
+        <div class="dx-trace">
+          La traza Prolog mostrará:<br>
+          <span>symptom(precipitating_factor, yes)</span> →
+          "Posición prolongada: vasodilatación refleja vagal"<br>
+          <span>symptom(prodrome, yes)</span> →
+          "Náusea y visión borrosa reflejan activación vagal previa"
+        </div>
+      </div>
+
+      <div class="tip">
+        💡 Observa cómo las exclusiones descartan TV y crisis de
+        Stokes-Adams al no haber cardiopatía ni ECG anormal, dejando
+        el síncope vasovagal como diagnóstico principal.
+      </div>
+
+    </div>
+  </div><!-- /card-3 -->
+
+</div><!-- /grid -->
+
+</body>
+</html>
