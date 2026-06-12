@@ -13,8 +13,8 @@ the UI questions) and your `.pl` module. Use them verbatim.
 | System | Presentation | Churchill's p. | File | RESPONSABLE |
 |--------|-------------|----------------|------|------|
 | Cardiovascular | Chest pain ★ | 57–61 | [chest_pain.md](presentations/chest_pain.md) | Ok |
-| Cardiovascular | Palpitations | 351–353 | [palpitations.md](presentations/palpitations.md) | |
-| Cardiovascular | Syncope | 427–430 | [syncope.md](presentations/syncope.md) | |
+| Cardiovascular | Palpitations | 351–353 | [palpitations.md](presentations/palpitations.md) | Ok |
+| Cardiovascular | Syncope | 427–430 | [syncope.md](presentations/syncope.md) | Ok |
 | Respiratory | Dyspnoea | 109–114 | [dyspnoea.md](presentations/dyspnoea.md) | Ok |
 | Respiratory | Cough / haemoptysis | 84–90, 191–195 | [cough_haemoptysis.md](presentations/cough_haemoptysis.md) | Rodrigo |
 | Respiratory | Stridor | 419–422 | [stridor.md](presentations/stridor.md) | |
