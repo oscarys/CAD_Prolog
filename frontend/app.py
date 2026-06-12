@@ -32,6 +32,11 @@ import bridge.session as sess
 app = Flask(__name__)
 app.secret_key = "cad-dev-secret-change-in-production"
 app.config["SESSION_TYPE"] = "filesystem"
+# For PythonAnywhere deployment
+app.config["SESSION_FILE_DIR"] = os.environ.get("FLASK_SESSION_DIR",
+    os.path.join(os.path.dirname(__file__), "flask_session"))
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-only-key")
+
 Session(app)
 
 # Initialise the Prolog bridge once at startup
