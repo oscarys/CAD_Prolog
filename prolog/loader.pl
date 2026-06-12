@@ -36,5 +36,5 @@
 :- use_module('modules/haematuria',              []).
 % :- use_module('modules/polyuria_thirst',         []).
 % :- use_module('modules/oedema',                  []).
-% :- use_module('modules/palpitations',            []).
-% :- use_module('modules/syncope',                 []).
+:- use_module('modules/palpitations',            []).
+:- use_module('modules/syncope',                 []).
