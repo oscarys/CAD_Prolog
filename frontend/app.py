@@ -134,7 +134,35 @@ HISTORY_QUESTIONS = {
     {"symptom": "worse_on_exertion", "question": "¿La disnea empeora con el esfuerzo físico?", "type": "yesno"}
 ],
 
-    "cough_haemoptysis":      [],
+    "cough_haemoptysis":      [
+        {"symptom": "cough",                  "question": "¿El paciente tiene tos?",                                      "type": "yesno"},
+        {"symptom": "haemoptysis",            "question": "¿El paciente ha expectorado sangre?",                          "type": "yesno"},
+        {"symptom": "cyanosis",               "question": "¿El paciente presenta coloración azulada en labios o dedos?",  "type": "yesno"},
+        {"symptom": "dyspnoea",               "question": "¿El paciente tiene disnea?",                                   "type": "yesno"},
+        {"symptom": "fever",                  "question": "¿El paciente tiene fiebre?",                                   "type": "yesno"},
+        {"symptom": "onset",                  "question": "¿Cómo inició la tos?",                                         "type": "choice",
+         "options": [("chronic","Cronico"), ("acute","agudo")]},
+        {"symptom": "sputum_character",       "question": "¿Cómo es el esputo?",                                          "type": "choice",
+         "options": [("mucoid", "mucoso"), ("purulent", "purulento"), ("bloodstained", "Teñido de sangre"), ("pink", "Rosado")]           },
+        {"symptom": "wheeze",                 "question": "¿El paciente presenta silbidos al respirar?",                  "type": "yesno"},
+        {"symptom": "fever",                  "question": "¿El paciente presenta fiebre?",                                "type": "yesno"},
+        {"symptom": "smoking_history",        "question": "¿Tiene antecedentes de tabaquismo?",                           "type": "yesno"},
+        {"symptom": "reflux_symptoms",        "question": "¿Presenta agruras o reflujo?",                                 "type": "yesno"},
+        {"symptom": "pain_character",         "question": "¿Como describiría el dolor?",                                  "type": "choice",
+         "options": [("burning", "ardor")]},
+        {"symptom": "taking_ace_inhibitor",   "question": "¿Está tomando algún inhibidor de la ECA?",                     "type": "yesno"},
+        {"symptom": "weight_loss",            "question": "¿Ha perdido peso recientemente?",                              "type": "yesno"},
+        {"symptom": "chest_pain",             "question": "¿Presenta dolor en el pecho?",                                 "type": "yesno"},
+        {"symptom": "breathing",              "question": "¿Qué tipo de respiración se escucha?",                         "type": "choice",
+         "options": [("bronchial", "respiración bronquial")]},
+        {"symptom": "haematuria",             "question": "¿Ha notado sangre en la orina?",                               "type": "yesno"},
+        {"symptom": "renal_disease",          "question": "¿Tiene antecedentes de enfermedad renal?",                     "type": "yesno"},
+        {"symptom": "epistaxis",              "question": "¿Presenta sangrados nasales frecuentes?",                      "type": "yesno"},
+        {"symptom": "flecks_blood",           "question": "¿Ha observado pequeñas manchas de sangre en el esputo?",       "type": "yesno"},
+        {"symptom": "taking_anticoagulant",   "question": "¿Está tomando anticoagulantes?",                               "type": "yesno"},
+        {"symptom": "atrial_fibrillation",    "question": "¿Tiene diagnostico de fibrilación auricular?",                 "type": "yesno"}
+    ],
+
     "stridor":                [],
     "jaundice":               [],
     "haematemesis":           [],
@@ -327,7 +355,19 @@ EXAM_QUESTIONS = {
     {"finding": "dullness_to_percussion", "question": "¿Existe matidez a la percusión?",                "type": "yesno"}
 ],
 
-    "cough_haemoptysis":      [],
+    "cough_haemoptysis":      [
+        {"finding": "wheeze_on_auscultation",       "question": "¿Se escuchan silbancias?",                          "type": "yesno"},
+        {"finding": "reduced_air_entry",            "question": "¿Existe disminución de la entrada de aire?",        "type": "yesno"},
+        {"finding": "crepitations",                 "question": "¿Se auscultan crepitaciones?",                      "type": "yesno"},
+        {"finding": "clubbing",                     "question": "¿Presenta dedos en palillo de tambor?",             "type": "yesno"},
+        {"finding": "lymphadenopathy",              "question": "¿Presenta adenopatías palpables?",                  "type": "yesno"},
+        {"finding": "chest",                        "question": "¿cómo se encuentra el tórax?",                      "type": "choice",
+         "options": [("hyperexpanded", "hiperexpandido")]},
+        {"finding": "loss_nasal_bridge",            "question": "¿Se observa deformidad en la nariz?",               "type": "yesno"},
+        {"finding": "dilated_blood_vessels",        "question": "¿Se observan vasos sanguíneos dilatados?",          "type": "yesno"},
+        {"finding": "saddling_nose",                "question": "¿Se observa deformidad nasal en silla de montar?",  "type": "yesno"},
+    ],
+
     "stridor":                [],
     "jaundice":               [],
     "haematemesis":           [],
