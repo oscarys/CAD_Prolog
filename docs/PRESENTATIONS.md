@@ -16,7 +16,7 @@ the UI questions) and your `.pl` module. Use them verbatim.
 | Cardiovascular | Palpitations | 351–353 | [palpitations.md](presentations/palpitations.md) | Ok |
 | Cardiovascular | Syncope | 427–430 | [syncope.md](presentations/syncope.md) | Ok |
 | Respiratory | Dyspnoea | 109–114 | [dyspnoea.md](presentations/dyspnoea.md) | Ok |
-| Respiratory | Cough / haemoptysis | 84–90, 191–195 | [cough_haemoptysis.md](presentations/cough_haemoptysis.md) | Rodrigo |
+| Respiratory | Cough / haemoptysis | 84–90, 191–195 | [cough_haemoptysis.md](presentations/cough_haemoptysis.md) | Ok |
 | Respiratory | Stridor | 419–422 | [stridor.md](presentations/stridor.md) | |
 | Gastrointestinal | Abdominal pain | 3–8 | [abdominal_pain.md](presentations/abdominal_pain.md) | Ok |
 | Gastrointestinal | Jaundice | 240–249 | [jaundice.md](presentations/jaundice.md) | César |
