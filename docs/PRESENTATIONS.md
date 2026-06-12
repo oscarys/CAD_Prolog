@@ -28,7 +28,7 @@ the UI questions) and your `.pl` module. Use them verbatim.
 | Systemic | Pyrexia of unknown origin | 374–377 | [pyrexia_unknown_origin.md](presentations/pyrexia_unknown_origin.md) | |
 | Systemic | Weight loss | 483–490 | [weight_loss.md](presentations/weight_loss.md) | Alejandro |
 | Systemic | Shock | 406–409 | [shock.md](presentations/shock.md) | Yamil |
-| Urogenital / Endocrine | Haematuria | 187–190 | [haematuria.md](presentations/haematuria.md) | |
+| Urogenital / Endocrine | Haematuria | 187–190 | [haematuria.md](presentations/haematuria.md) | Ok |
 | Urogenital / Endocrine | Polyuria / thirst | 359–362, 431–433 | [polyuria_thirst.md](presentations/polyuria_thirst.md) | |
 | Urogenital / Endocrine | Oedema | 343–346 | [oedema.md](presentations/oedema.md) | |
 
