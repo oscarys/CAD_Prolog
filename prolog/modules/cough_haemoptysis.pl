@@ -278,6 +278,7 @@ suggest_test(respiratory_tract_infection, fbc).
 
 suggest_test(gord, ph_studies).
 
+suggest_test(ace_inhibitor_cough, check_temperature).
 
 suggest_test(bronchiectasis, sputum_cultures).
 suggest_test(bronchiectasis, cxr).
