@@ -30,7 +30,7 @@ the UI questions) and your `.pl` module. Use them verbatim.
 | Systemic | Shock | 406–409 | [shock.md](presentations/shock.md) | Ok |
 | Urogenital / Endocrine | Haematuria | 187–190 | [haematuria.md](presentations/haematuria.md) | Ok |
 | Urogenital / Endocrine | Polyuria / thirst | 359–362, 431–433 | [polyuria_thirst.md](presentations/polyuria_thirst.md) | |
-| Urogenital / Endocrine | Oedema | 343–346 | [oedema.md](presentations/oedema.md) | |
+| Urogenital / Endocrine | Oedema | 343–346 | [oedema.md](presentations/oedema.md) | Rodrigo |
 
 ★ Chest pain is the **worked example** — read `prolog/modules/chest_pain.pl`
 alongside its reference file before starting your own module.
