@@ -20,7 +20,7 @@
 :- use_module('modules/chest_pain', []).
 
 % Load student modules (uncomment as each is completed)
-% :- use_module('modules/dyspnoea',               []).
+:- use_module('modules/dyspnoea',               []).
 % :- use_module('modules/cough_haemoptysis',       []).
 % :- use_module('modules/stridor',                 []).
 :- use_module('modules/abdominal_pain',          []).

@@ -117,7 +117,23 @@ HISTORY_QUESTIONS = {
     # Students: expand these question lists following the chest_pain and
     # headache examples above. Use symptom atoms that match your .pl file.
 
-    "dyspnoea":               [],
+    "dyspnoea": [
+    {"symptom": "dyspnoea", "question": "¿El paciente presenta disnea?", "type": "yesno"},
+    {"symptom": "onset", "question": "¿Cómo fue el inicio de la disnea?", "type": "choice",
+     "options": [("sudden", "Súbito"), ("gradual", "Gradual"), ("progressive", "Progresivo")]},
+    {"symptom": "wheeze", "question": "¿El paciente presenta sibilancias?", "type": "yesno"},
+    {"symptom": "cough", "question": "¿El paciente presenta tos?", "type": "yesno"},
+    {"symptom": "haemoptysis", "question": "¿El paciente ha expectorado sangre?", "type": "yesno"},
+    {"symptom": "chest_pain", "question": "¿El paciente presenta dolor torácico?", "type": "yesno"},
+    {"symptom": "fever", "question": "¿El paciente presenta fiebre?", "type": "yesno"},
+    {"symptom": "orthopnoea", "question": "¿La disnea empeora al acostarse?", "type": "yesno"},
+    {"symptom": "paroxysmal_nocturnal_dyspnoea", "question": "¿El paciente despierta por disnea durante la noche?", "type": "yesno"},
+    {"symptom": "leg_swelling", "question": "¿El paciente presenta edema de piernas?", "type": "yesno"},
+    {"symptom": "weight_loss", "question": "¿El paciente ha perdido peso recientemente?", "type": "yesno"},
+    {"symptom": "smoking_history", "question": "¿El paciente tiene antecedente de tabaquismo?", "type": "yesno"},
+    {"symptom": "worse_on_exertion", "question": "¿La disnea empeora con el esfuerzo físico?", "type": "yesno"}
+],
+
     "cough_haemoptysis":      [],
     "stridor":                [],
     "jaundice":               [],
@@ -249,7 +265,17 @@ EXAM_QUESTIONS = {
         {"finding": "pulsatile_mass",         "question": "¿Se palpa masa pulsátil abdominal?",                      "type": "yesno"},
         {"finding": "hernial_orifice_tender", "question": "¿Hay orificio herniario doloroso?",                       "type": "yesno"},
     ],
-    "dyspnoea":               [],
+
+    "dyspnoea": [
+    {"finding": "wheeze_on_auscultation", "question": "¿Se auscultan sibilancias?",                     "type": "yesno"},
+    {"finding": "crepitations",           "question": "¿Se auscultan crepitaciones?",                   "type": "yesno"},
+    {"finding": "reduced_air_entry",      "question": "¿Existe disminución de la entrada de aire?",     "type": "yesno"},
+    {"finding": "peripheral_oedema",      "question": "¿Existe edema periférico?",                      "type": "yesno"},
+    {"finding": "jvp_elevated",           "question": "¿La presión venosa yugular está elevada?",       "type": "yesno"},
+    {"finding": "tracheal_deviation",     "question": "¿Existe desviación traqueal?",                   "type": "yesno"},
+    {"finding": "dullness_to_percussion", "question": "¿Existe matidez a la percusión?",                "type": "yesno"}
+],
+
     "cough_haemoptysis":      [],
     "stridor":                [],
     "jaundice":               [],

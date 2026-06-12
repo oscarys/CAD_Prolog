@@ -86,7 +86,168 @@ frequency(lung_cancer                           ,  occasional).
    Each rule must end with:  frequency(Diagnosis, Frequency).
    ------------------------------------------------------------ */
 
-% TODO: write your diagnose/2 rules here.
+% --- Respiratory ---
+
+diagnose(asthma, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(wheeze, yes),
+    finding(wheeze_on_auscultation, yes),
+    frequency(asthma, Frequency).
+
+diagnose(asthma, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(onset, sudden),
+    symptom(wheeze, yes),
+    frequency(asthma, Frequency).
+
+
+diagnose(copd, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(onset, progressive),
+    symptom(smoking_history, yes),
+    finding(reduced_air_entry, yes),
+    frequency(copd, Frequency).
+
+diagnose(copd, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(cough, yes),
+    symptom(smoking_history, yes),
+    finding(reduced_air_entry, yes),
+    frequency(copd, Frequency).
+
+
+diagnose(pneumonia, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(cough, yes),
+    symptom(fever, yes),
+    finding(crepitations, yes),
+    frequency(pneumonia, Frequency).
+
+diagnose(pneumonia, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(fever, yes),
+    symptom(chest_pain, yes),
+    finding(crepitations, yes),
+    frequency(pneumonia, Frequency).
+
+
+diagnose(pneumothorax, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(onset, sudden),
+    symptom(chest_pain, yes),
+    finding(reduced_air_entry, yes),
+    frequency(pneumothorax, Frequency).
+
+diagnose(pneumothorax, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(onset, sudden),
+    finding(reduced_air_entry, yes),
+    finding(tracheal_deviation, yes),
+    frequency(pneumothorax, Frequency).
+
+
+diagnose(pleural_effusion, Frequency) :-
+    symptom(dyspnoea, yes),
+    finding(reduced_air_entry, yes),
+    finding(dullness_to_percussion, yes),
+    frequency(pleural_effusion, Frequency).
+
+diagnose(pleural_effusion, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(chest_pain, yes),
+    finding(dullness_to_percussion, yes),
+    frequency(pleural_effusion, Frequency).
+
+
+diagnose(pulmonary_fibrosis, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(onset, progressive),
+    finding(crepitations, yes),
+    \+ symptom(fever, yes),
+    frequency(pulmonary_fibrosis, Frequency).
+
+diagnose(pulmonary_fibrosis, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(onset, progressive),
+    symptom(cough, yes),
+    finding(crepitations, yes),
+    \+ symptom(smoking_history, yes),
+    frequency(pulmonary_fibrosis, Frequency).
+
+
+% --- Cardiovascular / vascular ---
+
+diagnose(heart_failure, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(orthopnoea, yes),
+    finding(peripheral_oedema, yes),
+    frequency(heart_failure, Frequency).
+
+diagnose(heart_failure, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(paroxysmal_nocturnal_dyspnoea, yes),
+    finding(jvp_elevated, yes),
+    frequency(heart_failure, Frequency).
+
+diagnose(heart_failure, Frequency) :-
+    symptom(dyspnoea, yes),
+    finding(crepitations, yes),
+    finding(peripheral_oedema, yes),
+    frequency(heart_failure, Frequency).
+
+
+diagnose(pulmonary_embolism, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(onset, sudden),
+    symptom(chest_pain, yes),
+    symptom(haemoptysis, yes),
+    frequency(pulmonary_embolism, Frequency).
+
+diagnose(pulmonary_embolism, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(onset, sudden),
+    symptom(chest_pain, yes),
+    symptom(leg_swelling, yes),
+    frequency(pulmonary_embolism, Frequency).
+
+
+% --- Haematological / malignancy ---
+
+diagnose(anaemia, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(worse_on_exertion, yes),
+    \+ symptom(wheeze, yes),
+    \+ symptom(fever, yes),
+    frequency(anaemia, Frequency).
+
+diagnose(anaemia, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(onset, progressive),
+    \+ finding(reduced_air_entry, yes),
+    \+ finding(crepitations, yes),
+    frequency(anaemia, Frequency).
+
+
+diagnose(lung_cancer, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(cough, yes),
+    symptom(haemoptysis, yes),
+    symptom(weight_loss, yes),
+    frequency(lung_cancer, Frequency).
+
+diagnose(lung_cancer, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(smoking_history, yes),
+    symptom(weight_loss, yes),
+    frequency(lung_cancer, Frequency).
+
+diagnose(lung_cancer, Frequency) :-
+    symptom(dyspnoea, yes),
+    symptom(haemoptysis, yes),
+    symptom(smoking_history, yes),
+    frequency(lung_cancer, Frequency).
+
+    
 % Pattern:
 %   diagnose(<diagnosis_atom>, Frequency) :-
 %       symptom(<atom>, yes),

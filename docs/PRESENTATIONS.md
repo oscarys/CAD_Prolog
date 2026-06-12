@@ -15,7 +15,7 @@ the UI questions) and your `.pl` module. Use them verbatim.
 | Cardiovascular | Chest pain ★ | 57–61 | [chest_pain.md](presentations/chest_pain.md) | Ok |
 | Cardiovascular | Palpitations | 351–353 | [palpitations.md](presentations/palpitations.md) | |
 | Cardiovascular | Syncope | 427–430 | [syncope.md](presentations/syncope.md) | |
-| Respiratory | Dyspnoea | 109–114 | [dyspnoea.md](presentations/dyspnoea.md) | Christopher |
+| Respiratory | Dyspnoea | 109–114 | [dyspnoea.md](presentations/dyspnoea.md) | Ok |
 | Respiratory | Cough / haemoptysis | 84–90, 191–195 | [cough_haemoptysis.md](presentations/cough_haemoptysis.md) | Rodrigo |
 | Respiratory | Stridor | 419–422 | [stridor.md](presentations/stridor.md) | |
 | Gastrointestinal | Abdominal pain | 3–8 | [abdominal_pain.md](presentations/abdominal_pain.md) | Ok |
