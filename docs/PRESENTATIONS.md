@@ -20,8 +20,8 @@ the UI questions) and your `.pl` module. Use them verbatim.
 | Respiratory | Stridor | 419–422 | [stridor.md](presentations/stridor.md) | |
 | Gastrointestinal | Abdominal pain | 3–8 | [abdominal_pain.md](presentations/abdominal_pain.md) | Ok |
 | Gastrointestinal | Jaundice | 240–249 | [jaundice.md](presentations/jaundice.md) | |
-| Gastrointestinal | Haematemesis | 182–186 | [haematemesis.md](presentations/haematemesis.md) | |
-| Gastrointestinal | Diarrhoea | 95–100 | [diarrhoea.md](presentations/diarrhoea.md) | |
+| Gastrointestinal | Haematemesis | 182–186 | [haematemesis.md](presentations/haematemesis.md) | Melissa |
+| Gastrointestinal | Diarrhoea | 95–100 | [diarrhoea.md](presentations/diarrhoea.md) | Oscar |
 | Neurological | Headache | 207–211 | [headache.md](presentations/headache.md) | Ok |
 | Neurological | Convulsions | 80–83 | [convulsions.md](presentations/convulsions.md) | Ok |
 | Neurological | Coma / confusion | 67–79 | [coma_confusion.md](presentations/coma_confusion.md) | |
