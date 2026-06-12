@@ -26,8 +26,8 @@ the UI questions) and your `.pl` module. Use them verbatim.
 | Neurological | Convulsions | 80–83 | [convulsions.md](presentations/convulsions.md) | Melissa |
 | Neurological | Coma / confusion | 67–79 | [coma_confusion.md](presentations/coma_confusion.md) | |
 | Systemic | Pyrexia of unknown origin | 374–377 | [pyrexia_unknown_origin.md](presentations/pyrexia_unknown_origin.md) | |
-| Systemic | Weight loss | 483–490 | [weight_loss.md](presentations/weight_loss.md) | Alejandro |
-| Systemic | Shock | 406–409 | [shock.md](presentations/shock.md) | Yamil |
+| Systemic | Weight loss | 483–490 | [weight_loss.md](presentations/weight_loss.md) | Ok |
+| Systemic | Shock | 406–409 | [shock.md](presentations/shock.md) | Ok |
 | Urogenital / Endocrine | Haematuria | 187–190 | [haematuria.md](presentations/haematuria.md) | Ok |
 | Urogenital / Endocrine | Polyuria / thirst | 359–362, 431–433 | [polyuria_thirst.md](presentations/polyuria_thirst.md) | |
 | Urogenital / Endocrine | Oedema | 343–346 | [oedema.md](presentations/oedema.md) | |
