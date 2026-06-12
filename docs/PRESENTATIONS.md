@@ -19,7 +19,7 @@ the UI questions) and your `.pl` module. Use them verbatim.
 | Respiratory | Cough / haemoptysis | 84–90, 191–195 | [cough_haemoptysis.md](presentations/cough_haemoptysis.md) | Rodrigo |
 | Respiratory | Stridor | 419–422 | [stridor.md](presentations/stridor.md) | |
 | Gastrointestinal | Abdominal pain | 3–8 | [abdominal_pain.md](presentations/abdominal_pain.md) | Ok |
-| Gastrointestinal | Jaundice | 240–249 | [jaundice.md](presentations/jaundice.md) | |
+| Gastrointestinal | Jaundice | 240–249 | [jaundice.md](presentations/jaundice.md) | César |
 | Gastrointestinal | Haematemesis | 182–186 | [haematemesis.md](presentations/haematemesis.md) | Melissa |
 | Gastrointestinal | Diarrhoea | 95–100 | [diarrhoea.md](presentations/diarrhoea.md) | Oscar |
 | Neurological | Headache | 207–211 | [headache.md](presentations/headache.md) | Ok |
